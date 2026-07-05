@@ -22,11 +22,33 @@ def ping():
     return "OK", 200
 
 
+@app.route("/debug/echo", methods=["POST"])
+def debug_echo():
+    """
+    Diagnostic endpoint: shows exactly what the server received, regardless
+    of whether it parses as JSON. Point BDFD or reqbin at this if a real
+    endpoint is behaving oddly -- it'll show you the raw body, headers,
+    and whether JSON parsing succeeded, so mismatches are obvious.
+    """
+    return jsonify({
+        "content_type_header": request.content_type,
+        "raw_body": request.get_data(as_text=True),
+        "parsed_json_strict": request.get_json(silent=True),
+        "parsed_json_forced": request.get_json(silent=True, force=True),
+    }), 200
+
+
 @app.route("/rate/manual", methods=["POST"])
 def rate_manual():
-    body = request.get_json(silent=True)
+    # force=True parses the body as JSON even if Content-Type isn't set
+    # exactly to application/json -- some HTTP clients (BDFD, reqbin) are
+    # inconsistent about that header.
+    body = request.get_json(silent=True, force=True)
     if not body:
-        return jsonify({"error": "Missing or invalid JSON body."}), 400
+        return jsonify({
+            "error": "Missing or invalid JSON body.",
+            "raw_body_received": request.get_data(as_text=True)
+        }), 400
 
     required = ["character", "crit_rate", "crit_dmg", "atk"]
     missing = [f for f in required if f not in body]
@@ -53,9 +75,14 @@ def rate_manual():
 
 @app.route("/rate/uid", methods=["POST"])
 def rate_uid():
-    body = request.get_json(silent=True)
-    if not body or "uid" not in body:
-        return jsonify({"error": "Missing 'uid' field."}), 400
+    body = request.get_json(silent=True, force=True)
+    if not body:
+        return jsonify({
+            "error": "Could not parse a JSON body from the request.",
+            "raw_body_received": request.get_data(as_text=True)
+        }), 400
+    if "uid" not in body:
+        return jsonify({"error": "JSON body parsed fine, but no 'uid' field was in it.", "body_received": body}), 400
 
     try:
         build = get_character_build(
