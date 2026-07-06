@@ -1,13 +1,12 @@
 """
 Genshin build scoring engine.
 
-Everything here is intentionally transparent and tweakable — the constants
-below (max substat rolls, crit value tiers, etc.) are pulled from widely
-used community benchmarks (e.g. akasha.cv / genshin-optimizer conventions),
-not from an exact in-game combat formula. Treat the "estimated damage %"
-as a relative build-quality indicator, not a literal damage number —
-doing that properly requires per-character talent multipliers, enemy
-RES/DEF, and rotation data that's out of scope for this MVP.
+Transparent, tweakable scoring intended to estimate build quality rather
+than simulate exact in-game damage. Character-specific quirks (unusual
+crit ratios, non-ATK scaling, ER tolerance) are handled via the config/
+alias system below rather than a single universal formula, since several
+characters have kit mechanics that make the "standard" assumptions wrong
+for them specifically.
 """
 
 # Highest possible single-roll value for each substat on a 5-star artifact.
@@ -22,16 +21,14 @@ MAX_SUBSTAT_ROLL = {
     "atk_flat": 19.45,
 }
 
-# A "perfect" 5-star artifact has 4 initial substats + 5 upgrades = 9 rolls.
-# Across 5 pieces, a perfectly rolled set has 45 total substat rolls.
 MAX_ROLLS_PER_PIECE = 9
 MAX_PIECES = 5
-MAX_TOTAL_ROLLS = MAX_ROLLS_PER_PIECE * MAX_PIECES  # 45
+MAX_TOTAL_ROLLS = MAX_ROLLS_PER_PIECE * MAX_PIECES
 
-# Weighting for how much each stat matters for typical DPS/damage-dealer
-# builds. Support/EM-focused builds will naturally score differently on
-# "crit value" but that's flagged separately, not penalized silently.
-CRIT_RATIO_TARGET = 2.0  # ideal crit_dmg : crit_rate ratio is 2:1
+# Expected "excellent" number of rolls into one stat across all 5 artifacts.
+EXPECTED_MAX_ROLLS_PER_STAT = 10
+
+CRIT_RATIO_TARGET = 2.0
 
 GRADE_THRESHOLDS = [
     (85, "S", "Excellent — near BiS quality"),
@@ -41,71 +38,140 @@ GRADE_THRESHOLDS = [
     (0, "D", "Rough — significant reroll/upgrade needed"),
 ]
 
+DEFAULT_CHARACTER_CONFIG = {
+    "scaling": "atk",
+    "crit_ratio_target": CRIT_RATIO_TARGET,
+    "high_er_allowed": False,
+}
+
+CHARACTER_OVERRIDES = {
+    # EM scalers
+    "nahida": {"scaling": "em"},
+    "kazuha": {"scaling": "em"},
+    "sucrose": {"scaling": "em"},
+
+    # HP scalers
+    "hutao": {"scaling": "hp"},
+    "yelan": {"scaling": "hp"},
+
+    # DEF scalers
+    "itto": {"scaling": "def", "crit_ratio_target": 2.2},
+    "albedo": {"scaling": "def"},
+    "chiori": {"scaling": "def"},
+    "noelle": {"scaling": "def"},
+
+    # Burst-reliant characters (high ER is expected/fine, don't flag it)
+    "raiden": {"high_er_allowed": True},
+    "mona": {"high_er_allowed": True},
+    "faruzan": {"high_er_allowed": True},
+
+    # Characters whose kit grants large temporary Crit buffs (set/passive),
+    # making their real optimal panel-stat ratio very different from the
+    # standard 1:2 assumption. Confirmed against real Akasha leaderboard
+    # data (top-97th-percentile Flins build ran ~43.5% CR / 214.8% CD).
+    "flins": {"crit_ratio_target": 4.9},
+}
+
+CHARACTER_ALIASES = {
+    "raiden": "raiden", "raidenshogun": "raiden", "ei": "raiden",
+    "hutao": "hutao",
+    "wanderer": "wanderer", "scara": "wanderer", "scaramouche": "wanderer",
+    "tartaglia": "childe", "childe": "childe",
+    "arle": "arlecchino", "father": "arlecchino", "arlecchino": "arlecchino",
+    "kazuha": "kazuha", "kaedeharakazuha": "kazuha",
+    "ayaka": "ayaka", "kamisatoayaka": "ayaka",
+    "ayato": "ayato", "kamisatoayato": "ayato",
+    "miko": "yaemiko", "yaemiko": "yaemiko",
+    "gaming": "gaming",
+    "kuki": "kukishinobu", "shinobu": "kukishinobu", "kukishinobu": "kukishinobu",
+    "heizou": "shikanoinheizou", "shikanoinheizou": "shikanoinheizou",
+    "lyney": "lyney", "lynette": "lynette",
+    "neuvi": "neuvillette", "neuv": "neuvillette", "neuvillette": "neuvillette",
+    "cloudretainer": "xianyun", "xianyun": "xianyun",
+    "fischl": "fischl", "jean": "jean", "noelle": "noelle",
+    "itto": "itto", "aratakiitto": "itto",
+    "albedo": "albedo", "chiori": "chiori", "mona": "mona",
+    "nahida": "nahida", "sucrose": "sucrose", "yelan": "yelan",
+    "faruzan": "faruzan", "flins": "flins",
+}
+
+
+def get_character_config(character):
+    """
+    Returns a merged configuration for the requested character.
+    Unknown characters simply receive the default configuration, so this
+    never fails -- it just gets less precise for characters not yet added.
+    """
+    normalized = (
+        character.lower()
+        .replace(" ", "")
+        .replace("-", "")
+        .replace("'", "")
+    )
+    normalized = CHARACTER_ALIASES.get(normalized, normalized)
+
+    config = DEFAULT_CHARACTER_CONFIG.copy()
+    config.update(CHARACTER_OVERRIDES.get(normalized, {}))
+    return config
+
 
 def crit_value(crit_rate, crit_dmg):
-    """Standard Crit Value formula used across the community."""
+    """Standard community Crit Value formula."""
     return crit_rate * 2 + crit_dmg
 
 
-def score_crit_ratio(crit_rate, crit_dmg):
+def score_crit_ratio(crit_rate, crit_dmg, target_ratio=CRIT_RATIO_TARGET):
     """
-    Returns (score_0_100, note) evaluating how close the crit_rate:crit_dmg
-    ratio is to the ideal 1:2. Being crit-rate-starved is heavily penalized
-    since it causes inconsistent (swingy) damage; being crit-dmg heavy with
-    low crit rate is the most common and costly mistake.
+    Scores how close the Crit Rate : Crit DMG ratio is to the target ratio
+    for this character (defaults to the standard 1:2, but characters with
+    kit-driven crit mechanics can have a very different real target -- see
+    CHARACTER_OVERRIDES).
     """
-    if crit_rate <= 0:
-        return 0, "No Crit Rate detected — damage will be wildly inconsistent."
+    if crit_rate < 5.0:
+        return 0, "Crit Rate is effectively zero — unable to evaluate a meaningful Crit Ratio."
 
     ratio = crit_dmg / crit_rate
-    diff = abs(ratio - CRIT_RATIO_TARGET)
+    diff = abs(ratio - target_ratio)
 
-    # Score decays as the ratio drifts from 2.0. Full marks within +-0.15.
-    score = max(0, 100 - diff * 40)
+    # Gentle decay rather than a hard crash to 0 -- an off-ratio build is
+    # still a functioning build, just not optimized. Floors at 15.
+    score = max(15, 100 - diff * 22)
 
-    if crit_rate < 50:
-        note = f"Crit Rate is low ({crit_rate:.1f}%) — aim for 60-75% before stacking more Crit DMG."
-    elif ratio < 1.7:
-        note = f"Crit DMG is under-leveled relative to Crit Rate (ratio {ratio:.2f}:1). Prioritize Crit DMG substats/main stats next."
-    elif ratio > 2.4:
-        note = f"Crit Rate could come up a bit relative to Crit DMG (ratio {ratio:.2f}:1) for more consistent hits."
+    if target_ratio <= 2.5 and crit_rate < 50:
+        note = f"Crit Rate is low ({crit_rate:.1f}%) — aim for roughly 60-75%."
+    elif ratio < target_ratio - 0.3:
+        note = f"Crit DMG is under-developed relative to Crit Rate (ratio {ratio:.2f}:1, target {target_ratio:.2f}:1)."
+    elif ratio > target_ratio + 0.4:
+        note = f"Crit Rate could be increased for better consistency (ratio {ratio:.2f}:1, target {target_ratio:.2f}:1)."
     else:
-        note = f"Crit ratio is well balanced ({crit_rate:.1f}% / {crit_dmg:.1f}%, ratio {ratio:.2f}:1)."
+        note = f"Crit ratio is well balanced ({crit_rate:.1f}% / {crit_dmg:.1f}%, ratio {ratio:.2f}:1, target {target_ratio:.2f}:1)."
 
     return round(score, 1), note
 
 
 def score_substat_efficiency(substat_totals):
     """
-    substat_totals: dict of {stat_key: total_value_across_all_5_pieces}
-    Compares the sum of substat value achieved against the theoretical max
-    if every roll on every piece hit that same stat at max value — scaled
-    down to a realistic "good roll rate" expectation instead of 100% RNG,
-    since expecting every piece to roll perfectly into one stat isn't how
-    artifacts work. We normalize against a generous-but-achievable target:
-    70% of max total roll value, which corresponds to consistently getting
-    good (not perfect) rolls.
+    Scores how efficiently useful substats have rolled, relative to a
+    generous-but-achievable ceiling (70% of a heavily-invested stat's max
+    possible value across ~10 rolls), rather than expecting perfect RNG.
     """
     if not substat_totals:
-        return 0, "No substat data provided."
+        return None, "No substat data provided."
 
     achievable_target_ratio = 0.70
-    per_stat_scores = []
+    scores = []
     for stat, value in substat_totals.items():
         max_roll = MAX_SUBSTAT_ROLL.get(stat)
         if not max_roll or value <= 0:
             continue
-        # crude assumption on rolls used: not tracked precisely in manual
-        # mode, so we score relative to a "5 rolls into this stat" ceiling
-        # which is a reasonable amount for a stat a build is leaning into.
-        ceiling = max_roll * 5 * achievable_target_ratio
-        per_stat_scores.append(min(100, (value / ceiling) * 100))
+        ceiling = max_roll * EXPECTED_MAX_ROLLS_PER_STAT * achievable_target_ratio
+        scores.append(min(100, (value / ceiling) * 100))
 
-    if not per_stat_scores:
-        return 0, "Substats provided but none recognized."
+    if not scores:
+        return None, "Substats provided but none recognized."
 
-    avg = sum(per_stat_scores) / len(per_stat_scores)
-    return round(avg, 1), None
+    average = sum(scores) / len(scores)
+    return round(average, 1), None
 
 
 def grade_from_score(score):
@@ -115,54 +181,90 @@ def grade_from_score(score):
     return "D", GRADE_THRESHOLDS[-1][2]
 
 
-def estimate_relative_damage(crit_score, substat_score, atk, em, character_scaling="atk"):
+def estimate_relative_damage(crit_score, substat_score, atk, hp, defense, em, scaling="atk"):
     """
-    Produces a 0-100 'build quality vs BiS' relative estimate.
-    NOT a literal damage number. Weighted toward crit consistency since
-    that's the single biggest lever for most damage dealers.
+    Produces a 0-100 relative estimate of build quality vs a theoretical
+    BiS build. NOT a true damage calculator -- that requires per-character
+    talent multipliers, enemy RES/DEF, and rotation data.
     """
-    if character_scaling == "em":
-        # EM-scaling supports/reactions care less about crit, more about EM.
-        weighted = substat_score * 0.6 + crit_score * 0.2 + min(100, em / 3) * 0.2
+    substat_component = substat_score if substat_score is not None else 0
+
+    if scaling == "em":
+        weighted = substat_component * 0.60 + crit_score * 0.20 + min(100, em / 9) * 0.20
+    elif scaling == "hp":
+        weighted = crit_score * 0.50 + substat_component * 0.35 + min(100, hp / 180) * 0.15
+    elif scaling == "def":
+        weighted = crit_score * 0.50 + substat_component * 0.35 + min(100, defense / 20) * 0.15
     else:
-        weighted = crit_score * 0.5 + substat_score * 0.35 + min(100, atk / 30) * 0.15
+        weighted = crit_score * 0.50 + substat_component * 0.35 + min(100, atk / 30) * 0.15
 
     return round(min(100, weighted), 1)
 
 
-def build_recommendations(crit_rate, crit_dmg, substat_totals, energy_recharge):
+def build_recommendations(character, crit_rate, crit_dmg, substat_totals, energy_recharge,
+                           character_scaling, high_er_allowed=False, target_ratio=CRIT_RATIO_TARGET):
     recs = []
 
-    if crit_rate < 55:
-        recs.append("Crit Rate is below the 60-75% target for consistent damage — reroll/swap pieces with Crit Rate substats first.")
-    if energy_recharge and energy_recharge > 160:
-        recs.append(f"Energy Recharge is quite high ({energy_recharge:.0f}%) — you may be able to shift some ER substats into Crit or ATK% for more damage.")
+    if target_ratio <= 2.5 and crit_rate < 55:
+        recs.append("Crit Rate is below the recommended range. Aim for roughly 60-75% before stacking more Crit DMG.")
+
+    if energy_recharge and energy_recharge > 160 and not high_er_allowed:
+        recs.append(f"Energy Recharge is quite high ({energy_recharge:.0f}%). You may be able to trade some ER for offensive stats.")
+
     if energy_recharge and energy_recharge < 100:
-        recs.append(f"Energy Recharge is under 100% ({energy_recharge:.0f}%) — check if your rotation is burst-reliant; you may be losing uptime.")
+        recs.append(f"Energy Recharge is under 100% ({energy_recharge:.0f}%). Your Burst may not be available consistently.")
 
     em = substat_totals.get("elemental_mastery", 0) if substat_totals else 0
     atk_flat = substat_totals.get("atk_flat", 0) if substat_totals else 0
-    if em > 100:
-        recs.append("Significant Elemental Mastery investment detected — make sure this character's kit actually benefits from EM (reaction-focused), otherwise this is wasted substat value.")
+
+    if em > 100 and character_scaling != "em":
+        recs.append("High Elemental Mastery detected. Make sure this character actually benefits from reaction-based damage.")
+
     if atk_flat > 50:
-        recs.append("Flat ATK substats present — these scale worse than ATK% for most characters at high investment; consider ATK% instead if available.")
+        recs.append("Flat ATK substats generally scale worse than ATK% at high investment.")
 
     if not recs:
-        recs.append("Build looks solid overall — minor refinements only, focus on artifact set bonus and weapon choice for further gains.")
+        recs.append("Build looks solid overall. Future improvements will mostly come from stronger artifact rolls, better set bonuses, or weapon upgrades.")
 
     return recs
 
 
 def rate_build(character, crit_rate, crit_dmg, atk, hp, defense, elemental_mastery,
-                energy_recharge, substat_totals=None, character_scaling="atk"):
-    substat_totals = substat_totals or {}
+                energy_recharge, substat_totals=None, character_scaling=None,
+                ideal_crit_ratio=None):
+    """
+    Main build evaluation entry point.
 
-    crit_score, crit_note = score_crit_ratio(crit_rate, crit_dmg)
+    character_scaling and ideal_crit_ratio are optional manual overrides --
+    if omitted, both are auto-derived from the character's config (falling
+    back to "atk" scaling / 1:2 ratio for characters not yet in the list).
+    Passing them explicitly always takes priority over the config lookup,
+    useful for new/unlisted characters until they're added properly.
+    """
+    substat_totals = substat_totals or {}
+    char_config = get_character_config(character)
+
+    resolved_scaling = character_scaling or char_config.get("scaling", "atk")
+    resolved_ratio_target = ideal_crit_ratio if ideal_crit_ratio is not None else char_config.get("crit_ratio_target", CRIT_RATIO_TARGET)
+    high_er_allowed = char_config.get("high_er_allowed", False)
+
+    crit_score, crit_note = score_crit_ratio(crit_rate, crit_dmg, target_ratio=resolved_ratio_target)
     substat_score, substat_note = score_substat_efficiency(substat_totals)
-    overall = round(crit_score * 0.55 + substat_score * 0.45, 1)
+
+    if substat_score is not None:
+        overall = round(crit_score * 0.55 + substat_score * 0.45, 1)
+    else:
+        # No usable substat data -- don't punish the build for data we
+        # don't have. Score on crit ratio alone instead of treating
+        # missing data as zero quality.
+        overall = crit_score
+
     grade, grade_desc = grade_from_score(overall)
-    est_damage = estimate_relative_damage(crit_score, substat_score, atk, elemental_mastery, character_scaling)
-    recommendations = build_recommendations(crit_rate, crit_dmg, substat_totals, energy_recharge)
+    est_damage = estimate_relative_damage(crit_score, substat_score, atk, hp, defense, elemental_mastery, resolved_scaling)
+    recommendations = build_recommendations(
+        character, crit_rate, crit_dmg, substat_totals, energy_recharge,
+        resolved_scaling, high_er_allowed, target_ratio=resolved_ratio_target,
+    )
     cv = round(crit_value(crit_rate, crit_dmg), 1)
 
     return {
@@ -170,13 +272,14 @@ def rate_build(character, crit_rate, crit_dmg, atk, hp, defense, elemental_maste
         "grade": grade,
         "grade_description": grade_desc,
         "overall_score": overall,
+        "estimated_relative_damage": est_damage,
         "crit_value": cv,
         "crit_rate": crit_rate,
         "crit_dmg": crit_dmg,
         "crit_ratio_score": crit_score,
         "crit_ratio_note": crit_note,
-        "substat_efficiency_score": substat_score,
-        "estimated_relative_damage": est_damage,
+        "substat_efficiency_score": substat_score if substat_score is not None else 0,
+        "substat_note": substat_note,
         "recommendations": recommendations,
         "stats_used": {
             "atk": atk,
@@ -185,4 +288,4 @@ def rate_build(character, crit_rate, crit_dmg, atk, hp, defense, elemental_maste
             "elemental_mastery": elemental_mastery,
             "energy_recharge": energy_recharge,
         },
-}
+    }
