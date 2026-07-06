@@ -66,7 +66,8 @@ def rate_manual():
             elemental_mastery=float(body.get("elemental_mastery", 0)),
             energy_recharge=float(body.get("energy_recharge", 100)),
             substat_totals=body.get("substats", {}),
-            character_scaling=body.get("character_scaling", "atk"),
+            character_scaling=body.get("character_scaling"),
+            ideal_crit_ratio=float(body["ideal_crit_ratio"]) if "ideal_crit_ratio" in body else None,
         )
         return jsonify(result), 200
     except (TypeError, ValueError) as e:
@@ -99,7 +100,8 @@ def rate_uid():
             elemental_mastery=build["elemental_mastery"],
             energy_recharge=build["energy_recharge"],
             substat_totals=build["substat_totals"],
-            character_scaling=body.get("character_scaling", "atk"),
+            character_scaling=body.get("character_scaling"),
+            ideal_crit_ratio=float(body["ideal_crit_ratio"]) if "ideal_crit_ratio" in body else None,
         )
         result["source"] = "enka.network live showcase"
         return jsonify(result), 200
