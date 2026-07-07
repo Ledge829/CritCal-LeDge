@@ -63,4 +63,52 @@ def get_akasha_data(uid, character_name):
         # unofficial, frequently-changing API. Any failure here should be
         # invisible to the person using the bot, not a broken response.
         return None
+
+
+def get_akasha_data_debug(uid, character_name):
+    """
+    Same as get_akasha_data, but returns the actual error instead of
+    swallowing it. For troubleshooting only -- not used by the real
+    /rate/uid endpoint.
+    """
+    import traceback
+    try:
+        data = asyncio.run(_fetch(uid, character_name))
+        return {"success": True, "data": data}
+    except Exception as e:
+        return {
+            "success": False,
+            "error_type": type(e).__name__,
+            "error_message": str(e),
+            "traceback": traceback.format_exc(),
+        }
+            if not character.calculations:
+                continue
+
+            calc = character.calculations[0]
+            return {
+                "top_percent": round(calc.top_percent, 2),
+                "ranking": calc.ranking,
+                "out_of": calc.out_of,
+                "weapon": calc.weapon.name,
+                "damage_result": round(calc.result),
+                "leaderboard_url": f"https://akasha.cv/leaderboards/{calc.id}",
+            }
+
+    return None  # player found, but this character isn't calculated on Akasha
+
+
+def get_akasha_data(uid, character_name):
+    """
+    Returns a dict of Akasha leaderboard data for this character, or None
+    if unavailable for ANY reason (not on Akasha, character not supported,
+    API changed/down, network issue, etc). Never raises.
+    """
+    try:
+        return asyncio.run(_fetch(uid, character_name))
+    except Exception:
+        # Deliberately broad: this is a bonus feature layered on top of an
+        # unofficial, frequently-changing API. Any failure here should be
+        # invisible to the person using the bot, not a broken response.
+        return None
   
