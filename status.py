@@ -18,12 +18,19 @@ UPTIMEROBOT_STATUS_MAP = {
     9: "down",
 }
 
+# ==========================================================
+# SIMPLE IN-MEMORY CACHE TO PROTECT API LIMITS
+# ==========================================================
 STATUS_CACHE = {
     "data": None,
     "cached_at": 0,
     "monitor_id": None
 }
 CACHE_TTL_SECONDS = 60
+
+# ==========================================================
+# STATUS MESSAGES
+# ==========================================================
 
 UP_MESSAGES = [
     "◆ CritCal is online and judging builds.",
@@ -56,26 +63,44 @@ UNKNOWN_MESSAGES = [
     "◇ Status information is unavailable.",
 ]
 
+# ==========================================================
+# HELPERS
+# ==========================================================
+
 
 def format_timestamp(unix_time):
+    """
+    Returns both unix and ISO timestamp.
+    """
     if not unix_time:
         return None
+
     try:
         unix_time = int(unix_time)
         return {
             "unix": unix_time,
-            "utc": datetime.fromtimestamp(unix_time, tz=timezone.utc).isoformat()
+            "utc": datetime.fromtimestamp(
+                unix_time,
+                tz=timezone.utc
+            ).isoformat()
         }
     except Exception:
         return None
 
 
 def parse_ratio(ratio_string):
+    """
+    Converts custom uptime ratios into a dict safely.
+    """
     if not ratio_string:
         return {"24h": None, "7d": None, "30d": None}
+
     values = ratio_string.split("-")
+    
+    # Pad out out-of-bounds lists safely to prevent IndexErrors
     while len(values) < 3:
         values.append(None)
+
     return {
         "24h": values[0],
         "7d": values[1],
@@ -87,9 +112,11 @@ def build_summary(monitors):
     up = sum(m["status_code"] == 2 for m in monitors)
     down = sum(m["status_code"] == 9 for m in monitors)
     paused = sum(m["status_code"] == 0 for m in monitors)
+    unknown = len(monitors) - up - down - paused
+
     total = len(monitors)
-    unknown = total - up - down - paused
     health = round((up / total) * 100, 1) if total > 0 else 0.0
+
     return {
         "total": total,
         "up": up,
@@ -112,6 +139,11 @@ def choose_message(summary):
     return random.choice(UP_MESSAGES)
 
 
+# ==========================================================
+# UPTIMEROBOT FETCH
+# ==========================================================
+
+
 def get_uptime_status(monitor_id=None):
     payload = {
         "api_key": UPTIMEROBOT_API_KEY,
@@ -124,6 +156,7 @@ def get_uptime_status(monitor_id=None):
         "custom_uptime_ratios": "1-7-30",
         "all_time_uptime_ratio": 1,
     }
+
     if monitor_id:
         payload["monitors"] = str(monitor_id)
 
@@ -140,12 +173,17 @@ def get_uptime_status(monitor_id=None):
     data = response.json()
 
     if data.get("stat") != "ok":
-        raise ValueError(data.get("error", {}).get("message", "Unknown UptimeRobot error."))
+        raise ValueError(
+            data.get("error", {}).get(
+                "message",
+                "Unknown UptimeRobot error."
+            )
+        )
 
     monitors = []
     for monitor in data.get("monitors", []):
         status_code = monitor.get("status")
-        monitors.append({
+        monitor_data = {
             "id": monitor.get("id"),
             "friendly_name": monitor.get("friendly_name"),
             "url": monitor.get("url"),
@@ -162,9 +200,11 @@ def get_uptime_status(monitor_id=None):
             "average_response_ms": monitor.get("average_response_time"),
             "recent_response_times": monitor.get("response_times", []),
             "recent_logs": monitor.get("logs", []),
-        })
+        }
+        monitors.append(monitor_data)
 
     summary = build_summary(monitors)
+
     return {
         "generated_at": format_timestamp(int(datetime.now(timezone.utc).timestamp())),
         "message": choose_message(summary),
@@ -173,13 +213,26 @@ def get_uptime_status(monitor_id=None):
     }
 
 
+# ==========================================================
+# STATUS ROUTE
+# ==========================================================
+
 @status_bp.route("/status", methods=["GET"])
 def status():
+    """
+    Returns CritCal's current uptime information with 60s fallback caching.
+    """
     monitor_id = request.args.get("id")
+
     if monitor_id is not None and not monitor_id.isdigit():
-        return jsonify({"success": False, "error": "'id' must be a numeric UptimeRobot monitor ID."}), 400
+        return jsonify({
+            "success": False,
+            "error": "'id' must be a numeric UptimeRobot monitor ID."
+        }), 400
 
     current_time = time.time()
+
+    # If cache is valid for this specific query configuration, return it immediately
     if (
         STATUS_CACHE["data"] is not None
         and (current_time - STATUS_CACHE["cached_at"]) < CACHE_TTL_SECONDS
@@ -213,6 +266,7 @@ def status():
             "monitors": result["monitors"]
         }
 
+        # Update cache values
         STATUS_CACHE["data"] = response_payload
         STATUS_CACHE["cached_at"] = current_time
         STATUS_CACHE["monitor_id"] = monitor_id
@@ -220,19 +274,46 @@ def status():
         return jsonify(response_payload), 200
 
     except requests.Timeout:
-        return jsonify({"success": False, "status": "error", "error": "Timed out contacting UptimeRobot."}), 504
+        return jsonify({
+            "success": False,
+            "status": "error",
+            "error": "Timed out while contacting UptimeRobot."
+        }), 504
     except requests.ConnectionError:
-        return jsonify({"success": False, "status": "error", "error": "Unable to connect to UptimeRobot."}), 502
+        return jsonify({
+            "success": False,
+            "status": "error",
+            "error": "Unable to connect to UptimeRobot."
+        }), 502
     except requests.RequestException as e:
-        return jsonify({"success": False, "status": "error", "error": f"Request failed: {str(e)}"}), 502
+        return jsonify({
+            "success": False,
+            "status": "error",
+            "error": f"Request failed: {str(e)}"
+        }), 502
     except ValueError as e:
-        return jsonify({"success": False, "status": "error", "error": str(e)}), 502
+        return jsonify({
+            "success": False,
+            "status": "error",
+            "error": str(e)
+        }), 502
     except Exception as e:
-        return jsonify({"success": False, "status": "error", "error": str(e)}), 500
+        return jsonify({
+            "success": False,
+            "status": "error",
+            "error": str(e)
+        }), 500
 
+
+# ==========================================================
+# HEALTHCHECK
+# ==========================================================
 
 @status_bp.route("/health", methods=["GET"])
 def health():
+    """
+    Lightweight endpoint for Render health checks.
+    """
     return jsonify({
         "success": True,
         "status": "healthy",
