@@ -1,14 +1,7 @@
-import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
 from flask import Flask, request, jsonify
 from scoring import rate_build
 from enka_client import get_character_build
 from status import status_bp
-
-app.register_blueprint(status_bp)
 
 ...
 app = Flask(__name__)
