@@ -7,6 +7,9 @@ from flask import Flask, request, jsonify
 from scoring import rate_build
 from enka_client import get_character_build
 from status import status_bp
+
+app.register_blueprint(status_bp)
+
 ...
 app = Flask(__name__)
 app.register_blueprint(status_bp)
