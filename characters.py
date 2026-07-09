@@ -168,3 +168,35 @@ def get_character_config(character: str) -> dict:
     config.update(CHARACTER_CONFIGS.get(normalized, {}))
 
     return config
+# ==========================================================
+# OPTIONAL HELPERS
+# ==========================================================
+
+def character_exists(character: str) -> bool:
+    """
+    Returns True if the character exists in the database.
+    """
+    normalized = normalize_character(character)
+    canonical = CHARACTER_ALIASES.get(normalized, normalized)
+    return canonical in CHARACTER_CONFIGS
+
+
+def get_all_characters():
+    """
+    Returns every canonical character key.
+    """
+    return sorted(CHARACTER_CONFIGS.keys())
+
+
+def get_aliases(character: str):
+    """
+    Returns every alias pointing to a character.
+    """
+    normalized = normalize_character(character)
+    canonical = CHARACTER_ALIASES.get(normalized, normalized)
+
+    return sorted(
+        alias
+        for alias, target in CHARACTER_ALIASES.items()
+        if target == canonical
+)
