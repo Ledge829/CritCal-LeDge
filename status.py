@@ -319,7 +319,6 @@ def health():
         "status": "healthy",
         "service": "CritCal",
     }), 200
-        timeout=10,
     )
     response.raise_for_status()
     data = response.json()
