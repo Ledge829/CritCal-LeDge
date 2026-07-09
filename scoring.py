@@ -162,10 +162,54 @@ def build_recommendations(
 
     return recs
 
+def classify_build_style(ratio: float, target_ratio: float, ignore_high_ratio_warning: bool) -> str:
+    """
+    Classifies the ACTUAL submitted build (not the character in the
+    abstract) based on how its real crit ratio compares to the target.
+    This is dynamic per-response, unlike the static build_title.
+    """
+    if ratio < target_ratio - 0.3:
+        return "Crit Rate-Heavy Build"
+    elif ratio > target_ratio + 0.4:
+        return "Crit DMG-Stacked Build" if ignore_high_ratio_warning else "Crit DMG-Heavy Build"
+    else:
+        return "Balanced Crit Build"
+
+
+def generate_build_description(
+    character: str,
+    build_style: str,
+    crit_note: str,
+    substat_note: Optional[str],
+    ignore_high_ratio_warning: bool,
+    freeze_build: bool,
+    high_er_allowed: bool,
+) -> str:
+    """
+    Produces a short natural-language summary combining the character,
+    their actual stat pattern, and any character-specific context --
+    meant to read like a real analysis rather than a static label.
+    """
+    parts = [f"{character} is running a {build_style.lower()}."]
+
+    if ignore_high_ratio_warning and "Crit DMG" in build_style:
+        parts.append("This lean into Crit DMG is expected and BiS-consistent for this character's kit, not a sign of an unbalanced build.")
+    elif freeze_build:
+        parts.append("As a Freeze-team build, a naturally high Crit Rate from Cryo Resonance / Blizzard Strayer may already be factored in outside of raw panel stats.")
+    elif high_er_allowed:
+        parts.append("Energy Recharge investment above typical thresholds is normal for this character's role.")
+
+    if substat_note:
+        parts.append(substat_note)
+
+    return " ".join(parts)
+
+
 def rate_build(
     character: str, crit_rate: Any, crit_dmg: Any, atk: Any, hp: Any, defense: Any, 
     elemental_mastery: Any, energy_recharge: Any, substat_totals: Optional[dict] = None, 
-    character_scaling: Optional[str] = None, ideal_crit_ratio: Optional[float] = None
+    character_scaling: Optional[str] = None, ideal_crit_ratio: Optional[float] = None,
+    include_relative_damage: bool = False
 ) -> dict:
     """Main build evaluation entry point. Casts types safely to protect runtime performance."""
     
@@ -204,7 +248,16 @@ def rate_build(
 
     overall = round((crit_score * 0.55 + substat_score * 0.45), 1) if substat_score is not None else crit_score
     grade, grade_desc, embed_color = grade_from_score(overall)
-    est_damage = estimate_relative_damage(crit_score, substat_score, c_atk, c_hp, c_def, c_em, resolved_scaling)
+
+    # Dynamic build style/description, based on the ACTUAL submitted stats
+    # rather than a static per-character label.
+    freeze_build = char_config.get("freeze_build", False)
+    actual_ratio = round(c_dmg / c_rate, 2) if c_rate > 0 else 0.0
+    build_style = classify_build_style(actual_ratio, resolved_ratio_target, ignore_high_ratio)
+    build_description = generate_build_description(
+        character, build_style, crit_note, substat_note,
+        ignore_high_ratio, freeze_build, high_er_allowed,
+    )
 
     # Benchmarking Processor
     benchmark_status: List[str] = []
@@ -224,6 +277,45 @@ def rate_build(
             benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} ({pct:.1f}% of target)")
 
     efficiency_tier_note = f"Your substats have accumulated the equivalent of {equivalent_rolls:.1f} perfect high-rolls into your primary scaling stat." if equivalent_rolls > 0 else "No substantial primary rolls mapped."
+
+    recommendations = build_recommendations(character, c_rate, c_dmg, clean_substats, c_er, resolved_scaling, high_er_allowed, target_ratio=resolved_ratio_target, char_config=char_config)
+    cv = round((c_rate * 2.0) + c_dmg, 1)
+
+    result = {
+        "character": character,
+        "build_title": build_title,
+        "build_style": build_style,
+        "build_description": build_description,
+        "grade": grade,
+        "grade_description": grade_desc,
+        "embed_color": embed_color,
+        "overall_score": overall,
+        "crit_value": cv,
+        "crit_rate": c_rate,
+        "crit_dmg": c_dmg,
+        "crit_ratio_score": crit_score,
+        "crit_ratio_note": crit_note,
+        "substat_efficiency_score": substat_score if substat_score is not None else 0.0,
+        "substat_note": substat_note,
+        "efficiency_tier_note": efficiency_tier_note,
+        "benchmark_status": benchmark_status,
+        "recommendations": recommendations,
+        "stats_used": {
+            "atk": c_atk, "hp": c_hp, "def": c_def,
+            "elemental_mastery": c_em, "energy_recharge": c_er
+        }
+    }
+
+    # Opt-in only -- not included by default since it duplicates overall_score
+    # without adding distinct signal, and "38.5" with no units/context isn't
+    # meaningful to display as-is. Pass include_relative_damage=true to get it.
+    if include_relative_damage:
+        result["estimated_relative_damage"] = estimate_relative_damage(
+            crit_score, substat_score, c_atk, c_hp, c_def, c_em, resolved_scaling
+        )
+
+    return result
+our substats have accumulated the equivalent of {equivalent_rolls:.1f} perfect high-rolls into your primary scaling stat." if equivalent_rolls > 0 else "No substantial primary rolls mapped."
 
     recommendations = build_recommendations(character, c_rate, c_dmg, clean_substats, c_er, resolved_scaling, high_er_allowed, target_ratio=resolved_ratio_target, char_config=char_config)
     cv = round((c_rate * 2.0) + c_dmg, 1)
