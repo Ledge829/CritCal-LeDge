@@ -1,103 +1,290 @@
-# Genshin Build Rater API
+CritCal
 
-Rates a character's build (crit ratio, substat efficiency, overall grade,
-recommendations) either from manually entered stats, or automatically
-pulled from a player's live Enka.Network showcase using just their UID.
+A production-ready Genshin Impact Build Rating API built with Python and Flask.
 
-## 1. Deploy to Render (free)
+CritCal analyzes a character's build using character-specific scoring logic, benchmark goals, crit optimization, and build heuristics. It supports both manually entered builds and automatic retrieval from Enka.Network using a player's UID.
 
-1. Create a free account at https://render.com (GitHub/Google login, no
-   card needed).
-2. Push these files to a **public or private GitHub repo**:
-   `app.py`, `scoring.py`, `enka_client.py`, `requirements.txt`
-3. In Render: **New +** → **Web Service** → connect your repo.
-4. Settings:
-   - **Runtime:** Python 3
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `gunicorn app:app`
-   - **Instance Type:** Free
-5. Deploy. Render gives you a URL like:
-   `https://your-app-name.onrender.com`
+Designed for Discord bots, web apps, and other Genshin tools.
 
-## 2. Keep it awake with UptimeRobot
+---
 
-Render's free tier sleeps after ~15 min of no traffic (cold start ~30-60s
-on the next request). To avoid that:
+Features
 
-1. Go to https://uptimerobot.com → free account.
-2. **Add New Monitor** → HTTP(s).
-3. URL: `https://your-app-name.onrender.com/ping`
-4. Interval: 5 minutes.
+- Character-specific scoring
+- Manual build rating ("/rate/manual")
+- Live Enka.Network support ("/rate/uid")
+- Automatic character recognition
+- Crit Ratio analysis
+- Crit Value calculation
+- Substat efficiency scoring
+- Relative damage estimation
+- Character benchmark comparison
+- Dynamic build recommendations
+- Character aliases (Hu Tao, Raiden Shogun, Scaramouche, etc.)
+- Weapon extraction
+- Artifact set extraction
+- Status & monitoring endpoints
+- UptimeRobot integration
+- Metadata caching
+- Structured JSON responses
 
-This isn't bulletproof (Render officially discourages it, and a rare cold
-start can still slip through), but it works well in practice for a
-Discord bot's traffic pattern.
+---
 
-## 3. Calling it from BDFD
+API Endpoints
 
-BDFD's `$jsonRequest[method;url;headers;body]` function sends HTTP
-requests and lets you pull fields out of the JSON response with
-`$jsonRequest[get;...]`-style syntax (check BDFD's current docs for the
-exact retrieval function name/version, as it does change between BDFD
-versions).
+"POST /rate/manual"
 
-### Option A — UID-based command (auto-pull, recommended)
+Rates a build from manually entered stats.
 
-Command trigger: `!build <uid> <character name>`
+Example request:
 
-```
-$jsonRequest[POST;https://your-app-name.onrender.com/rate/uid;Content-Type=application/json;{"uid":"$message[2]","character":"$message[3]"}]
-```
-
-Then read fields like `grade`, `overall_score`, `crit_ratio_note`, and
-`recommendations` from the response to build your embed/reply.
-
-### Option B — Manual stat entry command
-
-Command trigger: `!build manual <character> <critRate> <critDMG> <atk>`
-
-```
-$jsonRequest[POST;https://your-app-name.onrender.com/rate/manual;Content-Type=application/json;{"character":"$message[3]","crit_rate":$message[4],"crit_dmg":$message[5],"atk":$message[6]}]
-```
-
-You can extend this to also collect `hp`, `def`, `elemental_mastery`,
-`energy_recharge`, and a `substats` object as the command grows — BDFD
-lets you chain more `$message[n]` args or use a modal/multi-step command
-if you want a friendlier input flow.
-
-## 4. Response shape (both endpoints)
-
-```json
 {
-  "character": "Hu Tao",
-  "grade": "A",
-  "grade_description": "Great — strong, min-maxed build",
-  "overall_score": 84.8,
-  "crit_value": 270,
-  "crit_rate": 65,
-  "crit_dmg": 140,
-  "crit_ratio_note": "Crit ratio is well balanced...",
-  "substat_efficiency_score": 73.9,
-  "estimated_relative_damage": 83.8,
-  "recommendations": ["..."],
-  "stats_used": { "atk": 2200, "hp": 30000, "def": 700, ... }
+  "character": "Furina",
+  "crit_rate": 82,
+  "crit_dmg": 188,
+  "hp": 39200,
+  "atk": 1210,
+  "def": 720,
+  "energy_recharge": 181,
+  "elemental_mastery": 40,
+
+  "weapon": {
+    "name": "Splendor of Tranquil Waters",
+    "level": 90,
+    "refinement": 1
+  },
+
+  "artifact_sets": [
+    {
+      "name": "Golden Troupe",
+      "count": 4
+    }
+  ]
 }
-```
 
-`estimated_relative_damage` is a 0-100 build-quality indicator relative to
-a theoretical BiS build — **not** a literal in-game damage number. Getting
-an exact damage number requires per-character talent multipliers, enemy
-RES/DEF, and rotation data, which is a much bigger project than this API.
+---
 
-## 5. Known limitations / next steps
+"POST /rate/uid"
 
-- Character name lookup for UID mode depends on Enka's public reference
-  data staying in its current format. If a brand-new character shows up
-  as `"Character #10000XX"` instead of their name shortly after a patch,
-  Enka's data just hasn't updated yet — it'll resolve within a day or so.
-- `character_scaling` defaults to `"atk"`. Pass `"em"` in the request body
-  for reaction/EM-focused characters to weight the score differently.
-- Enka only sees what's in the player's **in-game Character Showcase** —
-  if a character isn't showcased, UID mode won't find them and manual
-  entry is the fallback.
-  
+Fetches a player's showcased character directly from Enka.Network and rates it automatically.
+
+Example request:
+
+{
+  "uid": "600000000",
+  "character": "Furina"
+}
+
+The character field is optional if only one showcased character matches your request.
+
+---
+
+"GET /status"
+
+Returns API status information.
+
+Includes:
+
+- API health
+- Uptime
+- Cache status
+- Monitor information
+- Response timing
+- Service diagnostics
+
+---
+
+"GET /ping"
+
+Simple health endpoint.
+
+Returns:
+
+OK
+
+Useful for Render health checks and UptimeRobot monitoring.
+
+---
+
+Example Response
+
+{
+  "character": "Furina",
+  "grade": "S",
+  "overall_score": 92.6,
+  "grade_description": "Exceptional — close to an optimized endgame build",
+
+  "crit_rate": 82.0,
+  "crit_dmg": 188.0,
+  "crit_value": 352,
+
+  "substat_efficiency_score": 89.3,
+  "estimated_relative_damage": 91.7,
+
+  "weapon": {
+    "name": "Splendor of Tranquil Waters",
+    "level": 90,
+    "refinement": 1
+  },
+
+  "artifact_sets": [
+    {
+      "name": "Golden Troupe",
+      "count": 4
+    }
+  ],
+
+  "recommendations": [
+    "Excellent Crit Ratio.",
+    "HP benchmark achieved.",
+    "Very efficient substat distribution."
+  ]
+}
+
+---
+
+Scoring Philosophy
+
+CritCal does not attempt to simulate exact in-game damage.
+
+Instead, it evaluates overall build quality using several independent metrics.
+
+These include:
+
+- Character-specific stat scaling
+- Crit Ratio optimization
+- Crit Value
+- Substat efficiency
+- Benchmark comparisons
+- Relative damage estimation
+- Character-specific Energy Recharge requirements
+- Dynamic recommendations
+
+Each character can have unique scoring behaviour based on their intended role.
+
+For example:
+
+- HP scalers
+- DEF scalers
+- EM scalers
+- Burst-reliant supports
+- Freeze carries
+- Hypercarries
+
+This allows builds to be judged according to the character instead of using a single generic formula.
+
+---
+
+Character Database
+
+CritCal includes a growing character database containing:
+
+- Character aliases
+- Stat scaling
+- Crit ratio targets
+- Energy Recharge exceptions
+- Benchmark goals
+- Build archetypes
+- Future scoring hooks
+
+The database is designed to make supporting new characters straightforward while keeping the scoring engine data-driven.
+
+---
+
+Project Structure
+
+app.py
+
+Flask application and API routes.
+
+scoring.py
+
+Core scoring engine.
+
+characters.py
+
+Character configuration database.
+
+enka_client.py
+
+Enka.Network integration.
+
+status.py
+
+Status monitoring and uptime endpoints.
+
+requirements.txt
+
+Python dependencies.
+
+---
+
+Running Locally
+
+Clone the repository.
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Run the server:
+
+python app.py
+
+The API will start on:
+
+http://127.0.0.1:5000
+
+---
+
+Deployment
+
+CritCal is designed to work well on platforms such as Render.
+
+Typical deployment:
+
+- Runtime: Python 3
+- Build Command:
+
+pip install -r requirements.txt
+
+- Start Command:
+
+gunicorn app:app
+
+The optional "/ping" endpoint can be monitored by services such as UptimeRobot.
+
+---
+
+Roadmap
+
+Planned improvements include:
+
+- Expanded character database
+- Additional artifact set support
+- Expanded weapon database
+- Better build summaries
+- Improved recommendation engine
+- Enhanced benchmark system
+- Additional API endpoints
+- Documentation improvements
+- Automated tests
+- Performance optimizations
+
+---
+
+Contributing
+
+Issues, suggestions, and pull requests are welcome.
+
+As Genshin Impact continues to receive new characters, weapons, and artifact sets, the project will continue expanding to support them.
+
+---
+
+License
+
+This project is provided for educational and personal use.
+
+Genshin Impact and all related assets belong to HoYoverse.
+
+Enka.Network is an independent community project used for publicly available showcase data.
