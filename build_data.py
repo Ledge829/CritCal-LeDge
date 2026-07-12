@@ -164,8 +164,26 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
 "tartaglia": {
 "bis_artifact_set": "Nymph's Dream",
 "secondary_artifact_set": "Heart Of Depth",
-"nieche_artifact_set": "Marechaussee Hunter",
+"nieche_artifact_set": ["Marechaussee Hunter"],
 "team_archetype": "On-field Hydro DPS",
+},
+"furina": {
+"bis_artifact_set": "Golden Troupe",
+"secondary_artifact_set": "Tenacity Of The Millelith",
+"nieche_artifact_set": ["None"],
+"team_archetype": "Universal Buffer / Off-field Hydro",
+},
+"kokomi": {
+"bis_artifact_set": "Ocean-Hued Clam",
+"secondary_artifact_set": "Tenacity Of The Millelith",
+"nieche_artifact_set": ["Song Of Days Passed", "Maiden Beloved"],
+"team_archetype": "Healing Support / Hydro Driver",
+},
+"mona": {
+"bis_artifact_set": "Noblesse Oblige",
+"secondary_artifact_set": "Emblem Of Severed Fate",
+"nieche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
+"team_archetype": "Burst Support / Hydro Buffer",
 },
 
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
