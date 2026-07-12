@@ -186,6 +186,8 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
 "team_archetype": "Burst Support / Hydro Buffer",
 },
 
+}
+
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
 
 # ==========================================================
