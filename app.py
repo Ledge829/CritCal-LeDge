@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from scoring import rate_build
+from scoring import rate_build, parse_artifact_sets_text, parse_weapon_text
 from enka_client import fetch_character
 from status import status_bp
 
@@ -58,16 +58,51 @@ def rate_manual():
     if missing:
         return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
 
-    # Optional weapon: {"name": "...", "refinement": 1-5}
-    weapon = body.get("weapon")
-    if weapon is not None and not isinstance(weapon, dict):
-        return jsonify({"error": "'weapon' must be an object, e.g. {\"name\": \"...\", \"refinement\": 1}"}), 400
+    # ------------------------------------------------------------------
+    # QUICK-INPUT SUPPORT
+    #
+    # BDFD slash commands are painful to fill out with nested/structured
+    # fields (artifact_set_1_name, piece_1, artifact_set_2_name, piece_2,
+    # weapon.name, weapon.refinement...). So both `weapon` and
+    # `artifact_sets` now also accept a single plain-text string:
+    #
+    #   "weapon": "Staff of Homa r1"
+    #   "artifacts": "4pc Golden Troupe"
+    #   "artifacts": "2pc Emblem of Severed Fate, 2pc Noblesse Oblige"
+    #
+    # The old structured formats (weapon as an object, artifact_sets as a
+    # list of {"name","count"} objects) still work exactly as before --
+    # this is purely additive, nothing already wired in BDFD breaks.
+    # ------------------------------------------------------------------
 
-    # Optional artifact_sets: [{"name": "...", "count": 1-5}, ...]
+    # Optional weapon: either {"name": "...", "refinement": 1-5}, or a
+    # single free-text string like "Staff of Homa r1".
+    weapon = body.get("weapon")
+    if isinstance(weapon, str):
+        weapon = parse_weapon_text(weapon)
+    elif weapon is not None and not isinstance(weapon, dict):
+        return jsonify({
+            "error": "'weapon' must be a string (e.g. \"Staff of Homa r1\") "
+                     "or an object, e.g. {\"name\": \"...\", \"refinement\": 1}"
+        }), 400
+
+    # Optional artifact sets: either a list of {"name": "...", "count": 1-5}
+    # objects, or a single free-text "artifacts" string like "4pc Golden
+    # Troupe" / "2pc Emblem of Severed Fate, 2pc Noblesse Oblige". The
+    # plain-text "artifacts" field is checked first since it's the easier
+    # path for quick slash-command use; "artifact_sets" remains available
+    # for anything sending structured data directly.
+    artifacts_text = body.get("artifacts")
+    if artifacts_text is not None and not isinstance(artifacts_text, str):
+        return jsonify({"error": "'artifacts' must be a string, e.g. \"4pc Golden Troupe\""}), 400
+
     artifact_sets = body.get("artifact_sets")
     if artifact_sets is not None:
         if not isinstance(artifact_sets, list) or not all(isinstance(s, dict) for s in artifact_sets):
             return jsonify({"error": "'artifact_sets' must be a list of objects, e.g. [{\"name\": \"...\", \"count\": 4}]"}), 400
+
+    if artifacts_text and not artifact_sets:
+        artifact_sets = parse_artifact_sets_text(artifacts_text)
 
     try:
         result = rate_build(
@@ -143,4 +178,4 @@ def rate_uid():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-                   
+        
