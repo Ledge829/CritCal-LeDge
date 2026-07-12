@@ -185,7 +185,26 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
   "nieche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
   "team_archetype": "Burst Support / Hydro Buffer",
 },
-"
+ "mualani": {
+  "bis_artifact_set": "Obsidian Codex",
+  "secondary_artifact_set": "Heart of Depth",
+  "nieche_artifact_set": ["Marechaussee Hunter", "Nymph's Dream", "Gilded Dreams"],
+  "team_archetype": "Hydro Hypercarry",
+},
+ "neuvillette": {
+   "bis_artifact_set": "Marechaussee Hunter",
+   "secondary_artifact_set": "Heart Of Depth",
+   "nieche_artifact_set": ["Nymph's Dream", "Obsidian Codex", "Wonder's Troupe"],
+   "team_archetype": "Charged Attack Hyper-carry",
+ },
+  "nilou": {
+  "bis_artifact_set": "Flower Of Paradies Lost",
+  "secondary_artifact_set": "Guilded Dreams",
+  "nieche_artifact_set": ["Deepwood Memories", "Tenacity Of The Millelith", "Varakusha's Glow"],
+  "team_archetype": "Bloom Enabler",
+},
+
+}
 
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
 
