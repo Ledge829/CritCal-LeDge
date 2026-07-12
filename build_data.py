@@ -29,8 +29,8 @@ fairness guarantee used everywhere else in the app: no data != penalty):
   WEAPON_TIERS[<key>] = {
       "bis_weapon": str,
       "secondary_weapon": str,
-      "f2p_weapon": str,       # free/cheap, reliably obtainable pick
-      "niche_weapon": str,     # situational pick, or a second f2p option
+      "f2p_weapon": [str, ...],       # free/cheap, reliably obtainable pick
+      "niche_weapon": [str, ..]    # situational pick, or a second f2p option
   }
 
 HOW TO EXPAND THIS FILE (adding a new element or new characters):
@@ -209,7 +209,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
    "niche_artifact_set": ["Maiden Beloved", "Emblem of Severed Fate", "Noblesse Oblige"],
    "team_archetype": "Healing Support / Skill Buffer",
 },
- "xinquio": {
+ "xingquio": {
    "bis_artifact_set": "Emblem of Severed Fate",
    "secondary_artifact_set": "Noblesse Oblige",
    "niche_artifact_set": ["Heart of Depth", "Nymph's Dream", "Gilded Dreams"],
@@ -374,6 +374,18 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
  "secondary_weapon": "Sequence of Solitude",
  "niche_weapon": ["Aqua Simularca", "Favonius Warbow", "Elegy for the End"],
  "f2p_weapon": ["Recurve Bow", "Messenger"],
+}, 
+ "xingquio": {
+ "bis_weapon": "Mistsplitter Reforged",
+ "secondary_weapon": "Sacrificial Sword",
+ "niche_weapon": ["Light of Foilar Incision", "Summit Shaper", "Haran Geppaku Futsu"],
+ "f2p_weapon": ["Sacrificial Sword", "Favonius Sword", "Fleuve Cendre Ferryman"],
+},
+ "yelan": {
+ "bis_weapon": "Aqua Simularca",
+ "secondary_weapon": "Elgy for the End",
+ "niche_weapon": ["Silvershower Heartstring", "Hunter's Path", "Mauun's Moon"],
+ "f2p_weapon": ["Favonius Warbow", "Fading Twilight", "Slingshot"],
 }, 
 }
     
