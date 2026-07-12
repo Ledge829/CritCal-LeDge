@@ -149,15 +149,15 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
 # HYDRO
 # ==========================================================
 
-"barbra": {
-"bis_artifact_set": "Ocean-Hued Clam",
-"secondary_artifact_set": "Song Of Days Passed",
-"nieche_artifact_set": ["Maiden Beloved"],
-"team_archetype": "Healing Support / Hydro Driver",
+ "barbra": {
+  "bis_artifact_set": "Ocean-Hued Clam",
+  "secondary_artifact_set": "Song Of Days Passed", 
+  "nieche_artifact_set": ["Maiden Beloved"],
+  "team_archetype": "Healing Support / Hydro Driver",
 },
-"candace": {
-"bis_artifact_set": "Scroll Of The Hero Of Cinder City",
-"secondary_artifact_set": "Noblesse Oblige",
+ "candace": {
+  "bis_artifact_set": "Scroll Of The Hero Of Cinder City",
+  "secondary_artifact_set": "Noblesse Oblige",
 "nieche_artifact_set": ["Emblem Of The Severed Fate"],
 "team_archetype": "Hydro Infusion Support",
 },
@@ -185,8 +185,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
 "nieche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
 "team_archetype": "Burst Support / Hydro Buffer",
 },
-
-}
+"
 
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
 
