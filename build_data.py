@@ -244,7 +244,62 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
   "niche_artifact_set": ["Marechaussee Hunter", "Gilded Dreams", "Shimenawa's Reminiscence"],
   "team_archetype": "Catalyst Driver / Burst Dps",
 },
+"jean": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Noblesse Oblige",
+    "niche_artifact_set": ["Ocean-Hued Clam", "Song of Days Past", "Emblem of Severed Fate"],
+    "team_archetype": "Healing Support / Anemo Driver",
+},
+"kazuha": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_set": ["Instructor", "Noblesse Oblige", "Gilded Dreams"],
+    "team_archetype": "VV Swirl Support",
+},
 
+"lanyan": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_set": ["Noblesse Oblige", "Song of Days Past", "Ocean-Hued Clam"],
+    "team_archetype": "Anemo Shield Support",
+},
+
+"lynette": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Golden Troupe",
+    "niche_artifact_set": ["Noblesse Oblige", "Emblem of Severed Fate", "Desert Pavilion Chronicle"],
+    "team_archetype": "Quick-Swap Anemo Support",
+},
+"sayu": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Ocean-Hued Clam",
+    "niche_artifact_set": ["Song of Days Past", "Noblesse Oblige", "Maiden Beloved"],
+    "team_archetype": "Healing Swirl Support",
+},
+"sucrose": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_set": ["Instructor", "Gilded Dreams", "Noblesse Oblige"],
+    "team_archetype": "EM Buffing Support",
+},
+"venti": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_set": ["Noblesse Oblige", "Emblem of Severed Fate", "Gilded Dreams"],
+    "team_archetype": "Crowd Control Support",
+},
+"wanderer": {
+    "bis_artifact_set": "Desert Pavilion Chronicle",
+    "secondary_artifact_set": "Marechaussee Hunter",
+    "niche_artifact_set": ["Shimenawa's Reminiscence", "Echoes of an Offering", "Viridescent Venerer"],
+    "team_archetype": "Hypercarry Catalyst DPS",
+},
+"xianyun": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Song of Days Past",
+    "niche_artifact_set": ["Noblesse Oblige", "Ocean-Hued Clam", "Scroll of the Hero of Cinder City"],
+    "team_archetype": "Plunge Support / Healer",
+},
 
 
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
@@ -436,6 +491,61 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
   "niche_weapon": ["End of the Line", "Mauun's Moon", "Skyward Harp"]<
   "f2p_weapon": ["Favonius Warbow", "End of the line"],
   },
-  }
-    
+   "jean": {
+    "bis_weapon": "Freedom-Sworn",
+    "secondary_weapon": "Skyward Blade",
+    "niche_weapon": ["Favonius Sword", "Primordial Jade Cutter", "Key of Khaj-Nisut"],
+    "f2p_weapon": ["Amenoma Kageuchi", "Sapwood Blade", "Fleuve Cendre Ferryman"],
+},
+
+"kazuha": {
+    "bis_weapon": "Freedom-Sworn",
+    "secondary_weapon": "Xiphos' Moonlight",
+    "niche_weapon": ["Favonius Sword", "Key of Khaj-Nisut", "Primordial Jade Cutter"],
+    "f2p_weapon": ["Iron Sting", "Dark Iron Sword", "Sapwood Blade"],
+},
+
+"lanyan": {
+    "bis_weapon": "Sunny Morning Sleep-In",
+    "secondary_weapon": "Thrilling Tales of Dragon Slayers",
+    "niche_weapon": ["A Thousand Floating Dreams", "Favonius Codex", "Prototype Amber"],
+    "f2p_weapon": ["Prototype Amber", "Fruit of Fulfillment", "Mappa Mare"],
+},
+
+"lynette": {
+    "bis_weapon": "Freedom-Sworn",
+    "secondary_weapon": "Favonius Sword",
+    "niche_weapon": ["Skyward Blade", "Primordial Jade Cutter", "Key of Khaj-Nisut"],
+    "f2p_weapon": ["Fleuve Cendre Ferryman", "Sapwood Blade", "Amenoma Kageuchi"],
+},
+"sayu": {
+    "bis_weapon": "Wolf's Gravestone",
+    "secondary_weapon": "Skyward Pride",
+    "niche_weapon": ["Favonius Greatsword", "Beacon of the Reed Sea", "Rainslasher"],
+    "f2p_weapon": ["Katsuragikiri Nagamasa", "Forest Regalia", "Tidal Shadow"],
+},
+"sucrose": {
+    "bis_weapon": "A Thousand Floating Dreams",
+    "secondary_weapon": "Sacrificial Fragments",
+    "niche_weapon": ["Sunny Morning Sleep-In", "Wandering Evenstar", "Hakushin Ring"],
+    "f2p_weapon": ["Magic Guide", "Mappa Mare", "Fruit of Fulfillment"],
+},
+"venti": {
+    "bis_weapon": "Elegy for the End",
+    "secondary_weapon": "The First Great Magic",
+    "niche_weapon": ["Polar Star", "Aqua Simulacra", "Skyward Harp"],
+    "f2p_weapon": ["Stringless", "End of the Line", "Fading Twilight"],
+},
+"wanderer": {
+    "bis_weapon": "Tulaytullah's Remembrance",
+    "secondary_weapon": "Cashflow Supervision",
+    "niche_weapon": ["Lost Prayer to the Sacred Winds", "Skyward Atlas", "Memory of Dust"],
+    "f2p_weapon": ["Flowing Purity", "Frostbearer", "Mappa Mare"],
+},
+"xianyun": {
+    "bis_weapon": "Crane's Echoing Call",
+    "secondary_weapon": "Skyward Atlas",
+    "niche_weapon": ["A Thousand Floating Dreams", "Memory of Dust", "Cashflow Supervision"],
+    "f2p_weapon": ["Oathsworn Eye", "Prototype Amber", "Favonius Codex"],
+},
     
