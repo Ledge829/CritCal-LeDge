@@ -4,6 +4,7 @@ Genshin build scoring engine.
 Transparent, tweakable scoring intended to estimate build quality rather
 than simulate exact in-game damage. Optimized for standard library dependencies.
 """
+import re
 from typing import Dict, Any, List, Tuple, Optional
 from characters import CRIT_RATIO_TARGET, get_character_config
 
@@ -29,6 +30,83 @@ GRADE_THRESHOLDS: List[Tuple[float, str, str, str]] = [
     (40.0, "C", "Needs improvement — noticeable gaps", "#F1C40F"), 
     (0.0, "D", "Rough — significant upgrade needed", "#E74C3C"),   
 ]
+
+
+# ==========================================================
+# QUICK-INPUT PARSERS
+#
+# Discord users typing a slash command shouldn't have to fill out 4
+# separate fields (artifact_set_1, piece_1, artifact_set_2, piece_2) or
+# build a JSON object for their weapon. These let BDFD pass ONE plain
+# text field for each instead, e.g.:
+#   artifacts: "4pc Golden Troupe"
+#   artifacts: "2pc Emblem of Severed Fate, 2pc Noblesse Oblige"
+#   weapon:    "Staff of Homa r1"
+#   weapon:    "Staff of Homa"        (refinement defaults to 1)
+#
+# These are purely additive -- the original structured artifact_sets
+# list and weapon {"name","refinement"} object still work unchanged,
+# so nothing already wired in BDFD breaks.
+# ==========================================================
+
+_SET_SPLIT_RE = re.compile(r",|\+|\band\b", re.IGNORECASE)
+_COUNT_PREFIX_RE = re.compile(r"^\s*(\d)\s*(?:pc|pieces?)?\s+(.+)$", re.IGNORECASE)
+_COUNT_SUFFIX_RE = re.compile(r"^(.+?)\s+(\d)\s*(?:pc|pieces?)\s*$", re.IGNORECASE)
+
+
+def parse_artifact_sets_text(text: str) -> Optional[List[dict]]:
+    """
+    Parses a single free-text field like "4pc Golden Troupe" or
+    "2pc Emblem of Severed Fate, 2pc Noblesse Oblige" into the
+    [{"name": ..., "count": ...}, ...] structure score_artifact_set_fit()
+    expects. If no piece count is given for a chunk, assumes 4 (the
+    overwhelmingly common case for a casual quick-check).
+    Returns None if nothing usable was found.
+    """
+    if not text or not isinstance(text, str):
+        return None
+
+    sets = []
+    for chunk in _SET_SPLIT_RE.split(text):
+        chunk = chunk.strip().strip(",")
+        if not chunk:
+            continue
+
+        m = _COUNT_PREFIX_RE.match(chunk)
+        if m:
+            count, name = int(m.group(1)), m.group(2).strip()
+        else:
+            m = _COUNT_SUFFIX_RE.match(chunk)
+            if m:
+                name, count = m.group(1).strip(), int(m.group(2))
+            else:
+                name, count = chunk.strip(), 4  # no count given -> assume full set
+
+        if name:
+            sets.append({"name": name, "count": max(1, min(5, count))})
+
+    return sets or None
+
+
+_WEAPON_REFINE_RE = re.compile(r"\br\s*([1-5])\b|\brefine(?:ment)?\s*([1-5])\b", re.IGNORECASE)
+
+
+def parse_weapon_text(text: str) -> Optional[dict]:
+    """
+    Parses a single free-text field like "Staff of Homa r1" or just
+    "Staff of Homa" (refinement defaults to R1) into the
+    {"name": ..., "refinement": ...} structure score_weapon_fit() expects.
+    Returns None if nothing usable was found.
+    """
+    if not text or not isinstance(text, str):
+        return None
+
+    m = _WEAPON_REFINE_RE.search(text)
+    refinement = int(m.group(1) or m.group(2)) if m else 1
+    name = _WEAPON_REFINE_RE.sub("", text).strip(" ,-")
+
+    return {"name": name, "refinement": refinement} if name else None
+
 
 def crit_value(crit_rate: float, crit_dmg: float) -> float:
     """Standard community Crit Value formula."""
