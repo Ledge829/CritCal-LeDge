@@ -213,13 +213,39 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
    "bis_artifact_set": "Emblem of Severed Fate",
    "secondary_artifact_set": "Noblesse Oblige",
    "niche_artifact_set": ["Heart of Depth", "Nymph's Dream", "Gilded Dreams"],
+   "team_archetype": "Off-field Hydro DPS",
 },
  "yelan": {
    "bis_artifact_set": "Emblem of Severed Fate",
    "secondary_artifact_set": "Noblesse Oblige",
    "niche_artifact_set": ["Golden Troupe", "Heart of Depth", "Nymph's Dream"],
+   "team_archetype": "Off-field Hydro DPS / Enabler",
 },
-} 
+
+# ==========================================================
+# ANEMO
+# ==========================================================
+
+"chasca": {
+  "bis_artifact_set": "Obsidian Codex",
+  "secondary_artifact_set": "Viridescent Venerer",
+  "niche_artifact_set": ["Golden Troupe", "Marechaussee Hunter", "Desert Pavilion Chronicle"],
+  "team_archetype": "Anemo Aerial Hypercarry DPS",
+},
+ "faruzan": {
+  "bis_artifact_set": "Scroll of the Hero of Cinder City",
+  "secondary_artifact_set": "Viridescent Venerer",
+  "niche_artifact_set": ["Noblesse Oblige", "Emblem of Severed Fate", "Tenacity of the Millelith"],
+  "team_archetype": "Anemo Dedicated Support",
+},
+ "heizou": {
+  "bis_artifact_set": "Vridescent Venerer",
+  "secondary_artifact_set": "Desert Pavilion Chronicle",
+  "niche_artifact_set": ["Marechaussee Hunter", "Gilded Dreams", "Shimenawa's Reminiscence"],
+  "team_archetype": "Catalyst Driver / Burst Dps",
+},
+
+
 
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
 
@@ -387,6 +413,29 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
  "niche_weapon": ["Silvershower Heartstring", "Hunter's Path", "Mauun's Moon"],
  "f2p_weapon": ["Favonius Warbow", "Fading Twilight", "Slingshot"],
 }, 
-}
+
+# ==========================================================
+# ANEMO
+# ==========================================================
+
+"chasca": {
+"bis_weapon": "Astral Vulture's Crimson Plumage",
+"secondary_weapon": "The First Great Magic",
+"niche_weapon": ["Aqua Simularca", "Polar Star", "Skyward Harp"],
+"f2p_weapon": ["Chain Breaker", "Scion of the Blazing Sun", "Song of Stillness"],
+},
+ "heizou": {
+ "bis_weapon": "Cashflow Supervision",
+ "secondary_weapon": "Tulaytullah's Remembrance",
+ "niche_weapon": ["Lost Pray to the Sacred Winds", "Skyward Atlas", "Kagura's Verity"],
+ "f2p_weapon": ["Flowing Purity, "Mappa Mare," "The Widsith"],
+ },
+  "faruzan": {
+  "bis_weapon": "Elgy for the End",
+  "secondary_weapon": "Favonius Warbow",
+  "niche_weapon": ["End of the Line", "Mauun's Moon", "Skyward Harp"]<
+  "f2p_weapon": ["Favonius Warbow", "End of the line"],
+  },
+  }
     
     
