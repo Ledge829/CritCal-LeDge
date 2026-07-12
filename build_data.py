@@ -375,6 +375,6 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
  "niche_weapon": ["Aqua Simularca", "Favonius Warbow", "Elegy for the End"],
  "f2p_weapon": ["Recurve Bow", "Messenger"],
 }, 
-
+}
     
     
