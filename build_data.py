@@ -141,7 +141,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
   "gaming": {
     "bis_artifact_set: "Marechaussee Hunter ",
     "secondary_artifact_set": "Crimson Witch Of Flames",
-    "nieche_artifact_sets": ["Guilden Dreams"],
+    "niche_artifact_sets": ["Guilden Dreams"],
     "team_archetype": "Main DPS Vaporize / Melt / Plunge Hyper carry",
   },
 
@@ -152,59 +152,74 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
  "barbra": {
   "bis_artifact_set": "Ocean-Hued Clam",
   "secondary_artifact_set": "Song Of Days Passed", 
-  "nieche_artifact_set": ["Maiden Beloved"],
+  "niche_artifact_set": ["Maiden Beloved"],
   "team_archetype": "Healing Support / Hydro Driver",
 },
  "candace": {
   "bis_artifact_set": "Scroll Of The Hero Of Cinder City",
   "secondary_artifact_set": "Noblesse Oblige",
-  "nieche_artifact_set": ["Emblem Of The Severed Fate"],
+  "niche_artifact_set": ["Emblem Of The Severed Fate"],
   "team_archetype": "Hydro Infusion Support",
 },
  "tartaglia": {
   "bis_artifact_set": "Nymph's Dream",
   "secondary_artifact_set": "Heart Of Depth",
-  "nieche_artifact_set": ["Marechaussee Hunter"],
+  "niche_artifact_set": ["Marechaussee Hunter"],
   "team_archetype": "On-field Hydro DPS",
 },
  "furina": {
   "bis_artifact_set": "Golden Troupe",
   "secondary_artifact_set": "Tenacity Of The Millelith",
-  "nieche_artifact_set": ["None"],
+  "niche_artifact_set": ["None"],
   "team_archetype": "Universal Buffer / Off-field Hydro",
 },
  "kokomi": {
   "bis_artifact_set": "Ocean-Hued Clam",
   "secondary_artifact_set": "Tenacity Of The Millelith",
-  "nieche_artifact_set": ["Song Of Days Passed", "Maiden Beloved"],
+  "niche_artifact_set": ["Song Of Days Passed", "Maiden Beloved"],
   "team_archetype": "Healing Support / Hydro Driver",
 },
  "mona": {
   "bis_artifact_set": "Noblesse Oblige",
   "secondary_artifact_set": "Emblem Of Severed Fate",
-  "nieche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
+  "niche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
   "team_archetype": "Burst Support / Hydro Buffer",
 },
  "mualani": {
   "bis_artifact_set": "Obsidian Codex",
   "secondary_artifact_set": "Heart of Depth",
-  "nieche_artifact_set": ["Marechaussee Hunter", "Nymph's Dream", "Gilded Dreams"],
+  "niche_artifact_set": ["Marechaussee Hunter", "Nymph's Dream", "Gilded Dreams"],
   "team_archetype": "Hydro Hypercarry",
 },
  "neuvillette": {
    "bis_artifact_set": "Marechaussee Hunter",
    "secondary_artifact_set": "Heart Of Depth",
-   "nieche_artifact_set": ["Nymph's Dream", "Obsidian Codex", "Wonder's Troupe"],
+   "niche_artifact_set": ["Nymph's Dream", "Obsidian Codex", "Wonder's Troupe"],
    "team_archetype": "Charged Attack Hyper-carry",
  },
   "nilou": {
   "bis_artifact_set": "Flower Of Paradies Lost",
   "secondary_artifact_set": "Guilded Dreams",
-  "nieche_artifact_set": ["Deepwood Memories", "Tenacity Of The Millelith", "Varakusha's Glow"],
+  "niche_artifact_set": ["Deepwood Memories", "Tenacity Of The Millelith", "Varakusha's Glow"],
   "team_archetype": "Bloom Enabler",
 },
-
-}
+ "sigewinne": {
+   "bis_artifact_set": "Song of Days Past",
+   "secondary_artifact_set": "Ocean-Hued Clam",
+   "niche_artifact_set": ["Maiden Beloved", "Emblem of Severed Fate", "Noblesse Oblige"],
+   "team_archetype": "Healing Support / Skill Buffer",
+},
+ "xinquio": {
+   "bis_artifact_set": "Emblem of Severed Fate",
+   "secondary_artifact_set": "Noblesse Oblige",
+   "niche_artifact_set": ["Heart of Depth", "Nymph's Dream", "Gilded Dreams"],
+},
+ "yelan": {
+   "bis_artifact_set": "Emblem of Severed Fate",
+   "secondary_artifact_set": "Noblesse Oblige",
+   "niche_artifact_set": ["Golden Troupe", "Heart of Depth", "Nymph's Dream"],
+},
+} 
 
 WEAPON_TIERS: Dict[str, Dict[str, str]] = {
 
@@ -294,7 +309,7 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
         "bis_weapon": "Fang Of The Mountain King",
         "secondary_weapon": "Serpent's Spine",
         "f2p_weapon": ["Dragons Bane"],
-        "nieche_weapon": ["White Tassel"],
+        "niche_weapon": ["White Tassel"],
     },
 # ==========================================================
 # HYDRO
@@ -304,57 +319,62 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
     "bis_weapon": "Thrilling Tales Of Dragon Slayers",
     "secondary_weapon": "Prototype Amber",
     "f2p_weapon": ["Favonius Codex"],
-    "nieche_weapon": ["Favonius Codex"],
+    "niche_weapon": ["Favonius Codex"],
 },
  "candice": {
     "bis_weapon": "Favonius Lance",
     "secondary_weapon": "Dialouge Of The Desert Sages",
     "f2p_weapon": ["Rightful Reward"],
-    "nieche_weapon": ["Rightful Reward"],
+    "niche_weapon": ["Rightful Reward"],
 },
  "tartaglia": {
     "bis_weapon": "Polar Star",
     "secondary_weapon": "Aqua Simularca",
     "f2p_weapon": ["The Viridiscent Hunt"],
-    "nieche_weapon":  ["Hamoyumi"],
+    "niche_weapon":  ["Hamoyumi"],
 },
  "furina": {
     "bis_weapon": "Splendor of Tranquil Waters",
     "secondary_weapon": "Primodial Jade Cutter",
     "f2p_weapon": ["Festering Desire", "Favonius Sword", "Fleuve Cendre Ferryman"],
-    "nieche_weapon": ["Wolf-Fang", "Key Of Khaj-Nisut",],
+    "niche_weapon": ["Wolf-Fang", "Key Of Khaj-Nisut",],
  },
   "kokomi": {
      "bis_weapon": "Everlasting Moonglow",
      "secondary_weapon": "Prototype Amber",
      "f2p_weapon": ["Thrilling Tales of Dragon Slayers", "Favonius Codex"],
-     "nieche_weapon": ["Hokushin Ring", "Favonius Codex"],
+     "niche_weapon": ["Hokushin Ring", "Favonius Codex"],
 },
  "mona": {
     "bis_weapon": "A Thousand Floating Dreams",
     "secondary_weapon": "Skyward Atlas",
     "f2p_weapon": ["Protype Amber", "Favonius Codex", "The widsith", "Thrilling Tales of Dragon Slayers"],
-    "nieche_weapon": ["None"]
+    "niche_weapon": ["None"]
 },
  "mualani": {
     "bis_weapon": "Surf's Up",
     "secondary_weapon": "Tome Of The Enternal Flow",
-    "nieche_weapon": ["Cashflow Supervision", "Lost Prayer to the Sacred Winds", "Sacrifical Jade"],
+    "niche_weapon": ["Cashflow Supervision", "Lost Prayer to the Sacred Winds", "Sacrifical Jade"],
     "f2p_weapon: ["Ring of Yaxche", "Prototype Amber"],
 },
  "neuvillette": {
  "bis_weapon": "Tome of the Eternal Flow",
  "secondary_weapon": "Sacrificial Jade",
- "nieche_weapon": ["Cashflow Supervision", "Lost Prayer to the Sacred Winds", "Jadefall's Splendor"],
+ "niche_weapon": ["Cashflow Supervision", "Lost Prayer to the Sacred Winds", "Jadefall's Splendor"],
  "f2p_weapon": ["Prototype Amber", "Ring of Yaxche"],
 },
  "nilou": {
  "bis_weapon": "Key of Khaj-Nisut",
  "secondary_weapon": "Freedom-Sworm",
- "nieche_weapon": ["Xiphos' Moonlight", "Primodial Jade Cutter", "Favonius Sword"],
+ "niche_weapon": ["Xiphos' Moonlight", "Primodial Jade Cutter", "Favonius Sword"],
  "f2p_weapon": ["Iron Sting", "Sapwood Blade"],
 },
-}
+ "sigewinne": {
+ "bis_weapon": "Silvershower Heartstrings",
+ "secondary_weapon": "Sequence of Solitude",
+ "niche_weapon": ["Aqua Simularca", "Favonius Warbow", "Elegy for the End"],
+ "f2p_weapon": ["Recurve Bow", "Messenger"],
+}, 
 
     
     
