@@ -158,32 +158,32 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
  "candace": {
   "bis_artifact_set": "Scroll Of The Hero Of Cinder City",
   "secondary_artifact_set": "Noblesse Oblige",
-"nieche_artifact_set": ["Emblem Of The Severed Fate"],
-"team_archetype": "Hydro Infusion Support",
+  "nieche_artifact_set": ["Emblem Of The Severed Fate"],
+  "team_archetype": "Hydro Infusion Support",
 },
-"tartaglia": {
-"bis_artifact_set": "Nymph's Dream",
-"secondary_artifact_set": "Heart Of Depth",
-"nieche_artifact_set": ["Marechaussee Hunter"],
-"team_archetype": "On-field Hydro DPS",
+ "tartaglia": {
+  "bis_artifact_set": "Nymph's Dream",
+  "secondary_artifact_set": "Heart Of Depth",
+  "nieche_artifact_set": ["Marechaussee Hunter"],
+  "team_archetype": "On-field Hydro DPS",
 },
-"furina": {
-"bis_artifact_set": "Golden Troupe",
-"secondary_artifact_set": "Tenacity Of The Millelith",
-"nieche_artifact_set": ["None"],
-"team_archetype": "Universal Buffer / Off-field Hydro",
+ "furina": {
+  "bis_artifact_set": "Golden Troupe",
+  "secondary_artifact_set": "Tenacity Of The Millelith",
+  "nieche_artifact_set": ["None"],
+  "team_archetype": "Universal Buffer / Off-field Hydro",
 },
-"kokomi": {
-"bis_artifact_set": "Ocean-Hued Clam",
-"secondary_artifact_set": "Tenacity Of The Millelith",
-"nieche_artifact_set": ["Song Of Days Passed", "Maiden Beloved"],
-"team_archetype": "Healing Support / Hydro Driver",
+ "kokomi": {
+  "bis_artifact_set": "Ocean-Hued Clam",
+  "secondary_artifact_set": "Tenacity Of The Millelith",
+  "nieche_artifact_set": ["Song Of Days Passed", "Maiden Beloved"],
+  "team_archetype": "Healing Support / Hydro Driver",
 },
-"mona": {
-"bis_artifact_set": "Noblesse Oblige",
-"secondary_artifact_set": "Emblem Of Severed Fate",
-"nieche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
-"team_archetype": "Burst Support / Hydro Buffer",
+ "mona": {
+  "bis_artifact_set": "Noblesse Oblige",
+  "secondary_artifact_set": "Emblem Of Severed Fate",
+  "nieche_artifact_set": ["Scroll Of The Hero Of Cinder City", "Instructor", "Tenacity Of The Millelith"],
+  "team_archetype": "Burst Support / Hydro Buffer",
 },
 "
 
@@ -271,34 +271,51 @@ WEAPON_TIERS: Dict[str, Dict[str, str]] = {
         "f2p_weapon": "Debate Club",
         "niche_weapon": "Whiteblind",
     },
-    "gaming":{
-    "bis_weapon": "Fang Of The Mountain King",
-    "secondary_weapon": "Serpent's Spine",
-    "f2p_weapon": "Dragons Bane",
-    "nieche_weapon": "White Tassel",
+    "gaming": {
+        "bis_weapon": "Fang Of The Mountain King",
+        "secondary_weapon": "Serpent's Spine",
+        "f2p_weapon": "Dragons Bane",
+        "nieche_weapon": "White Tassel",
     },
 # ==========================================================
 # HYDRO
 # ==========================================================
 
-"barbra": {
-"bis_weapon": "Thrilling Tales Of Dragon Slayers",
-"secondary_weapon": "Prototype Amber",
-"f2p_weapon": "Favonius Codex",
-"nieche_weapon": "Favonius Codex",
+ "barbra": {
+    "bis_weapon": "Thrilling Tales Of Dragon Slayers",
+    "secondary_weapon": "Prototype Amber",
+    "f2p_weapon": "Favonius Codex",
+    "nieche_weapon": "Favonius Codex",
 },
-"candice": {
-"bis_weapon": "Favonius Lance",
-"secondary_weapon": "Dialouge Of The Desert Sages",
-"f2p_weapon": "Rightful Reward",
-"nieche_weapon": "Rightful Reward",
+ "candice": {
+    "bis_weapon": "Favonius Lance",
+    "secondary_weapon": "Dialouge Of The Desert Sages",
+    "f2p_weapon": "Rightful Reward",
+    "nieche_weapon": "Rightful Reward",
 },
-"tartaglia": {
-"bis_weapon": "Polar Star",
-"secondary_weapon": "Aqua Simularca",
-"f2p_weapon": "The Viridiscent Hunt",
-"nieche_weapon":  "Hamoyumi",
+ "tartaglia": {
+    "bis_weapon": "Polar Star",
+    "secondary_weapon": "Aqua Simularca",
+    "f2p_weapon": "The Viridiscent Hunt",
+    "nieche_weapon":  "Hamoyumi",
+},
+ "furina": {
+    "bis_weapon": "Splendor of Tranquil Waters",
+    "secondary_weapon": "Primodial Jade Cutter",
+    "f2p_weapon": ["Festering Desire", "Favonius Sword", "Fleuve Cendre Ferryman"],
+    "nieche_weapon": ["Wolf-Fang", "Key Of Khaj-Nisut",],
+ },
+  "kokomi": {
+     "bis_weapon": "Everlasting Moonglow",
+     "secondary_weapon": "Prototype Amber",
+     "f2p_weapon": ["Thrilling Tales of Dragon Slayers", "Favonius Codex"],
+     "nieche_weapon": ["Hokushin Ring", "Favonius Codex"],
+},
+ "mona": {
+    "bis_weapon": "A Thousand Floating Dreams",
+    "secondary_weapon": "Skyward Atlas",
+    "f2p_weapon": ["Protype Amber", "Favonius Codex", "The widsith", "Thrilling Tales of Dragon Slayers"],
+    "nieche_weapon": ["None"]
 },
 
-}
-    
+}    
