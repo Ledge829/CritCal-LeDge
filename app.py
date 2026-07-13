@@ -104,19 +104,32 @@ def rate_manual():
     if artifacts_text and not artifact_sets:
         artifact_sets = parse_artifact_sets_text(artifacts_text)
 
+    def _optional_float(key, default):
+        # Treats a missing key AND a blank string as "not provided" and
+        # falls back to default, instead of raising. BDFD (and similar
+        # no-code bot builders) often quote every field as a JSON string
+        # for safety, so an unfilled optional slash-command option comes
+        # through as "" rather than being omitted entirely -- without
+        # this, float("") would raise and reject an otherwise-valid
+        # request just because the user skipped an optional stat.
+        value = body.get(key, default)
+        if value is None or (isinstance(value, str) and value.strip() == ""):
+            return default
+        return float(value)
+
     try:
         result = rate_build(
             character=body["character"],
             crit_rate=float(body["crit_rate"]),
             crit_dmg=float(body["crit_dmg"]),
             atk=float(body["atk"]),
-            hp=float(body.get("hp", 0)),
-            defense=float(body.get("def", 0)),
-            elemental_mastery=float(body.get("elemental_mastery", 0)),
-            energy_recharge=float(body.get("energy_recharge", 100)),
+            hp=_optional_float("hp", 0),
+            defense=_optional_float("def", 0),
+            elemental_mastery=_optional_float("elemental_mastery", 0),
+            energy_recharge=_optional_float("energy_recharge", 100),
             substat_totals=body.get("substats", {}),
-            character_scaling=body.get("character_scaling"),
-            ideal_crit_ratio=float(body["ideal_crit_ratio"]) if "ideal_crit_ratio" in body else None,
+            character_scaling=body.get("character_scaling") or None,
+            ideal_crit_ratio=_optional_float("ideal_crit_ratio", None),
             include_relative_damage=bool(body.get("include_relative_damage", False)),
             weapon=weapon,
             artifact_sets=artifact_sets,
@@ -178,4 +191,4 @@ def rate_uid():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-            
+    
