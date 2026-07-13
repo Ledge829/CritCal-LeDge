@@ -912,7 +912,6 @@ CHARACTER_ALIASES: Dict[str, str] = {
     "aether": "traveler",
     "lumine": "traveler",
     "mc": "traveler",
-    "maincharacter": "traveler",
     "anemomc": "anemotraveler",
     "geomc": "geotraveler",
     "electromc": "electrotraveler",
@@ -1068,6 +1067,50 @@ NEW_CHARACTER_ALIASES: Dict[str, str] = {
     "prune": "prune",
 }
 
+# ==========================================================
+# MISSING CHARACTERS -- found via cross-referencing build_data.py
+# against this file: these five were referenced in build_data.py but
+# didn't exist anywhere in CHARACTER_CONFIGS or CHARACTER_ALIASES (not
+# even as an alias) -- an outright gap in the original character list,
+# not a typo. Xiao and Zhongli are long-established; Dahlia, Escoffier,
+# and Iansan were verified live since they're newer releases.
+# Appended separately, same additive pattern as NEW_CHARACTER_CONFIGS.
+# ==========================================================
+
+MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
+    "xiao": {
+        "scaling": "atk",
+        "build_title": "Anemo Plunge Hypercarry",
+        "benchmarks": {"atk": 2200.0, "energy_recharge": 130.0},
+    },
+    "zhongli": {
+        "scaling": "hp",
+        "high_er_allowed": True,
+        "build_title": "Geo Shield Support / Off-field Utility",
+        "benchmarks": {"hp": 40000.0, "energy_recharge": 200.0},
+    },
+    "dahlia": {
+        "scaling": "hp",
+        "high_er_allowed": True,
+        "build_title": "Hydro Shield Support / ATK SPD Buffer",
+        "benchmarks": {"hp": 40000.0, "energy_recharge": 200.0},
+    },
+    "escoffier": {
+        "scaling": "atk",
+        "high_er_allowed": True,
+        "build_title": "Off-field Cryo Support / Healer / RES Shred",
+        "benchmarks": {"atk": 1800.0, "energy_recharge": 200.0},
+    },
+    "iansan": {
+        "scaling": "atk",
+        "high_er_allowed": True,
+        "build_title": "Off-field ATK Buffer / Support",
+        "benchmarks": {"atk": 1800.0, "energy_recharge": 180.0},
+    },
+}
+
+CHARACTER_CONFIGS.update(MISSING_CHARACTER_CONFIGS)
+
 # Merge new characters into the main lookup tables (append-only, additive).
 CHARACTER_CONFIGS.update(NEW_CHARACTER_CONFIGS)
 CHARACTER_ALIASES.update(NEW_CHARACTER_ALIASES)
@@ -1086,4 +1129,33 @@ try:
 except ImportError:
     # weapon_data.py missing entirely shouldn't break character lookups --
     # weapon_type/recommended_weapons will just be absent from configs.
+    pass
+
+# ==========================================================
+# BUILD DATA -- curated BiS/secondary/f2p/niche weapon and artifact
+# picks, plus a short team/build archetype guess per character. Lives in
+# its own file (build_data.py) and is merged in here the same additive
+# way as weapon_data.py above: characters not yet covered are simply
+# left without these extra fields (get_character_config().get(...)
+# everywhere downstream, so nothing breaks for uncovered characters).
+# This is deliberately a SEPARATE file/merge step from weapon_data.py --
+# it never touches weapon_data.py's existing entries, so filling in
+# element after element here carries zero risk to what's already there.
+# ==========================================================
+try:
+    from build_data import ARTIFACT_DATA, WEAPON_TIERS
+    for _char_key, _artifact_info in ARTIFACT_DATA.items():
+        if _char_key in CHARACTER_CONFIGS:
+            CHARACTER_CONFIGS[_char_key].update(_artifact_info)
+        else:
+            CHARACTER_CONFIGS[_char_key] = {**DEFAULT_CHARACTER_CONFIG, **_artifact_info}
+    for _char_key, _weapon_tier_info in WEAPON_TIERS.items():
+        if _char_key in CHARACTER_CONFIGS:
+            CHARACTER_CONFIGS[_char_key].update(_weapon_tier_info)
+        else:
+            CHARACTER_CONFIGS[_char_key] = {**DEFAULT_CHARACTER_CONFIG, **_weapon_tier_info}
+except ImportError:
+    # build_data.py missing entirely (e.g. not yet added to this repo)
+    # shouldn't break character lookups -- BiS/secondary/f2p/niche and
+    # team_archetype will just be absent from configs.
     pass
