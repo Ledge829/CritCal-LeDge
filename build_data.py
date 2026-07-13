@@ -566,7 +566,75 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "niche_artifact_sets": ["Shimenawa's Reminiscence", "Golden Troupe", "Echoes of an Offering", "Scroll of the Hero of Cinder City", "Desert Pavilion Chronicle", "Obsidian Codex"],
     "team_archetype": "Cryo Hypercarry / Melt DPS / Freeze DPS",
     },
-           
+# ==========================================================
+# GEO  
+# ==========================================================
+    "albedo": {
+    "bis_artifact_set": "Golden Troupe",
+    "secondary_artifact_set": "Husk of Opulent Dreams",
+    "niche_artifact_sets": ["Scroll of the Hero of Cinder City", "Archaic Petra", "Noblesse Oblige", "Tenacity of the Millelith", "Emblem of Severed Fate", "Obsidian Codex"],
+    "team_archetype": "Off-Field Geo DPS / Mono Geo / Geo Support / Quickswap",
+    }, 
+     "chiori": {
+    "bis_artifact_set": "Golden Troupe",
+    "secondary_artifact_set": "Husk of Opulent Dreams",
+    "niche_artifact_sets": ["Scroll of the Hero of Cinder City", "Archaic Petra", "Gladiator's Finale", "Marechaussee Hunter", "Obsidian Codex", "Shimenawa's Reminiscence"],
+    "team_archetype": "Off-Field Geo DPS / Mono Geo / Geo Hypercarry / Quickswap",
+    },
+     "gorou": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Noblesse Oblige",
+    "niche_artifact_sets": ["The Exile", "Husk of Opulent Dreams", "Emblem of Severed Fate", "Archaic Petra", "Instructor", "Tenacity of the Millelith"],
+    "team_archetype": "Geo Buffer / Mono Geo Support / DEF Buffer / Battery",
+    },
+     "itto": {
+    "bis_artifact_set": "Husk of Opulent Dreams",
+    "secondary_artifact_set": "Nighttime Whispers in the Echoing Woods",
+    "niche_artifact_sets": ["Golden Troupe", "Gladiator's Finale", "Scroll of the Hero of Cinder City", "Archaic Petra", "Marechaussee Hunter", "Obsidian Codex"],
+    "team_archetype": "Geo Hypercarry / Mono Geo / DEF Scaling DPS",
+    },
+     "kachina": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Hero of Cinder City",
+    "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Husk of Opulent Dreams", "Golden Troupe", "Instructor", "Tenacity of the Millelith"],
+    "team_archetype": "Geo Support / Nightsoul Support / Crystalize Support / Quickswap",
+    },
+     "navia": {
+    "bis_artifact_set": "Nighttime Whispers in the Echoing Woods",
+    "secondary_artifact_set": "Golden Troupe",
+    "niche_artifact_sets": ["Gladiator's Finale", "Husk of Opulent Dreams", "Scroll of the Hero of Cinder City", "Archaic Petra", "Marechaussee Hunter", "Obsidian Codex"],
+    "team_archetype": "Geo Hypercarry / Crystalize DPS / Quickswap",
+    },
+     "ningguang": {
+    "bis_artifact_set": "Nighttime Whispers in the Echoing Woods",
+    "secondary_artifact_set": "Archaic Petra",
+    "niche_artifact_sets": ["Golden Troupe", "Scroll of the Hero of Cinder City", "Gladiator's Finale", "Marechaussee Hunter", "Shimenawa's Reminiscence", "Obsidian Codex"],
+    "team_archetype": "Geo Hypercarry / Geo DPS / Crystalize DPS / Quickswap",
+    },
+     "noelle": {
+    "bis_artifact_set": "Husk of Opulent Dreams",
+    "secondary_artifact_set": "Nighttime Whispers in the Echoing Woods",
+    "niche_artifact_sets": ["Gladiator's Finale", "Golden Troupe", "Archaic Petra", "Scroll of the Hero of Cinder City", "Marechaussee Hunter", "Obsidian Codex"],
+    "team_archetype": "Geo Hypercarry / DEF Scaling DPS / Healer / Mono Geo",
+    },
+     "xilonen": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Archaic Petra",
+    "niche_artifact_sets": ["Noblesse Oblige", "Golden Troupe", "Tenacity of the Millelith", "Instructor", "Husk of Opulent Dreams", "Song of Days Past"],
+    "team_archetype": "Geo Support / RES Shred Support / Crystalize Support / Quickswap",
+    },
+     "yunjin": {
+    "bis_artifact_set": "Husk of Opulent Dreams",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Emblem of Severed Fate", "The Exile", "Instructor", "Tenacity of the Millelith"],
+    "team_archetype": "Normal Attack Buffer / Geo Support / DEF Support / Quickswap",
+    },
+     "zhongli": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Tenacity of the Millelith",
+    "niche_artifact_sets": ["Archaic Petra", "Noblesse Oblige", "Deepwood Memories", "Instructor", "Golden Troupe", "Emblem of Severed Fate"],
+    "team_archetype": "Universal Shield Support / Geo Support / Burst Support / RES Shred",
+    },
 }
 
 
@@ -1076,5 +1144,74 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Flowing Purity", "The Widsith", "Ballad of the Boundless Blue", "Mappa Mare", "Favonius Codex", "Magic Guide", "Fruit of Fulfillment"],
     "niche_weapon": ["Skyward Atlas", "Kagura's Verity", "Starcaller's Watch", "Sunny Morning Sleep-In", "Memory of Dust", "Surf's Up", "Tulaytullah's Remembrance"],
     },
-      
+    
+# ==========================================================
+# GEO
+# ==========================================================
+    "albedo": {
+    "bis_weapon": "Peak Patrol Song",
+    "secondary_weapon": "Cinnabar Spindle",
+    "f2p_weapon": ["Harbinger of Dawn", "Finale of the Deep", "Amenoma Kageuchi", "Fleuve Cendre Ferryman", "Sapwood Blade", "Skyrider Sword", "Prototype Rancour"],
+    "niche_weapon": ["Uraku Misugiri", "Primordial Jade Cutter", "Mistsplitter Reforged", "Absolution", "Light of Foliar Incision", "Skyward Blade", "Freedom-Sworn"],
+    },
+     "chiori": {
+    "bis_weapon": "Uraku Misugiri",
+    "secondary_weapon": "Primordial Jade Cutter",
+    "f2p_weapon": ["Harbinger of Dawn", "Finale of the Deep", "Amenoma Kageuchi", "Fleuve Cendre Ferryman", "Sapwood Blade", "Skyrider Sword", "Prototype Rancour"],
+    "niche_weapon": ["Peak Patrol Song", "Mistsplitter Reforged", "Absolution", "Light of Foliar Incision", "Skyward Blade", "Freedom-Sworn", "Haran Geppaku Futsu"],
+    },
+     "gorou": {
+    "bis_weapon": "Elegy for the End",
+    "secondary_weapon": "Favonius Warbow",
+    "f2p_weapon": ["Favonius Warbow", "Sacrificial Bow", "End of the Line", "Fading Twilight", "Prototype Crescent", "Messenger", "Recurve Bow"],
+    "niche_weapon": ["Polar Star", "Skyward Harp", "The Stringless", "Aqua Simulacra", "Hunter's Path", "The First Great Magic", "Astral Vulture's Crimson Plumage"],
+    },
+     "itto": {
+    "bis_weapon": "Redhorn Stonethresher",
+    "secondary_weapon": "Beacon of the Reed Sea",
+    "f2p_weapon": ["Whiteblind", "Ultimate Overlord's Mega Magic Sword", "Earth Shaker", "Prototype Archaic", "Tidal Shadow", "Mailed Flower", "Favonius Greatsword"],
+    "niche_weapon": ["Serpent Spine", "Wolf's Gravestone", "Verdict", "Skyward Pride", "The Unforged", "Talking Stick", "Akuoumaru"],
+    },
+     "kachina": {
+    "bis_weapon": "Mountain-Bracing Bolt",
+    "secondary_weapon": "Favonius Lance",
+    "f2p_weapon": ["Rightful Reward", "Prototype Starglitter", "Dialogues of the Desert Sages", "Black Tassel", "Missive Windspear", "Moonpiercer", "Kitain Cross Spear"],
+    "niche_weapon": ["Engulfing Lightning", "Skyward Spine", "Staff of Homa", "Calamity Queller", "Lumidouce Elegy", "Staff of the Scarlet Sands", "Vortex Vanquisher"],
+    },
+     "navia": {
+    "bis_weapon": "Verdict",
+    "secondary_weapon": "Beacon of the Reed Sea",
+    "f2p_weapon": ["Ultimate Overlord's Mega Magic Sword", "Tidal Shadow", "Prototype Archaic", "Earth Shaker", "Mailed Flower", "Favonius Greatsword", "Whiteblind"],
+    "niche_weapon": ["Wolf's Gravestone", "Redhorn Stonethresher", "Skyward Pride", "The Unforged", "Serpent Spine", "Talking Stick", "Akuoumaru"],
+    },
+     "ningguang": {
+    "bis_weapon": "Lost Prayer to the Sacred Winds",
+    "secondary_weapon": "Sunny Morning Sleep-In",
+    "f2p_weapon": ["The Widsith", "Flowing Purity", "Ballad of the Boundless Blue", "Mappa Mare", "Favonius Codex", "Magic Guide", "Fruit of Fulfillment"],
+    "niche_weapon": ["Cashflow Supervision", "Skyward Atlas", "Kagura's Verity", "Memory of Dust", "Starcaller's Watch", "Surf's Up", "Tulaytullah's Remembrance"],
+    },
+     "noelle": {
+    "bis_weapon": "Redhorn Stonethresher",
+    "secondary_weapon": "Serpent Spine",
+    "f2p_weapon": ["Whiteblind", "Prototype Archaic", "Ultimate Overlord's Mega Magic Sword", "Earth Shaker", "Tidal Shadow", "Mailed Flower", "Favonius Greatsword"],
+    "niche_weapon": ["Beacon of the Reed Sea", "Wolf's Gravestone", "Verdict", "Skyward Pride", "The Unforged", "Talking Stick", "Akuoumaru"],
+    },
+     "xilonen": {
+    "bis_weapon": "Peak Patrol Song",
+    "secondary_weapon": "Freedom-Sworn",
+    "f2p_weapon": ["Favonius Sword", "Fleuve Cendre Ferryman", "Sapwood Blade", "Amenoma Kageuchi", "Skyrider Sword", "Harbinger of Dawn", "Finale of the Deep"],
+    "niche_weapon": ["Uraku Misugiri", "Primordial Jade Cutter", "Skyward Blade", "Absolution", "Mistsplitter Reforged", "Light of Foliar Incision", "Key of Khaj-Nisut"],
+    },
+     "yunjin": {
+    "bis_weapon": "Engulfing Lightning",
+    "secondary_weapon": "Favonius Lance",
+    "f2p_weapon": ["Prototype Starglitter", "Rightful Reward", "Dialogues of the Desert Sages", "Missive Windspear", "Black Tassel", "Kitain Cross Spear", "Moonpiercer"],
+    "niche_weapon": ["Skyward Spine", "Staff of Homa", "Calamity Queller", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Primordial Jade Winged-Spear", "Vortex Vanquisher"],
+    },
+     "zhongli": {
+    "bis_weapon": "Staff of Homa",
+    "secondary_weapon": "Favonius Lance",
+    "f2p_weapon": ["Black Tassel", "Rightful Reward", "Prototype Starglitter", "Dialogues of the Desert Sages", "Missive Windspear", "Kitain Cross Spear", "Moonpiercer"],
+    "niche_weapon": ["Engulfing Lightning", "Calamity Queller", "Skyward Spine", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Primordial Jade Winged-Spear", "Vortex Vanquisher"],
+    },
 }
