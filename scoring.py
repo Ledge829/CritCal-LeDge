@@ -240,20 +240,31 @@ def build_recommendations(
 
     return recs
 
-def score_weapon_fit(weapon: Optional[dict], recommended_weapons: Optional[List[str]]) -> Tuple[Optional[float], Optional[str]]:
+def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tuple[Optional[float], Optional[str], Optional[str]]:
     """
     Scores how well the equipped weapon fits the character, using the
-    curated 2-weapon recommended_weapons list from weapons_data.py.
+    tiered bis_weapon / secondary_weapon / f2p_weapon / niche_weapon
+    picks from build_data.py (merged into char_config by characters.py).
+    bis_weapon and secondary_weapon are single strings (one best pick
+    each); f2p_weapon and niche_weapon are LISTS, since there are often
+    several reasonable free or situational options worth crediting.
 
-    IMPORTANT FAIRNESS NOTE: our curated list only has ~2 entries per
-    character out of dozens of viable weapons in the game. An unmatched
-    weapon is NOT penalized -- it receives a neutral score, since it may
-    well be a perfectly good (just uncatalogued) choice. This is meant to
-    reward known-optimal picks, not punish everything else.
+    IMPORTANT FAIRNESS NOTE: our curated tiers only cover a handful of
+    weapons per character out of dozens of viable options in the game.
+    An unmatched weapon is NOT penalized -- it receives a neutral score,
+    since it may well be a perfectly good (just uncatalogued) choice.
+    This is meant to reward known-optimal picks, not punish everything
+    else. Falls back to a flat neutral score if this character has no
+    build_data.py entry at all yet (char_config is empty/missing tiers).
+
+    Returns (score, note, tier) where tier is one of "BiS", "Secondary",
+    "F2P", "Niche", or "Unlisted" -- exposed in rate_build()'s output so
+    BDFD can show a badge without re-deriving it.
     """
     if not weapon or not weapon.get("name"):
-        return None, None
+        return None, None, None
 
+    config = char_config or {}
     name = str(weapon["name"]).strip().lower()
     refinement = weapon.get("refinement")
     try:
@@ -263,45 +274,91 @@ def score_weapon_fit(weapon: Optional[dict], recommended_weapons: Optional[List[
     refinement = max(1, min(5, refinement))
     refinement_bonus = (refinement - 1) * 2  # +0 to +8 across R1-R5
 
-    recommended = [w.lower() for w in (recommended_weapons or [])]
+    bis = str(config.get("bis_weapon") or "").strip().lower()
+    secondary = str(config.get("secondary_weapon") or "").strip().lower()
+    f2p_list = [str(w).strip().lower() for w in (config.get("f2p_weapon") or []) if w]
+    niche_list = [str(w).strip().lower() for w in (config.get("niche_weapon") or []) if w]
 
-    if name in recommended:
-        score = min(98.0, 90.0 + refinement_bonus)
-        note = "This is one of CritiCal's curated top weapon picks for this character."
+    if bis and name == bis:
+        score = min(99.0, 96.0 + refinement_bonus)
+        tier = "BiS"
+        note = "This is CritCal's Best-in-Slot weapon pick for this character."
+    elif secondary and name == secondary:
+        score = min(94.0, 87.0 + refinement_bonus)
+        tier = "Secondary"
+        note = "A strong secondary weapon choice for this character."
+    elif name in f2p_list:
+        score = min(85.0, 76.0 + refinement_bonus)
+        tier = "F2P"
+        note = "A solid free-to-play weapon pick for this character."
+    elif name in niche_list:
+        score = min(85.0, 74.0 + refinement_bonus)
+        tier = "Niche"
+        note = "A situational, team-comp-dependent pick for this character -- a valid choice in the right setup."
     else:
         score = min(80.0, 65.0 + refinement_bonus)
+        tier = "Unlisted"
         note = (
-            "This weapon isn't on CritiCal's short curated list for this character (which only covers "
-            "~2 options out of many viable weapons), so this isn't a mark against it."
+            "This weapon isn't on CritCal's curated list for this character (which only tracks a handful "
+            "of options out of many viable weapons), so this isn't a mark against it."
         )
 
-    return round(score, 1), note
+    return round(score, 1), note, tier
 
 
-def score_artifact_set_fit(artifact_sets: Optional[List[dict]]) -> Tuple[Optional[float], Optional[str], Optional[bool]]:
+def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Optional[dict] = None) -> Tuple[Optional[float], Optional[str], Optional[bool], Optional[str]]:
     """
-    Scores artifact set STRUCTURE only (full 4pc bonus vs 2pc+2pc vs
-    fragmented) -- deliberately does NOT judge which specific set is
-    "best" for a character, since the ideal set is often team-comp
-    dependent rather than a single universal answer, unlike weapons.
+    Scores artifact set fit two ways at once:
+      1. STRUCTURE -- full 4pc bonus vs 2pc+2pc hybrid vs fragmented.
+      2. TIER -- if a 4pc bonus is active, whether it matches this
+         character's bis_artifact_set / secondary_artifact_set /
+         niche_artifact_sets from build_data.py.
+
+    Falls back to structure-only scoring if the character has no
+    build_data.py entry yet (char_config missing/empty) -- same
+    fairness guarantee as score_weapon_fit: no data never means a
+    penalty, just a flatter, less-specific score.
+
+    Returns (score, note, has_four_piece, tier). tier is one of "BiS",
+    "Secondary", "Niche", "Unlisted", "Hybrid", or "Fragmented".
     """
     if not artifact_sets:
-        return None, None, None
+        return None, None, None, None
+
+    config = char_config or {}
+    bis = str(config.get("bis_artifact_set") or "").strip().lower()
+    secondary = str(config.get("secondary_artifact_set") or "").strip().lower()
+    niche_sets = [str(s).strip().lower() for s in (config.get("niche_artifact_sets") or []) if s]
 
     has_four_piece = any(s.get("count", 0) >= 4 for s in artifact_sets)
     two_piece_count = sum(1 for s in artifact_sets if s.get("count", 0) >= 2)
+    four_piece_names = [str(s["name"]).strip().lower() for s in artifact_sets if s.get("count", 0) >= 4]
 
     if has_four_piece:
-        score = 90.0
-        note = "Running a complete 4-piece artifact set bonus."
+        matched_name = four_piece_names[0]
+        if bis and matched_name == bis:
+            score, tier = 96.0, "BiS"
+            note = "Running CritCal's Best-in-Slot 4-piece set for this character."
+        elif secondary and matched_name == secondary:
+            score, tier = 88.0, "Secondary"
+            note = "Running a strong secondary 4-piece set for this character."
+        elif matched_name in niche_sets:
+            score, tier = 78.0, "Niche"
+            note = "Running a situational, team-comp-dependent 4-piece set -- a valid choice in the right setup."
+        else:
+            score, tier = 68.0, "Unlisted"
+            note = (
+                "Running a complete 4-piece set bonus that isn't on CritCal's curated list for this "
+                "character -- not necessarily a bad choice, just uncatalogued."
+            )
     elif two_piece_count >= 2:
-        score = 65.0
+        score, tier = 60.0, "Hybrid"
         note = "Running a 2pc+2pc hybrid setup -- a valid choice for some team comps, though usually lower personal power than a full 4-piece bonus."
     else:
-        score = 40.0
+        score, tier = 40.0, "Fragmented"
         note = "Artifact pieces don't form a coherent 2pc or 4pc set bonus -- consolidating into at least a matching 2pc/2pc setup is usually a straightforward upgrade."
 
-    return score, note, has_four_piece
+    return score, note, has_four_piece, tier
 
 
 def compute_overall_score(components: List[Tuple[float, float]]) -> float:
@@ -438,15 +495,21 @@ def rate_build(
     resolved_scaling = character_scaling or char_config.get("scaling", "atk")
     resolved_ratio_target = ideal_crit_ratio if ideal_crit_ratio is not None else char_config.get("crit_ratio_target", CRIT_RATIO_TARGET)
     high_er_allowed = char_config.get("high_er_allowed", False)
-    build_title = char_config.get("build_title", "Standard Build Archetype")
+    base_build_title = char_config.get("build_title", "Standard Build Archetype")
     ignore_high_ratio = char_config.get("ignore_high_ratio_warning", False)
+
+    # If build_data.py has a team_archetype guess for this character, fold
+    # it into the displayed build_title so BDFD gets it "for free" without
+    # a separate field to wire up. Falls back to the plain base title for
+    # any character build_data.py hasn't covered yet -- never blank/broken.
+    team_archetype = char_config.get("team_archetype")
+    build_title = f"{base_build_title} -- {team_archetype}" if team_archetype else base_build_title
 
     crit_score, crit_note = score_crit_ratio(c_rate, c_dmg, target_ratio=resolved_ratio_target, ignore_high_ratio_warning=ignore_high_ratio)
     substat_score, substat_note, equivalent_rolls = score_substat_efficiency(clean_substats, resolved_scaling)
 
-    recommended_weapons = char_config.get("recommended_weapons")
-    weapon_score, weapon_fit_note = score_weapon_fit(weapon, recommended_weapons)
-    artifact_set_score, artifact_set_note, has_four_piece = score_artifact_set_fit(artifact_sets)
+    weapon_score, weapon_fit_note, weapon_tier = score_weapon_fit(weapon, char_config)
+    artifact_set_score, artifact_set_note, has_four_piece, artifact_tier = score_artifact_set_fit(artifact_sets, char_config)
 
     # Base weights sum to 1.0 when all four components are present. Crit
     # and substat keep EXACTLY their original 0.55/0.45 relative ratio
@@ -512,7 +575,7 @@ def rate_build(
             "No 4-piece artifact set bonus is currently active. Most builds benefit significantly "
             "from a full 4-piece set unless intentionally running a 2pc+2pc hybrid for a specific reason."
         )
-    if weapon and weapon.get("name") and str(weapon["name"]).strip().lower() in [w.lower() for w in (recommended_weapons or [])]:
+    if weapon_tier in ("BiS", "Secondary"):
         try:
             current_refine = int(weapon.get("refinement") or 1)
         except (TypeError, ValueError):
@@ -552,6 +615,12 @@ def rate_build(
         "scoring_components_used": scoring_components_used,
         "weapon_fit_score": weapon_score,
         "artifact_set_fit_score": artifact_set_score,
+        # "BiS" / "Secondary" / "F2P" / "Niche" / "Unlisted" (weapon) and
+        # "BiS" / "Secondary" / "Niche" / "Unlisted" / "Hybrid" /
+        # "Fragmented" (artifacts) -- None if that gear wasn't supplied.
+        # Lets BDFD show a badge without re-deriving tier from the score.
+        "weapon_tier": weapon_tier,
+        "artifact_tier": artifact_tier,
         # Full nested data, for anything that can traverse it
         "weapon": weapon,
         "artifact_sets": artifact_sets or [],
