@@ -455,9 +455,118 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "team_archetype": "Healer / Dendro Support / Bloom / Hyperbloom / Burgeon / Quicken",
     },
      
-     
-     
-  
+# ==========================================================
+# CRYO
+# ==========================================================
+    "ayaka": {
+    "bis_artifact_set": "Blizzard Strayer",
+    "secondary_artifact_set": "Marechaussee Hunter",
+    "niche_artifact_sets": ["Golden Troupe", "Gladiator's Finale", "Shimenawa's Reminiscence", "Echoes of an Offering", "Scroll of the Hero of Cinder City", "Obsidian Codex"],
+    "team_archetype": "Freeze Hypercarry / Cryo Hypercarry / Mono Cryo",
+    },
+     "charlotte": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Noblesse Oblige",
+    "niche_artifact_sets": ["Song of Days Past", "Ocean-Hued Clam", "Tenacity of the Millelith", "Maiden Beloved", "Blizzard Strayer", "Emblem of Severed Fate"],
+    "team_archetype": "Healer / Cryo Support / Freeze Support / Quickswap",
+    },
+     "chongyun": {
+    "bis_artifact_set": "Blizzard Strayer",
+    "secondary_artifact_set": "Emblem of Severed Fate",
+    "niche_artifact_sets": ["Noblesse Oblige", "Gladiator's Finale", "Golden Troupe", "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence", "Gilded Dreams"],
+    "team_archetype": "Cryo Burst DPS / Freeze Support / Melt Support / Cryo Infusion",
+    },
+     "citlali": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Gilded Dreams",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Golden Troupe", "Deepwood Memories", "Noblesse Oblige", "Instructor", "Flower of Paradise Lost"],
+    "team_archetype": "Cryo Support / Melt Support / Freeze Support / Shield Support",
+    },
+     "dahlia": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Noblesse Oblige",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Song of Days Past", "Ocean-Hued Clam", "Instructor", "Maiden Beloved", "The Exile"],
+    "team_archetype": "Cryo Support / Healer / Shield Support / Freeze Support",
+    },
+     "diona": {
+    "bis_artifact_set": "Noblesse Oblige",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Instructor", "Maiden Beloved", "Song of Days Past", "Ocean-Hued Clam", "The Exile"],
+    "team_archetype": "Cryo Healer / Shield Support / Freeze Support / Battery",
+    },
+     "escoffier": {
+    "bis_artifact_set": "Golden Troupe",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Blizzard Strayer", "Noblesse Oblige", "Tenacity of the Millelith", "Emblem of Severed Fate", "Gilded Dreams", "Deepwood Memories"],
+    "team_archetype": "Off-Field Cryo DPS / Freeze Support / Cryo RES Shred / Quickswap",
+    },
+     "eula": {
+    "bis_artifact_set": "Pale Flame",
+    "secondary_artifact_set": "Marechaussee Hunter",
+    "niche_artifact_sets": ["Bloodstained Chivalry", "Gladiator's Finale", "Scroll of the Hero of Cinder City", "Golden Troupe", "Shimenawa's Reminiscence", "Blizzard Strayer"],
+    "team_archetype": "Physical Hypercarry / Cryo Hypercarry / Superconduct",
+    },
+     "freminet": {
+    "bis_artifact_set": "Pale Flame",
+    "secondary_artifact_set": "Blizzard Strayer",
+    "niche_artifact_sets": ["Golden Troupe", "Gladiator's Finale", "Bloodstained Chivalry", "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence", "Marechaussee Hunter"],
+    "team_archetype": "Physical DPS / Cryo DPS / Shatter / Freeze",
+    },
+     "ganyu": {
+    "bis_artifact_set": "Blizzard Strayer",
+    "secondary_artifact_set": "Wanderer's Troupe",
+    "niche_artifact_sets": ["Shimenawa's Reminiscence", "Golden Troupe", "Marechaussee Hunter", "Scroll of the Hero of Cinder City", "Gilded Dreams", "Obsidian Codex"],
+    "team_archetype": "Freeze Hypercarry / Melt Hypercarry / Charged Shot DPS",
+    },
+     "kaeya": {
+    "bis_artifact_set": "Blizzard Strayer",
+    "secondary_artifact_set": "Emblem of Severed Fate",
+    "niche_artifact_sets": ["Noblesse Oblige", "Golden Troupe", "Gladiator's Finale", "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence", "Marechaussee Hunter"],
+    "team_archetype": "Cryo DPS / Freeze Support / Melt DPS / Quickswap",
+    },
+     "layla": {
+    "bis_artifact_set": "Tenacity of the Millelith",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Noblesse Oblige", "Blizzard Strayer", "Golden Troupe", "Song of Days Past", "Emblem of Severed Fate", "Ocean-Hued Clam"],
+    "team_archetype": "Shield Support / Freeze Support / Cryo Support / Quickswap",
+    },
+     "mika": {
+    "bis_artifact_set": "Noblesse Oblige",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Song of Days Past", "Ocean-Hued Clam", "Tenacity of the Millelith", "The Exile", "Instructor", "Maiden Beloved"],
+    "team_archetype": "Physical Support / Healer / ATK Speed Support / Cryo Battery",
+    },
+     "qiqi": {
+    "bis_artifact_set": "Ocean-Hued Clam",
+    "secondary_artifact_set": "Song of Days Past",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Noblesse Oblige", "Maiden Beloved", "Scroll of the Hero of Cinder City", "Instructor", "The Exile"],
+    "team_archetype": "Healer / Cryo Support / Physical Support / Freeze Support",
+    },
+     "rosaria": {
+    "bis_artifact_set": "Blizzard Strayer",
+    "secondary_artifact_set": "Emblem of Severed Fate",
+    "niche_artifact_sets": ["Noblesse Oblige", "Golden Troupe", "Scroll of the Hero of Cinder City", "Gladiator's Finale", "Gilded Dreams", "Marechaussee Hunter"],
+    "team_archetype": "Cryo DPS / Freeze Support / Melt Support / Physical Support",
+    },
+     "shenhe": {
+    "bis_artifact_set": "Noblesse Oblige",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Blizzard Strayer", "Tenacity of the Millelith", "Emblem of Severed Fate", "Golden Troupe", "The Exile", "Instructor"],
+    "team_archetype": "Cryo Buffer / Cryo Support / Freeze Support / Mono Cryo",
+    },
+     "skirk": {
+    "bis_artifact_set": "Finale of the Deep Galleries",
+    "secondary_artifact_set": "Marechaussee Hunter",
+    "niche_artifact_sets": ["Blizzard Strayer", "Golden Troupe", "Gladiator's Finale", "Shimenawa's Reminiscence", "Obsidian Codex", "Scroll of the Hero of Cinder City"],
+    "team_archetype": "Cryo Hypercarry / Freeze DPS / Cryo Quickswap",
+    },
+     "wriothesley": {
+    "bis_artifact_set": "Marechaussee Hunter",
+    "secondary_artifact_set": "Blizzard Strayer",
+    "niche_artifact_sets": ["Shimenawa's Reminiscence", "Golden Troupe", "Echoes of an Offering", "Scroll of the Hero of Cinder City", "Desert Pavilion Chronicle", "Obsidian Codex"],
+    "team_archetype": "Cryo Hypercarry / Melt DPS / Freeze DPS",
+    },
+           
 }
 
 
@@ -855,5 +964,117 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Rightful Reward", "Kitain Cross Spear", "Black Tassel", "Prototype Starglitter", "Missive Windspear", "Moonpiercer", "Dragon's Bane"],
     "niche_weapon": ["Staff of Homa", "Engulfing Lightning", "Skyward Spine", "Calamity Queller", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Vortex Vanquisher"],
     },
-  
+     
+# ==========================================================
+# CRYO  
+# ==========================================================
+    "ayaka": {
+    "bis_weapon": "Mistsplitter Reforged",
+    "secondary_weapon": "Haran Geppaku Futsu",
+    "f2p_weapon": ["Amenoma Kageuchi", "Finale of the Deep", "Fleuve Cendre Ferryman", "The Black Sword", "Harbinger of Dawn", "Sapwood Blade", "Skyrider Sword"],
+    "niche_weapon": ["Absolution", "Primordial Jade Cutter", "Light of Foliar Incision", "Uraku Misugiri", "Skyward Blade", "Summit Shaper", "Freedom-Sworn"],
+    },
+     "charlotte": {
+    "bis_weapon": "Favonius Codex",
+    "secondary_weapon": "Prototype Amber",
+    "f2p_weapon": ["Prototype Amber", "Fruit of Fulfillment", "Thrilling Tales of Dragon Slayers", "Ballad of the Boundless Blue", "Flowing Purity", "Magic Guide", "Favonius Codex"],
+    "niche_weapon": ["Skyward Atlas", "Starcaller's Watch", "Sunny Morning Sleep-In", "Everlasting Moonglow", "Jadefall's Splendor", "Lost Prayer to the Sacred Winds", "Memory of Dust"],
+    },
+     "chongyun": {
+    "bis_weapon": "Beacon of the Reed Sea",
+    "secondary_weapon": "Wolf's Gravestone",
+    "f2p_weapon": ["Prototype Archaic", "Tidal Shadow", "Ultimate Overlord's Mega Magic Sword", "Earth Shaker", "Mailed Flower", "Favonius Greatsword", "Sacrificial Greatsword"],
+    "niche_weapon": ["Serpent Spine", "Skyward Pride", "Redhorn Stonethresher", "Verdict", "The Unforged", "Talking Stick", "Akuoumaru"],
+    },
+     "citlali": {
+    "bis_weapon": "Starcaller's Watch",
+    "secondary_weapon": "A Thousand Floating Dreams",
+    "f2p_weapon": ["Sacrificial Fragments", "Mappa Mare", "Fruit of Fulfillment", "Thrilling Tales of Dragon Slayers", "Prototype Amber", "Magic Guide", "Favonius Codex"],
+    "niche_weapon": ["Sunny Morning Sleep-In", "Lost Prayer to the Sacred Winds", "Skyward Atlas", "Surf's Up", "Kagura's Verity", "Memory of Dust", "Jadefall's Splendor"],
+    },
+     "dahlia": {
+    "bis_weapon": "Favonius Sword",
+    "secondary_weapon": "Freedom-Sworn",
+    "f2p_weapon": ["Favonius Sword", "Sacrificial Sword", "Fleuve Cendre Ferryman", "Sapwood Blade", "Amenoma Kageuchi", "Skyrider Sword", "Harbinger of Dawn"],
+    "niche_weapon": ["Skyward Blade", "Primordial Jade Cutter", "Key of Khaj-Nisut", "Absolution", "Mistsplitter Reforged", "Light of Foliar Incision", "Uraku Misugiri"],
+    },
+     "diona": {
+    "bis_weapon": "Elegy for the End",
+    "secondary_weapon": "Favonius Warbow",
+    "f2p_weapon": ["Favonius Warbow", "Sacrificial Bow", "End of the Line", "Recurve Bow", "Messenger", "Prototype Crescent", "Fading Twilight"],
+    "niche_weapon": ["Skyward Harp", "Polar Star", "The Stringless", "Aqua Simulacra", "Hunter's Path", "The First Great Magic", "Astral Vulture's Crimson Plumage"],
+    },
+     "escoffier": {
+    "bis_weapon": "Symphonist of Scents",
+    "secondary_weapon": "Staff of Homa",
+    "f2p_weapon": ["Favonius Lance", "Rightful Reward", "Dialogues of the Desert Sages", "Missive Windspear", "Prototype Starglitter", "Black Tassel", "Kitain Cross Spear"],
+    "niche_weapon": ["Lumidouce Elegy", "Calamity Queller", "Engulfing Lightning", "Skyward Spine", "Staff of the Scarlet Sands", "Vortex Vanquisher", "Primordial Jade Winged-Spear"],
+    },
+     "eula": {
+    "bis_weapon": "Song of Broken Pines",
+    "secondary_weapon": "Beacon of the Reed Sea",
+    "f2p_weapon": ["Tidal Shadow", "Prototype Archaic", "Snow-Tombed Starsilver", "Ultimate Overlord's Mega Magic Sword", "Earth Shaker", "Mailed Flower", "Luxurious Sea-Lord"],
+    "niche_weapon": ["Wolf's Gravestone", "Redhorn Stonethresher", "Skyward Pride", "Verdict", "The Unforged", "Serpent Spine", "Talking Stick"],
+    },
+     "freminet": {
+    "bis_weapon": "Beacon of the Reed Sea",
+    "secondary_weapon": "Serpent Spine",
+    "f2p_weapon": ["Prototype Archaic", "Tidal Shadow", "Snow-Tombed Starsilver", "Ultimate Overlord's Mega Magic Sword", "Earth Shaker", "Mailed Flower", "Favonius Greatsword"],
+    "niche_weapon": ["Wolf's Gravestone", "Redhorn Stonethresher", "Skyward Pride", "Verdict", "The Unforged", "Talking Stick", "Akuoumaru"],
+    },
+     "ganyu": {
+    "bis_weapon": "Hunter's Path",
+    "secondary_weapon": "The First Great Magic",
+    "f2p_weapon": ["Prototype Crescent", "Hamayumi", "Song of Stillness", "Chain Breaker", "Slingshot", "Messenger", "Ibis Piercer"],
+    "niche_weapon": ["Aqua Simulacra", "Polar Star", "Skyward Harp", "Amos' Bow", "Astral Vulture's Crimson Plumage", "Thundering Pulse", "Elegy for the End"],
+    },
+     "kaeya": {
+    "bis_weapon": "Mistsplitter Reforged",
+    "secondary_weapon": "Primordial Jade Cutter",
+    "f2p_weapon": ["Amenoma Kageuchi", "Finale of the Deep", "Harbinger of Dawn", "Fleuve Cendre Ferryman", "Sapwood Blade", "Skyrider Sword", "Dark Iron Sword"],
+    "niche_weapon": ["Light of Foliar Incision", "Absolution", "Uraku Misugiri", "Skyward Blade", "Haran Geppaku Futsu", "Freedom-Sworn", "Key of Khaj-Nisut"],
+    },
+     "layla": {
+    "bis_weapon": "Key of Khaj-Nisut",
+    "secondary_weapon": "Freedom-Sworn",
+    "f2p_weapon": ["Favonius Sword", "Sacrificial Sword", "Fleuve Cendre Ferryman", "Sapwood Blade", "Amenoma Kageuchi", "Harbinger of Dawn", "Skyrider Sword"],
+    "niche_weapon": ["Skyward Blade", "Primordial Jade Cutter", "Absolution", "Mistsplitter Reforged", "Light of Foliar Incision", "Uraku Misugiri", "Summit Shaper"],
+    },
+     "mika": {
+    "bis_weapon": "Favonius Lance",
+    "secondary_weapon": "Dialogues of the Desert Sages",
+    "f2p_weapon": ["Rightful Reward", "Prototype Starglitter", "Black Tassel", "Missive Windspear", "Kitain Cross Spear", "Moonpiercer", "Dragon's Bane"],
+    "niche_weapon": ["Skyward Spine", "Engulfing Lightning", "Staff of Homa", "Calamity Queller", "Lumidouce Elegy", "Vortex Vanquisher", "Staff of the Scarlet Sands"],
+    },
+     "qiqi": {
+    "bis_weapon": "Skyward Blade",
+    "secondary_weapon": "Favonius Sword",
+    "f2p_weapon": ["Amenoma Kageuchi", "Sacrificial Sword", "Fleuve Cendre Ferryman", "Sapwood Blade", "Skyrider Sword", "Harbinger of Dawn", "Prototype Rancour"],
+    "niche_weapon": ["Freedom-Sworn", "Key of Khaj-Nisut", "Primordial Jade Cutter", "Mistsplitter Reforged", "Absolution", "Light of Foliar Incision", "Uraku Misugiri"],
+    },
+     "rosaria": {
+    "bis_weapon": "Staff of Homa",
+    "secondary_weapon": "Calamity Queller",
+    "f2p_weapon": ["Favonius Lance", "Missive Windspear", "Prototype Starglitter", "Rightful Reward", "Dragon's Bane", "Black Tassel", "Kitain Cross Spear"],
+    "niche_weapon": ["Primordial Jade Winged-Spear", "Lumidouce Elegy", "Skyward Spine", "Engulfing Lightning", "Staff of the Scarlet Sands", "Vortex Vanquisher", "Deathmatch"],
+    },
+     "shenhe": {
+    "bis_weapon": "Calamity Queller",
+    "secondary_weapon": "Engulfing Lightning",
+    "f2p_weapon": ["Favonius Lance", "Rightful Reward", "Prototype Starglitter", "Missive Windspear", "Dialogues of the Desert Sages", "Black Tassel", "Kitain Cross Spear"],
+    "niche_weapon": ["Skyward Spine", "Staff of Homa", "Lumidouce Elegy", "Primordial Jade Winged-Spear", "Vortex Vanquisher", "Staff of the Scarlet Sands", "Deathmatch"],
+    },
+     "skirk": {
+    "bis_weapon": "Azurelight",
+    "secondary_weapon": "Mistsplitter Reforged",
+    "f2p_weapon": ["Finale of the Deep", "Amenoma Kageuchi", "Harbinger of Dawn", "Fleuve Cendre Ferryman", "Sapwood Blade", "Skyrider Sword", "The Black Sword"],
+    "niche_weapon": ["Primordial Jade Cutter", "Absolution", "Light of Foliar Incision", "Uraku Misugiri", "Haran Geppaku Futsu", "Skyward Blade", "Freedom-Sworn"],
+    },
+     "wriothesley": {
+    "bis_weapon": "Cashflow Supervision",
+    "secondary_weapon": "Lost Prayer to the Sacred Winds",
+    "f2p_weapon": ["Flowing Purity", "The Widsith", "Ballad of the Boundless Blue", "Mappa Mare", "Favonius Codex", "Magic Guide", "Fruit of Fulfillment"],
+    "niche_weapon": ["Skyward Atlas", "Kagura's Verity", "Starcaller's Watch", "Sunny Morning Sleep-In", "Memory of Dust", "Surf's Up", "Tulaytullah's Remembrance"],
+    },
+      
 }
