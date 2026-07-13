@@ -7,6 +7,7 @@ than simulate exact in-game damage. Optimized for standard library dependencies.
 import re
 from typing import Dict, Any, List, Tuple, Optional
 from characters import CRIT_RATIO_TARGET, get_character_config
+from item_catalog import lookup_weapon, lookup_artifact_set
 
 # Highest possible single-roll value for each substat on a 5-star artifact.
 MAX_SUBSTAT_ROLL: Dict[str, float] = {
@@ -296,12 +297,43 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
         tier = "Niche"
         note = "A situational, team-comp-dependent pick for this character -- a valid choice in the right setup."
     else:
-        score = min(80.0, 65.0 + refinement_bonus)
-        tier = "Unlisted"
-        note = (
-            "This weapon isn't on CritCal's curated list for this character (which only tracks a handful "
-            "of options out of many viable weapons), so this isn't a mark against it."
-        )
+        # Not on this character's curated tiers -- check the global item
+        # catalog before falling back to a flat neutral score, so a
+        # genuinely strong uncatalogued pick (e.g. The Widsith) doesn't
+        # get treated identically to an actual typo.
+        catalog_entry = lookup_weapon(name)
+        expected_type = str(config.get("weapon_type") or "").strip().lower()
+
+        if catalog_entry is None:
+            score = min(70.0, 55.0 + refinement_bonus)
+            tier = "Unrecognized"
+            note = (
+                "This weapon name isn't in CritCal's item catalog at all -- double-check the spelling, "
+                "since this looks more like a typo than an uncatalogued-but-valid pick."
+            )
+        else:
+            found_type, is_five_star = catalog_entry
+            if expected_type and found_type != expected_type:
+                score = min(65.0, 50.0 + refinement_bonus)
+                tier = "Type Mismatch"
+                note = (
+                    f"This is a real weapon, but it's a {found_type} and this character normally uses a "
+                    f"{expected_type} -- double-check the name, since this combination isn't possible in-game."
+                )
+            elif is_five_star:
+                score = min(82.0, 72.0 + refinement_bonus)
+                tier = "Unlisted"
+                note = (
+                    "A real 5-star weapon that isn't on CritCal's curated short list for this character -- "
+                    "not necessarily a bad choice, just uncatalogued."
+                )
+            else:
+                score = min(78.0, 62.0 + refinement_bonus)
+                tier = "Unlisted"
+                note = (
+                    "This weapon isn't on CritCal's curated list for this character (which only tracks a "
+                    "handful of options out of many viable weapons), so this isn't a mark against it."
+                )
 
     return round(score, 1), note, tier
 
@@ -346,11 +378,19 @@ def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Opt
             score, tier = 78.0, "Niche"
             note = "Running a situational, team-comp-dependent 4-piece set -- a valid choice in the right setup."
         else:
-            score, tier = 68.0, "Unlisted"
-            note = (
-                "Running a complete 4-piece set bonus that isn't on CritCal's curated list for this "
-                "character -- not necessarily a bad choice, just uncatalogued."
-            )
+            catalog_hit = lookup_artifact_set(matched_name)
+            if catalog_hit is None:
+                score, tier = 55.0, "Unrecognized"
+                note = (
+                    "This set name isn't in CritCal's item catalog at all -- double-check the spelling, "
+                    "since this looks more like a typo than an uncatalogued-but-valid pick."
+                )
+            else:
+                score, tier = 68.0, "Unlisted"
+                note = (
+                    "Running a complete 4-piece set bonus that isn't on CritCal's curated list for this "
+                    "character -- not necessarily a bad choice, just uncatalogued."
+                )
     elif two_piece_count >= 2:
         score, tier = 60.0, "Hybrid"
         note = "Running a 2pc+2pc hybrid setup -- a valid choice for some team comps, though usually lower personal power than a full 4-piece bonus."
