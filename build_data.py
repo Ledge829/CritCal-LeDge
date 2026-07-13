@@ -304,7 +304,100 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "niche_artifact_sets": ["Scroll of the Hero of Cinder City", "Noblesse Oblige", "Ocean-Hued Clam", "Maiden Beloved", "Golden Troupe", "Tenacity of the Millelith"],
     "team_archetype": "Plunging Support / Healer / Swirl Support / Crowd Control",
     },
-
+# ==========================================================
+# ELECTRO
+# ==========================================================
+    "beidou": {
+    "bis_artifact_set": "Emblem of Severed Fate",
+    "secondary_artifact_set": "Thundering Fury",
+    "niche_artifact_sets": ["Noblesse Oblige", "Golden Troupe", "Gladiator's Finale", "Gilded Dreams", "Scroll of the Hero of Cinder City", "Thundersoother"],
+    "team_archetype": "Off-Field Electro DPS / Electro-Charged / Aggravate / Overload",
+    },
+     "cyno": {
+    "bis_artifact_set": "Thundering Fury",
+    "secondary_artifact_set": "Fragment of Harmonic Whimsy",
+    "niche_artifact_sets": ["Gilded Dreams", "Gladiator's Finale", "Flower of Paradise Lost", "Scroll of the Hero of Cinder City", "Thundersoother", "Obsidian Codex"],
+    "team_archetype": "Aggravate Hypercarry / Hyperbloom / Electro-Charged / Stellar-Conduct",
+    },
+     "clorinde": {
+    "bis_artifact_set": "Fragment of Harmonic Whimsy",
+    "secondary_artifact_set": "Thundering Fury",
+    "niche_artifact_sets": ["Gladiator's Finale", "Marechaussee Hunter", "Echoes of an Offering", "Golden Troupe", "Shimenawa's Reminiscence", "Obsidian Codex"],
+    "team_archetype": "Aggravate Hypercarry / Electro-Charged / Overload / Quickswap",
+    },
+     "dori": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Ocean-Hued Clam",
+    "niche_artifact_sets": ["Noblesse Oblige", "Song of Days Past", "Instructor", "Tenacity of the Millelith", "Gilded Dreams", "Maiden Beloved"],
+    "team_archetype": "Healer / Energy Battery / Electro Support / Hyperbloom",
+    },
+     "fischl": {
+    "bis_artifact_set": "Golden Troupe",
+    "secondary_artifact_set": "Thundering Fury",
+    "niche_artifact_sets": ["Gilded Dreams", "Thundersoother", "Scroll of the Hero of Cinder City", "Emblem of Severed Fate", "Gladiator's Finale", "Noblesse Oblige"],
+    "team_archetype": "Off-Field Electro DPS / Aggravate / Electro-Charged / Overload",
+    },
+     "iansan": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Noblesse Oblige",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Emblem of Severed Fate", "Thundering Fury", "Instructor", "Golden Troupe", "Gilded Dreams"],
+    "team_archetype": "Electro Support / ATK Buffer / Quickswap / Overload",
+    },
+     "keqing": {
+    "bis_artifact_set": "Thundering Fury",
+    "secondary_artifact_set": "Fragment of Harmonic Whimsy",
+    "niche_artifact_sets": ["Thundersoother", "Golden Troupe", "Gladiator's Finale", "Gilded Dreams", "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence"],
+    "team_archetype": "Aggravate Hypercarry / Electro-Charged / Overload / Quickswap",
+    },
+     "kuki": {
+    "bis_artifact_set": "Flower of Paradise Lost",
+    "secondary_artifact_set": "Gilded Dreams",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Scroll of the Hero of Cinder City", "Deepwood Memories", "Instructor", "Golden Troupe", "Thundering Fury"],
+    "team_archetype": "Hyperbloom Trigger / Healer / Aggravate Support / Electro-Charged",
+    },
+     "kujousara": {
+    "bis_artifact_set": "Noblesse Oblige",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Emblem of Severed Fate", "Tenacity of the Millelith", "Golden Troupe", "Instructor", "Thundering Fury", "The Exile"],
+    "team_archetype": "Electro Buffer / Burst Support / Raiden Support / Quickswap",
+    },
+     "lisa": {
+    "bis_artifact_set": "Thundering Fury",
+    "secondary_artifact_set": "Golden Troupe",
+    "niche_artifact_sets": ["Gilded Dreams", "Emblem of Severed Fate", "Scroll of the Hero of Cinder City", "Thundersoother", "Wanderer's Troupe", "Noblesse Oblige"],
+    "team_archetype": "Aggravate DPS / Electro Support / Hyperbloom Driver / Electro-Charged",
+    },
+     "ororon": {
+    "bis_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Golden Troupe",
+    "niche_artifact_sets": ["Thundering Fury", "Noblesse Oblige", "Emblem of Severed Fate", "Gilded Dreams", "Thundersoother", "Instructor"],
+    "team_archetype": "Off-Field Electro DPS / Electro-Charged Support / Nightsoul Support",
+    },
+     "raiden": {
+    "bis_artifact_set": "Emblem of Severed Fate",
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Thundering Fury", "Gilded Dreams", "Flower of Paradise Lost", "Noblesse Oblige", "Thundersoother", "Golden Troupe"],
+    "team_archetype": "Hypercarry / Burst DPS / Hyperbloom Trigger / Electro-Charged / Overload",
+    },
+     "razor": {
+    "bis_artifact_set": "Pale Flame",
+    "secondary_artifact_set": "Thundering Fury",
+    "niche_artifact_sets": ["Gladiator's Finale", "Thundersoother", "Gilded Dreams", "Golden Troupe", "Bloodstained Chivalry", "Scroll of the Hero of Cinder City"],
+    "team_archetype": "Physical Hypercarry / Aggravate / Electro DPS",
+    },
+     "sethos": {
+    "bis_artifact_set": "Wanderer's Troupe",
+    "secondary_artifact_set": "Thundering Fury",
+    "niche_artifact_sets": ["Gilded Dreams", "Golden Troupe", "Thundersoother", "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence", "Obsidian Codex"],
+    "team_archetype": "Charged Shot DPS / Aggravate / Electro Hypercarry",
+    },
+     "yaemiko": {
+    "bis_artifact_set": "Golden Troupe",
+    "secondary_artifact_set": "Gilded Dreams",
+    "niche_artifact_sets": ["Thundering Fury", "Emblem of Severed Fate", "Thundersoother", "Scroll of the Hero of Cinder City", "Flower of Paradise Lost", "Noblesse Oblige"],
+    "team_archetype": "Off-Field Electro DPS / Aggravate / Electro-Charged / Quickswap",
+    },
+  
 }
 
 
@@ -552,5 +645,98 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Oathsworn Eye", "Favonius Codex", "Prototype Amber", "Fruit of Fulfillment", "Flowing Purity", "Thrilling Tales of Dragon Slayers", "Ballad of the Boundless Blue"],
     "niche_weapon": ["Lost Prayer to the Sacred Winds", "Starcaller's Watch", "Sunny Morning Sleep-In", "Memory of Dust", "Cashflow Supervision", "Jadefall's Splendor", "A Thousand Floating Dreams"],
     },
-
+# ==========================================================
+# ELECTRO
+# ==========================================================
+    "beidou": {
+    "bis_weapon": "Wolf's Gravestone",
+    "secondary_weapon": "Beacon of the Reed Sea",
+    "f2p_weapon": ["Ultimate Overlord's Mega Magic Sword", "Prototype Archaic", "Tidal Shadow", "Akuoumaru", "Mailed Flower", "Favonius Greatsword", "Sacrificial Greatsword"],
+    "niche_weapon": ["Serpent Spine", "Redhorn Stonethresher", "Skyward Pride", "Verdict", "The Unforged", "Talking Stick", "Earth Shaker"],
+    }, 
+     "clorinde": {
+    "bis_weapon": "Absolution",
+    "secondary_weapon": "Mistsplitter Reforged",
+    "f2p_weapon": ["Finale of the Deep", "The Black Sword", "Lion's Roar", "Amenoma Kageuchi", "Harbinger of Dawn", "Sapwood Blade", "Fleuve Cendre Ferryman"],
+    "niche_weapon": ["Primordial Jade Cutter", "Light of Foliar Incision", "Haran Geppaku Futsu", "Uraku Misugiri", "Freedom-Sworn", "Skyward Blade"],
+    },
+     "cyno": {
+    "bis_weapon": "Staff of the Scarlet Sands",
+    "secondary_weapon": "Lumidouce Elegy",
+    "f2p_weapon": ["Ballad of the Fjords", "Deathmatch", "Missive Windspear", "Kitain Cross Spear", "Dragon's Bane", "White Tassel", "Rightful Reward"],
+    "niche_weapon": ["Primordial Jade Winged-Spear", "Staff of Homa", "Calamity Queller", "Engulfing Lightning", "Crimson Moon's Semblance", "Skyward Spine", "Vortex Vanquisher"],
+    },
+     "dori": {
+    "bis_weapon": "Favonius Greatsword",
+    "secondary_weapon": "Skyward Pride",
+    "f2p_weapon": ["Forest Regalia", "Sacrificial Greatsword", "Prototype Archaic", "Ultimate Overlord's Mega Magic Sword", "Mailed Flower", "Earth Shaker", "Katsuragikiri Nagamasa"],
+    "niche_weapon": ["Wolf's Gravestone", "Beacon of the Reed Sea", "The Unforged", "Verdict", "Redhorn Stonethresher", "Serpent Spine", "Talking Stick"],
+    },
+     "fischl": {
+    "bis_weapon": "The Daybreak Chronicles",
+    "secondary_weapon": "Polar Star",
+    "f2p_weapon": ["Song of Stillness", "Chain Breaker", "The Stringless", "Fading Twilight", "Prototype Crescent", "Slingshot", "Messenger"],
+    "niche_weapon": ["Aqua Simulacra", "Skyward Harp", "Hunter's Path", "The First Great Magic", "Thundering Pulse", "Astral Vulture's Crimson Plumage", "Amos' Bow"],
+    },
+     "iansan": {
+    "bis_weapon": "Symphonist of Scents",
+    "secondary_weapon": "Engulfing Lightning",
+    "f2p_weapon": ["Favonius Lance", "Rightful Reward", "Prototype Starglitter", "Dialogues of the Desert Sages", "Missive Windspear", "Tamayuratei no Ohanashi", "Black Tassel"],
+    "niche_weapon": ["Skyward Spine", "Staff of Homa", "Calamity Queller", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Vortex Vanquisher", "Crimson Moon's Semblance"],
+    },
+     "keqing": {
+    "bis_weapon": "Mistsplitter Reforged",
+    "secondary_weapon": "Absolution",
+    "f2p_weapon": ["Lion's Roar", "Finale of the Deep", "Amenoma Kageuchi", "Harbinger of Dawn", "Sapwood Blade", "Fleuve Cendre Ferryman", "The Black Sword"],
+    "niche_weapon": ["Primordial Jade Cutter", "Light of Foliar Incision", "Haran Geppaku Futsu", "Uraku Misugiri", "Skyward Blade", "Freedom-Sworn"],
+    },
+     "kuki": {
+    "bis_weapon": "Freedom-Sworn",
+    "secondary_weapon": "Xiphos' Moonlight",
+    "f2p_weapon": ["Iron Sting", "Dark Iron Sword", "Sapwood Blade", "Favonius Sword", "Sacrificial Sword", "Fleuve Cendre Ferryman", "Skyrider Sword"],
+    "niche_weapon": ["Key of Khaj-Nisut", "Skyward Blade", "Primordial Jade Cutter", "Light of Foliar Incision", "Absolution", "Haran Geppaku Futsu"],
+    },
+     "kujousara": {
+    "bis_weapon": "Elegy for the End",
+    "secondary_weapon": "Skyward Harp",
+    "f2p_weapon": ["Fading Twilight", "Sacrificial Bow", "Favonius Warbow", "End of the Line", "Prototype Crescent", "Messenger", "Recurve Bow"],
+    "niche_weapon": ["Polar Star", "Aqua Simulacra", "The First Great Magic", "Hunter's Path", "Thundering Pulse", "Astral Vulture's Crimson Plumage"],
+    },
+     "lisa": {
+    "bis_weapon": "Reliquary of Truth",
+    "secondary_weapon": "Kagura's Verity",
+    "f2p_weapon": ["The Widsith", "Flowing Purity", "Mappa Mare", "Fruit of Fulfillment", "Magic Guide", "Ballad of the Boundless Blue", "Favonius Codex"],
+    "niche_weapon": ["Lost Prayer to the Sacred Winds", "Skyward Atlas", "Memory of Dust", "Cashflow Supervision", "Starcaller's Watch", "Sunny Morning Sleep-In"],
+    },
+     "ororon": {
+    "bis_weapon": "Elegy for the End",
+    "secondary_weapon": "The Stringless",
+    "f2p_weapon": ["Fading Twilight", "Chain Breaker", "Song of Stillness", "Prototype Crescent", "End of the Line", "Messenger", "Slingshot"],
+    "niche_weapon": ["Polar Star", "Skyward Harp", "Aqua Simulacra", "Hunter's Path", "The First Great Magic", "Thundering Pulse", "Astral Vulture's Crimson Plumage"],
+    },
+     "raiden": {
+    "bis_weapon": "Engulfing Lightning",
+    "secondary_weapon": "Staff of the Scarlet Sands",
+    "f2p_weapon": ["The Catch", "Missive Windspear", "Prototype Starglitter", "Dialogues of the Desert Sages", "Kitain Cross Spear", "Rightful Reward", "Favonius Lance"],
+    "niche_weapon": ["Staff of Homa", "Calamity Queller", "Primordial Jade Winged-Spear", "Lumidouce Elegy", "Skyward Spine", "Crimson Moon's Semblance", "Vortex Vanquisher"],
+    },
+     "razor": {
+    "bis_weapon": "Beacon of the Reed Sea",
+    "secondary_weapon": "Redhorn Stonethresher",
+    "f2p_weapon": ["Prototype Archaic", "Snow-Tombed Starsilver", "Tidal Shadow", "Ultimate Overlord's Mega Magic Sword", "Mailed Flower", "Favonius Greatsword", "Earth Shaker"],
+    "niche_weapon": ["Wolf's Gravestone", "Serpent Spine", "Skyward Pride", "Verdict", "The Unforged", "Talking Stick", "Akuoumaru"],
+    },
+     "sethos": {
+    "bis_weapon": "Hunter's Path",
+    "secondary_weapon": "The First Great Magic",
+    "f2p_weapon": ["Slingshot", "Chain Breaker", "Prototype Crescent", "Hamayumi", "Song of Stillness", "Ibis Piercer", "Messenger"],
+    "niche_weapon": ["Polar Star", "Skyward Harp", "Aqua Simulacra", "Thundering Pulse", "Astral Vulture's Crimson Plumage", "Amos' Bow", "Elegy for the End"],
+    },
+     "yaemiko": {
+    "bis_weapon": "Kagura's Verity",
+    "secondary_weapon": "A Thousand Floating Dreams",
+    "f2p_weapon": ["The Widsith", "Mappa Mare", "Flowing Purity", "Ballad of the Boundless Blue", "Fruit of Fulfillment", "Magic Guide", "Favonius Codex"],
+    "niche_weapon": ["Lost Prayer to the Sacred Winds", "Skyward Atlas", "Cashflow Supervision", "Memory of Dust", "Surf's Up", "Starcaller's Watch", "Sunny Morning Sleep-In"],
+    },
+  
 }
