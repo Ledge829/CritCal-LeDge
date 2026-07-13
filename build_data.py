@@ -75,7 +75,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "bennett": {
     "bis_artifact_set": "Noblesse Oblige",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Instructor", "Song of Days Past", "Maiden Beloved", "Ocean-Hued Clam", "Deepwood Memories", "Tenacity of the Millelith"],
+    "niche_artifact_sets": ["Instructor's", "Song of Days Past", "Maiden Beloved", "Ocean-Hued Clam", "Deepwood Memories", "Tenacity of the Millelith"],
     "team_archetype": "Universal ATK Buffer / Healer / Battery",
     },
     "chevreuse": {
@@ -129,13 +129,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "thoma": {
     "bis_artifact_set": "Flower of Paradise Lost",
     "secondary_artifact_set": "Gilded Dreams",
-    "niche_artifact_sets": ["Deepwood Memories", "Noblesse Oblige", "Tenacity of the Millelith", "Instructor", "2pc HP% + 2pc Emblem of Severed Fate", "Scroll of the Hero of Cinder City"],
+    "niche_artifact_sets": ["Deepwood Memories", "Noblesse Oblige", "Tenacity of the Millelith", "Instructor's", "2pc HP% + 2pc Emblem of Severed Fate", "Scroll of the Hero of Cinder City"],
     "team_archetype": "Burgeon Trigger / Shield Support / Burning Support",
     },
     "xiangling": {
     "bis_artifact_set": "Emblem of Severed Fate",
     "secondary_artifact_set": "Crimson Witch of Flames",
-    "niche_artifact_sets": ["Scroll of the Hero of Cinder City", "Gilded Dreams", "Lavawalker", "Instructor", "Noblesse Oblige", "Unfinished Reverie"],
+    "niche_artifact_sets": ["Scroll of the Hero of Cinder City", "Gilded Dreams", "Lavawalker", "Instructor's", "Noblesse Oblige", "Unfinished Reverie"],
     "team_archetype": "Off-Field Pyro DPS / Vaporize / Melt / Mono Pyro / Overload",
     },
     "xinyan": {
@@ -152,13 +152,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "barbara": {
     "bis_artifact_set": "Ocean-Hued Clam",
     "secondary_artifact_set": "Song of Days Past",
-    "niche_artifact_sets": ["Maiden Beloved", "Tenacity of the Millelith", "Instructor", "Deepwood Memories", "Noblesse Oblige"],
+    "niche_artifact_sets": ["Maiden Beloved", "Tenacity of the Millelith", "Instructor's", "Deepwood Memories", "Noblesse Oblige"],
     "team_archetype": "Healer / Bloom Driver / Hydro Support",
     },
     "candace": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["Emblem of Severed Fate", "Tenacity of the Millelith", "Instructor", "Scroll of the Hero of Cinder City", "Vourukasha's Glow"],
+    "niche_artifact_sets": ["Emblem of Severed Fate", "Tenacity of the Millelith", "Instructor's", "Scroll of the Hero of Cinder City", "Vourukasha's Glow"],
     "team_archetype": "Hydro Infusion Support / Normal Attack Buffer / Bloom Support",
     },
     "childe": {
@@ -176,13 +176,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "kokomi": {
     "bis_artifact_set": "Ocean-Hued Clam",
     "secondary_artifact_set": "Tenacity of the Millelith",
-    "niche_artifact_sets": ["Song of Days Past", "Deepwood Memories", "Instructor", "Maiden Beloved", "Heart of Depth", "Nymph's Dream"],
+    "niche_artifact_sets": ["Song of Days Past", "Deepwood Memories", "Instructor's", "Maiden Beloved", "Heart of Depth", "Nymph's Dream"],
     "team_archetype": "Healer / Bloom Driver / Freeze Support / Mono Hydro Driver",
     },
     "mona": {
     "bis_artifact_set": "Emblem of Severed Fate",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["Golden Troupe", "Heart of Depth", "Nymph's Dream", "Instructor", "Scroll of the Hero of Cinder City", "Tenacity of the Millelith"],
+    "niche_artifact_sets": ["Golden Troupe", "Heart of Depth", "Nymph's Dream", "Instructor's", "Scroll of the Hero of Cinder City", "Tenacity of the Millelith"],
     "team_archetype": "Burst Support / Freeze Support / Vaporize Support / Hydro DPS",
     },
     "mualani": {
@@ -200,7 +200,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "nilou": {
     "bis_artifact_set": "Flower of Paradise Lost",
     "secondary_artifact_set": "Vourukasha's Glow",
-    "niche_artifact_sets": ["Gilded Dreams", "Tenacity of the Millelith", "Deepwood Memories", "Heart of Depth", "Nymph's Dream", "Instructor"],
+    "niche_artifact_sets": ["Gilded Dreams", "Tenacity of the Millelith", "Deepwood Memories", "Heart of Depth", "Nymph's Dream", "Instructor's"],
     "team_archetype": "Bloom Enabler / Super Bloom / HP Support",
     },
     "sigewinne": {
@@ -212,7 +212,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "xingqiu": {
     "bis_artifact_set": "Emblem of Severed Fate",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["Heart of Depth", "Nymph's Dream", "Golden Troupe", "Scroll of the Hero of Cinder City", "Instructor", "Tenacity of the Millelith"],
+    "niche_artifact_sets": ["Heart of Depth", "Nymph's Dream", "Golden Troupe", "Scroll of the Hero of Cinder City", "Instructor's", "Tenacity of the Millelith"],
     "team_archetype": "Off-Field Hydro DPS / Vaporize / Hyperbloom / Bloom / Electro-Charged / Freeze",
     },
     "yelan": {
@@ -235,7 +235,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "faruzan": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["Viridescent Venerer", "Emblem of Severed Fate", "Tenacity of the Millelith", "Instructor", "The Exile", "Scroll of the Hero of Cinder City"],
+    "niche_artifact_sets": ["Viridescent Venerer", "Emblem of Severed Fate", "Tenacity of the Millelith", "Instructor's", "The Exile", "Scroll of the Hero of Cinder City"],
     "team_archetype": "Anemo Buffer / Battery / Crowd Control Support",
     },
     "heizou": {
@@ -253,13 +253,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "kazuha": {
     "bis_artifact_set": "Viridescent Venerer",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Noblesse Oblige", "Instructor", "Gilded Dreams", "Flower of Paradise Lost", "Emblem of Severed Fate", "Tenacity of the Millelith"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Instructor's", "Gilded Dreams", "Flower of Paradise Lost", "Emblem of Severed Fate", "Tenacity of the Millelith"],
     "team_archetype": "Swirl Support / Elemental DMG Buffer / Crowd Control / Quickswap",
     },
     "lanyan": {
     "bis_artifact_set": "Viridescent Venerer",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Noblesse Oblige", "Tenacity of the Millelith", "Instructor", "Song of Days Past", "Ocean-Hued Clam", "Maiden Beloved"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Tenacity of the Millelith", "Instructor's", "Song of Days Past", "Ocean-Hued Clam", "Maiden Beloved"],
     "team_archetype": "Anemo Shielder / Swirl Support / Crowd Control",
     },
     "lynette": {
@@ -271,19 +271,19 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "sayu": {
     "bis_artifact_set": "Viridescent Venerer",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Ocean-Hued Clam", "Song of Days Past", "Noblesse Oblige", "Instructor", "Maiden Beloved", "Emblem of Severed Fate"],
+    "niche_artifact_sets": ["Ocean-Hued Clam", "Song of Days Past", "Noblesse Oblige", "Instructor's", "Maiden Beloved", "Emblem of Severed Fate"],
     "team_archetype": "Healer / Swirl Support / Exploration / Reaction Driver",
     },
     "sucrose": {
     "bis_artifact_set": "Viridescent Venerer",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Instructor", "Gilded Dreams", "Flower of Paradise Lost", "Noblesse Oblige", "Golden Troupe", "Deepwood Memories"],
+    "niche_artifact_sets": ["Instructor's", "Gilded Dreams", "Flower of Paradise Lost", "Noblesse Oblige", "Golden Troupe", "Deepwood Memories"],
     "team_archetype": "Swirl Support / EM Buffer / Reaction Driver / Crowd Control",
     },
     "venti": {
     "bis_artifact_set": "Viridescent Venerer",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Noblesse Oblige", "Emblem of Severed Fate", "Golden Troupe", "Gilded Dreams", "Instructor", "Flower of Paradise Lost"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Emblem of Severed Fate", "Golden Troupe", "Gilded Dreams", "Instructor's", "Flower of Paradise Lost"],
     "team_archetype": "Crowd Control / Swirl Support / Energy Battery / Off-Field DPS",
     },
     "wanderer": {
@@ -328,7 +328,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "dori": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Ocean-Hued Clam",
-    "niche_artifact_sets": ["Noblesse Oblige", "Song of Days Past", "Instructor", "Tenacity of the Millelith", "Gilded Dreams", "Maiden Beloved"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Song of Days Past", "Instructor's", "Tenacity of the Millelith", "Gilded Dreams", "Maiden Beloved"],
     "team_archetype": "Healer / Energy Battery / Electro Support / Hyperbloom",
     },
      "fischl": {
@@ -340,7 +340,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "iansan": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Emblem of Severed Fate", "Thundering Fury", "Instructor", "Golden Troupe", "Gilded Dreams"],
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Emblem of Severed Fate", "Thundering Fury", "Instructor's", "Golden Troupe", "Gilded Dreams"],
     "team_archetype": "Electro Support / ATK Buffer / Quickswap / Overload",
     },
      "keqing": {
@@ -349,16 +349,16 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "niche_artifact_sets": ["Thundersoother", "Golden Troupe", "Gladiator's Finale", "Gilded Dreams", "Scroll of the Hero of Cinder City", "Shimenawa's Reminiscence"],
     "team_archetype": "Aggravate Hypercarry / Electro-Charged / Overload / Quickswap",
     },
-     "kuki": {
+     "kukishinobu": {
     "bis_artifact_set": "Flower of Paradise Lost",
     "secondary_artifact_set": "Gilded Dreams",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Scroll of the Hero of Cinder City", "Deepwood Memories", "Instructor", "Golden Troupe", "Thundering Fury"],
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Scroll of the Hero of Cinder City", "Deepwood Memories", "Instructor's", "Golden Troupe", "Thundering Fury"],
     "team_archetype": "Hyperbloom Trigger / Healer / Aggravate Support / Electro-Charged",
     },
-     "kujousara": {
+     "sara": {
     "bis_artifact_set": "Noblesse Oblige",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Emblem of Severed Fate", "Tenacity of the Millelith", "Golden Troupe", "Instructor", "Thundering Fury", "The Exile"],
+    "niche_artifact_sets": ["Emblem of Severed Fate", "Tenacity of the Millelith", "Golden Troupe", "Instructor's", "Thundering Fury", "The Exile"],
     "team_archetype": "Electro Buffer / Burst Support / Raiden Support / Quickswap",
     },
      "lisa": {
@@ -370,7 +370,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "ororon": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Golden Troupe",
-    "niche_artifact_sets": ["Thundering Fury", "Noblesse Oblige", "Emblem of Severed Fate", "Gilded Dreams", "Thundersoother", "Instructor"],
+    "niche_artifact_sets": ["Thundering Fury", "Noblesse Oblige", "Emblem of Severed Fate", "Gilded Dreams", "Thundersoother", "Instructor's"],
     "team_archetype": "Off-Field Electro DPS / Electro-Charged Support / Nightsoul Support",
     },
      "raiden": {
@@ -409,13 +409,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "baizhu": {
     "bis_artifact_set": "Deepwood Memories",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Ocean-Hued Clam", "Song of Days Past", "Noblesse Oblige", "Tenacity of the Millelith", "Instructor", "Maiden Beloved"],
+    "niche_artifact_sets": ["Ocean-Hued Clam", "Song of Days Past", "Noblesse Oblige", "Tenacity of the Millelith", "Instructor's", "Maiden Beloved"],
     "team_archetype": "Healer / Dendro Support / Bloom Support / Quicken Support",
     },
      "collei": {
     "bis_artifact_set": "Deepwood Memories",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Noblesse Oblige", "Instructor", "Emblem of Severed Fate", "Golden Troupe", "Gilded Dreams", "The Exile"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Instructor's", "Emblem of Severed Fate", "Golden Troupe", "Gilded Dreams", "The Exile"],
     "team_archetype": "Off-Field Dendro Support / Bloom / Hyperbloom / Burgeon / Quicken",
     },
      "emilie": {
@@ -427,7 +427,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "kaveh": {
     "bis_artifact_set": "Flower of Paradise Lost",
     "secondary_artifact_set": "Deepwood Memories",
-    "niche_artifact_sets": ["Gilded Dreams", "Instructor", "Ocean-Hued Clam", "Scroll of the Hero of Cinder City", "Emblem of Severed Fate", "Maiden Beloved"],
+    "niche_artifact_sets": ["Gilded Dreams", "Instructor's", "Ocean-Hued Clam", "Scroll of the Hero of Cinder City", "Emblem of Severed Fate", "Maiden Beloved"],
     "team_archetype": "Bloom Driver / Burgeon / Hyperbloom / Dendro DPS",
     },
      "kinich": {
@@ -439,7 +439,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "nahida": {
     "bis_artifact_set": "Deepwood Memories",
     "secondary_artifact_set": "Gilded Dreams",
-    "niche_artifact_sets": ["Golden Troupe", "Flower of Paradise Lost", "Scroll of the Hero of Cinder City", "Instructor", "Wanderer's Troupe", "Emblem of Severed Fate"],
+    "niche_artifact_sets": ["Golden Troupe", "Flower of Paradise Lost", "Scroll of the Hero of Cinder City", "Instructor's", "Wanderer's Troupe", "Emblem of Severed Fate"],
     "team_archetype": "Off-Field Dendro DPS / Quicken Support / Hyperbloom / Bloom / Burgeon",
     },
      "tighnari": {
@@ -451,7 +451,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "yaoyao": {
     "bis_artifact_set": "Deepwood Memories",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Instructor", "Song of Days Past", "Ocean-Hued Clam", "Noblesse Oblige", "Maiden Beloved"],
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Instructor's", "Song of Days Past", "Ocean-Hued Clam", "Noblesse Oblige", "Maiden Beloved"],
     "team_archetype": "Healer / Dendro Support / Bloom / Hyperbloom / Burgeon / Quicken",
     },
      
@@ -479,19 +479,19 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "citlali": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Gilded Dreams",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Golden Troupe", "Deepwood Memories", "Noblesse Oblige", "Instructor", "Flower of Paradise Lost"],
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Golden Troupe", "Deepwood Memories", "Noblesse Oblige", "Instructor's", "Flower of Paradise Lost"],
     "team_archetype": "Cryo Support / Melt Support / Freeze Support / Shield Support",
     },
      "dahlia": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Song of Days Past", "Ocean-Hued Clam", "Instructor", "Maiden Beloved", "The Exile"],
-    "team_archetype": "Cryo Support / Healer / Shield Support / Freeze Support",
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Song of Days Past", "Ocean-Hued Clam", "Instructor's", "Maiden Beloved", "The Exile"],
+    "team_archetype": "Freeze teams with Skirk/Escoffier, or Normal Attack DPS teams like Yoimiya/Wanderer",
     },
      "diona": {
     "bis_artifact_set": "Noblesse Oblige",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Instructor", "Maiden Beloved", "Song of Days Past", "Ocean-Hued Clam", "The Exile"],
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Instructor's", "Maiden Beloved", "Song of Days Past", "Ocean-Hued Clam", "The Exile"],
     "team_archetype": "Cryo Healer / Shield Support / Freeze Support / Battery",
     },
      "escoffier": {
@@ -533,13 +533,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "mika": {
     "bis_artifact_set": "Noblesse Oblige",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Song of Days Past", "Ocean-Hued Clam", "Tenacity of the Millelith", "The Exile", "Instructor", "Maiden Beloved"],
+    "niche_artifact_sets": ["Song of Days Past", "Ocean-Hued Clam", "Tenacity of the Millelith", "The Exile", "Instructor's", "Maiden Beloved"],
     "team_archetype": "Physical Support / Healer / ATK Speed Support / Cryo Battery",
     },
      "qiqi": {
     "bis_artifact_set": "Ocean-Hued Clam",
     "secondary_artifact_set": "Song of Days Past",
-    "niche_artifact_sets": ["Tenacity of the Millelith", "Noblesse Oblige", "Maiden Beloved", "Scroll of the Hero of Cinder City", "Instructor", "The Exile"],
+    "niche_artifact_sets": ["Tenacity of the Millelith", "Noblesse Oblige", "Maiden Beloved", "Scroll of the Hero of Cinder City", "Instructor's", "The Exile"],
     "team_archetype": "Healer / Cryo Support / Physical Support / Freeze Support",
     },
      "rosaria": {
@@ -551,7 +551,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "shenhe": {
     "bis_artifact_set": "Noblesse Oblige",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Blizzard Strayer", "Tenacity of the Millelith", "Emblem of Severed Fate", "Golden Troupe", "The Exile", "Instructor"],
+    "niche_artifact_sets": ["Blizzard Strayer", "Tenacity of the Millelith", "Emblem of Severed Fate", "Golden Troupe", "The Exile", "Instructor's"],
     "team_archetype": "Cryo Buffer / Cryo Support / Freeze Support / Mono Cryo",
     },
      "skirk": {
@@ -584,7 +584,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "gorou": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Noblesse Oblige",
-    "niche_artifact_sets": ["The Exile", "Husk of Opulent Dreams", "Emblem of Severed Fate", "Archaic Petra", "Instructor", "Tenacity of the Millelith"],
+    "niche_artifact_sets": ["The Exile", "Husk of Opulent Dreams", "Emblem of Severed Fate", "Archaic Petra", "Instructor's", "Tenacity of the Millelith"],
     "team_archetype": "Geo Buffer / Mono Geo Support / DEF Buffer / Battery",
     },
      "itto": {
@@ -595,8 +595,8 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     },
      "kachina": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
-    "secondary_artifact_set": "Hero of Cinder City",
-    "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Husk of Opulent Dreams", "Golden Troupe", "Instructor", "Tenacity of the Millelith"],
+    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Husk of Opulent Dreams", "Golden Troupe", "Instructor's", "Tenacity of the Millelith"],
     "team_archetype": "Geo Support / Nightsoul Support / Crystalize Support / Quickswap",
     },
      "navia": {
@@ -620,19 +620,19 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
      "xilonen": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Archaic Petra",
-    "niche_artifact_sets": ["Noblesse Oblige", "Golden Troupe", "Tenacity of the Millelith", "Instructor", "Husk of Opulent Dreams", "Song of Days Past"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Golden Troupe", "Tenacity of the Millelith", "Instructor's", "Husk of Opulent Dreams", "Song of Days Past"],
     "team_archetype": "Geo Support / RES Shred Support / Crystalize Support / Quickswap",
     },
      "yunjin": {
     "bis_artifact_set": "Husk of Opulent Dreams",
     "secondary_artifact_set": "Scroll of the Hero of Cinder City",
-    "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Emblem of Severed Fate", "The Exile", "Instructor", "Tenacity of the Millelith"],
+    "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Emblem of Severed Fate", "The Exile", "Instructor's", "Tenacity of the Millelith"],
     "team_archetype": "Normal Attack Buffer / Geo Support / DEF Support / Quickswap",
     },
      "zhongli": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
     "secondary_artifact_set": "Tenacity of the Millelith",
-    "niche_artifact_sets": ["Archaic Petra", "Noblesse Oblige", "Deepwood Memories", "Instructor", "Golden Troupe", "Emblem of Severed Fate"],
+    "niche_artifact_sets": ["Archaic Petra", "Noblesse Oblige", "Deepwood Memories", "Instructor's", "Golden Troupe", "Emblem of Severed Fate"],
     "team_archetype": "Universal Shield Support / Geo Support / Burst Support / RES Shred",
     },
 }
@@ -748,7 +748,7 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "furina": {
     "bis_weapon": "Splendor of Tranquil Waters",
     "secondary_weapon": "Uraku Misugiri",
-    "f2p_weapon": ["Festering Desire", "Fleuve Cendre Ferryman", "Favonius Sword", "Sacrificial Sword", "Wolf-Fang", "The Dockhand's Assistant", "Ferryman"],
+    "f2p_weapon": ["Festering Desire", "Fleuve Cendre Ferryman", "Favonius Sword", "Sacrificial Sword", "Wolf-Fang", "The Dockhand's Assistant"],
     "niche_weapon": ["Key of Khaj-Nisut", "Freedom-Sworn", "Skyward Blade", "Primordial Jade Cutter", "Haran Geppaku Futsu", "Light of Foliar Incision", "Absolution"],
     },
     "kokomi": {
@@ -927,13 +927,13 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Lion's Roar", "Finale of the Deep", "Amenoma Kageuchi", "Harbinger of Dawn", "Sapwood Blade", "Fleuve Cendre Ferryman", "The Black Sword"],
     "niche_weapon": ["Primordial Jade Cutter", "Light of Foliar Incision", "Haran Geppaku Futsu", "Uraku Misugiri", "Skyward Blade", "Freedom-Sworn"],
     },
-     "kuki": {
+     "kukishinobu": {
     "bis_weapon": "Freedom-Sworn",
     "secondary_weapon": "Xiphos' Moonlight",
     "f2p_weapon": ["Iron Sting", "Dark Iron Sword", "Sapwood Blade", "Favonius Sword", "Sacrificial Sword", "Fleuve Cendre Ferryman", "Skyrider Sword"],
     "niche_weapon": ["Key of Khaj-Nisut", "Skyward Blade", "Primordial Jade Cutter", "Light of Foliar Incision", "Absolution", "Haran Geppaku Futsu"],
     },
-     "kujousara": {
+     "sara": {
     "bis_weapon": "Elegy for the End",
     "secondary_weapon": "Skyward Harp",
     "f2p_weapon": ["Fading Twilight", "Sacrificial Bow", "Favonius Warbow", "End of the Line", "Prototype Crescent", "Messenger", "Recurve Bow"],
