@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from scoring import rate_build, parse_artifact_sets_text, parse_weapon_text
 from enka_client import fetch_character
 from status import status_bp
@@ -6,6 +7,7 @@ from status import status_bp
 app = Flask(__name__)
 app.register_blueprint(status_bp)
 
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/")
 def home():
