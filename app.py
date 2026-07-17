@@ -2,12 +2,26 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scoring import rate_build, parse_artifact_sets_text, parse_weapon_text
 from enka_client import fetch_character
+from characters import get_all_characters, get_character_config
+from display_names import display_name
 from status import status_bp
 
 app = Flask(__name__)
 app.register_blueprint(status_bp)
 
+# CORS: without this, a browser calling this API from critcal.vercel.app
+# (or any other site) gets silently blocked by the browser itself before
+# the request even reaches Flask -- this is a browser-side security rule,
+# not something wrong with the request. BDFD never hit this because it's
+# a server-to-server call, not a browser one, so it never came up before.
+#
+# Wide open (*) is fine here: this API has no auth/cookies/user accounts,
+# every endpoint is public read-only scoring, so there's nothing a
+# malicious site could steal by calling it cross-origin. If that ever
+# changes (logins, saved builds, etc.), swap "*" for an explicit list of
+# allowed origins, e.g. origins=["https://critcal.vercel.app"].
 CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 @app.route("/")
 def home():
@@ -25,6 +39,32 @@ def home():
 @app.route("/ping")
 def ping():
     return "OK", 200
+
+
+@app.route("/characters", methods=["GET"])
+def list_characters():
+    """
+    Lists every character CritCal currently supports, with a display
+    name plus their element/rarity/region/roles metadata (from
+    characters.py's new schema fields) -- powers the website's browse
+    page and the analyze form's autocomplete. Sorted alphabetically by
+    display name so it reads naturally in a UI without extra client-side
+    sorting logic.
+    """
+    keys = [k for k in get_all_characters() if k != "unknown"]
+    characters_list = []
+    for key in keys:
+        config = get_character_config(key)
+        characters_list.append({
+            "key": key,
+            "name": display_name(key),
+            "element": config.get("element"),
+            "rarity": config.get("rarity"),
+            "region": config.get("region"),
+            "roles": config.get("roles", []),
+        })
+    characters_list.sort(key=lambda c: c["name"])
+    return jsonify({"characters": characters_list, "count": len(characters_list)})
 
 
 @app.route("/debug/echo", methods=["POST"])
