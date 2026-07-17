@@ -62,6 +62,7 @@ def list_characters():
             "rarity": config.get("rarity"),
             "region": config.get("region"),
             "roles": config.get("roles", []),
+            "weapon_type": config.get("weapon_type"),
         })
     characters_list.sort(key=lambda c: c["name"])
     return jsonify({"characters": characters_list, "count": len(characters_list)})
@@ -233,4 +234,4 @@ def rate_uid():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-    
+            
