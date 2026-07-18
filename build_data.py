@@ -1164,7 +1164,12 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Flowing Purity", "The Widsith", "Ballad of the Boundless Blue", "Mappa Mare", "Favonius Codex", "Magic Guide", "Fruit of Fulfillment"],
     "niche_weapon": ["Skyward Atlas", "Kagura's Verity", "Starcaller's Watch", "Sunny Morning Sleep-In", "Memory of Dust", "Surf's Up", "Tulaytullah's Remembrance"],
     },
-    
+     "sandrone": {
+     "bis_weapon": "A Teaspoon of Transcendence",
+"secondary_weapon": "A Thousand Blazing Suns",
+"f2p_weapon": ["Tidal Shadow", "Mailed Flower", "Ultimate Overlord's Mega Magic Sword", "Prototype Archaic", "Earth Shaker", "Blackcliff Slasher", "Serpent Spine"],
+"niche_weapon": ["Verdict", "Beacon of the Reed Sea", "Wolf's Gravestone", "Redhorn Stonethresher", "Skyward Pride", "The Unforged", "Talking Stick", "Gest of the Mighty Wolf"],
+     },
 # ==========================================================
 # GEO
 # ==========================================================
