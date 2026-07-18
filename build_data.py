@@ -577,7 +577,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
        "bis_artifact_set": "Disenchantment in Deep Shadow",
        "secondary_artifact_set": "A Day Carved From Rising Winds",
        "niche_artifact_sets": ["Gladiator's Finale", "Shimenawa Reminiscence", "Gilded Dreams"],
-       "team_archetype"
+       "team_archetype": "Cryo Hypercarry",
      }
 # ==========================================================
 # GEO  
