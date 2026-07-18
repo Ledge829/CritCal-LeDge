@@ -454,6 +454,13 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "niche_artifact_sets": ["Tenacity of the Millelith", "Instructor's", "Song of Days Past", "Ocean-Hued Clam", "Noblesse Oblige", "Maiden Beloved"],
     "team_archetype": "Healer / Dendro Support / Bloom / Hyperbloom / Burgeon / Quicken",
     },
+     "nefer": {
+       "bis_artifact_set": "Night of the Sky's Unveiling",
+       "secondary_artifact_set": "Silken Moon's Serenade",
+       "niche_artifact_sets": ["Deepwood Memories", "Gilded Dreams", "Flowers of Paradise Lost", "Wanderer's Troupe", "Paradise Lost", "Golden Troupe", "Instructor", "Noblesse Oblige", "Tenacity of the Millelith", "Scroll of the Hero of Cinder City", "Obsidian Codex", "Emblem of Severed Fate"],
+       "team_archetype": "Lunar Bloom Hypercarry / Dendro Hypercarry / On-Field DPS",
+    },
+     
      
 # ==========================================================
 # CRYO
@@ -566,6 +573,12 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "niche_artifact_sets": ["Shimenawa's Reminiscence", "Golden Troupe", "Echoes of an Offering", "Scroll of the Hero of Cinder City", "Desert Pavilion Chronicle", "Obsidian Codex"],
     "team_archetype": "Cryo Hypercarry / Melt DPS / Freeze DPS",
     },
+     "sandrone": {
+       "bis_artifact_set": "Disenchantment in Deep Shadow",
+       "secondary_artifact_set": "A Day Carved From Rising Winds",
+       "niche_artifact_sets": ["Gladiator's Finale", "Shimenawa Reminiscence", "Gilded Dreams"],
+       "team_archetype"
+     }
 # ==========================================================
 # GEO  
 # ==========================================================
@@ -1032,6 +1045,13 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Rightful Reward", "Kitain Cross Spear", "Black Tassel", "Prototype Starglitter", "Missive Windspear", "Moonpiercer", "Dragon's Bane"],
     "niche_weapon": ["Staff of Homa", "Engulfing Lightning", "Skyward Spine", "Calamity Queller", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Vortex Vanquisher"],
     },
+     "nefer": {
+       "bis_weapon": "Reliquary of Truth",
+       "secondary_weapon": "Nocturne's Curtain Call",
+       "f2p_weapon": ["Blackmarrow Lantern", "The Widsith", "Mappa Mare", "Flowing Purity", "Ballad of the Boundless blue", "Fruit of Fulfillment", "Magic Guide", "Twin Nephrite"],
+       "niche_weapon": ["A Thousand Floating Dreams", "Tome of the Eternal Flow", "Sunny Morning Sleep-In", "Starcaller's Watch", "Surf's Up", "Lost Prayer to the Sacred Winds", "Kagura's Verity", "Skyward Atlas", "Memory of Dust", "Cashflow Supervision"],
+     },
+  
      
 # ==========================================================
 # CRYO  
