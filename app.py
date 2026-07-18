@@ -9,6 +9,7 @@ from status import status_bp
 app = Flask(__name__)
 app.register_blueprint(status_bp)
 
+# TERMUX AND ACODE WORKING
 # CORS: without this, a browser calling this API from critcal.vercel.app
 # (or any other site) gets silently blocked by the browser itself before
 # the request even reaches Flask -- this is a browser-side security rule,
