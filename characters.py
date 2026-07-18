@@ -892,6 +892,18 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         },
     },
 
+      "nefer": {
+          "element": "dendro",
+          "rarity": 5,
+          "region": "nod-krai",
+          "main_scaling": "elemental_mastery",
+          "roles": ["Main dps"],
+          "build_title": "Lunar Bloom Catalyst Hypercarry",
+          "benchmarks": {
+            "elemental_mastery": 600.0
+          },
+      },
+
 # ==========================================================
 # CRYO
 # ==========================================================
@@ -1130,8 +1142,8 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
        "roles": ["main DPS"],
        "build_title": "Cryo Catalyst Hypercarry",
        "benchmark": {
-             "atk": 25000,
-             "energy_recharge": 125, 
+             "atk": 25000.0,
+             "energy_recharge": 125.0, 
        },
      },
 
