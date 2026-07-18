@@ -1128,7 +1128,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
        "region": "snezhnaya",
        "main_scaling": "atk",
        "roles": ["main DPS"],
-       "build_title" "Cryo Catalyst Hypercarry",
+       "build_title": "Cryo Catalyst Hypercarry",
        "benchmark": {
              "atk": 25000,
              "energy_recharge": 125, 
