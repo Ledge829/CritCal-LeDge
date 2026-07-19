@@ -50,6 +50,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Arlecchino.png",
         "build_title": "Hypercarry Pyro DPS",
         "benchmarks": {
             "atk": 2200.0,
@@ -62,6 +63,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Support", "Healer", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Bennett.png",
         "high_er_allowed": True,
         "build_title": "ATK Buffer / Burst Support",
         "benchmarks": {
@@ -75,6 +77,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "hp",
         "roles": ["Support", "Healer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Chevreuse.png",
         "high_er_allowed": True,
         "build_title": "Overload Support",
         "benchmarks": {
@@ -89,6 +92,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "hp",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Dehya.png",
         "build_title": "Bruiser / Defensive DPS",
         "benchmarks": {
             "hp": 35000.0,
@@ -102,6 +106,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Diluc.png",
         "build_title": "Pyro Hypercarry",
         "benchmarks": {
             "atk": 2100.0,
@@ -115,6 +120,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Gaming.png",
         "build_title": "Plunging DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -128,6 +134,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "hp",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Hutao.png",
         "scaling": "hp",
         "build_title": "Vaporize Main DPS",
         "benchmarks": {
@@ -142,6 +149,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Klee.png",
         "build_title": "On-field Pyro DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -154,6 +162,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Liney.png",
         "build_title": "Mono Pyro Charged DPS",
         "benchmarks": {
             "atk": 2200.0,
@@ -166,6 +175,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Mavuika.png",
         "build_title": "Pyro Hypercarry",
         "benchmarks": {
             "atk": 2200.0,
@@ -179,6 +189,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "hp",
         "roles": ["Support", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Tohma.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Shield Support / Burgeon",
@@ -194,6 +205,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Xiangling.png",
         "high_er_allowed": True,
         "build_title": "Off-field Pyro DPS",
         "benchmarks": {
@@ -208,6 +220,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Main DPS", "Shielder", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Xinyan.png",
         "build_title": "Physical DPS / Shield",
         "benchmarks": {
             "atk": 2000.0,
@@ -224,6 +237,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "hp",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Barbara.png",
         "scaling": "hp",
         "build_title": "Healing Support",
         "benchmarks": {
@@ -238,6 +252,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "hp",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Candace.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Hydro Infusion Support",
@@ -253,6 +268,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Tartaglia.png",
         "build_title": "On-field Hydro DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -265,6 +281,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "hp",
         "roles": ["Sub DPS", "Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Furina.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Universal Buffer / Off-field Hydro",
@@ -280,6 +297,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "hp",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Kokomi.png",
         "scaling": "hp",
         "build_title": "Healing Driver",
         "benchmarks": {
@@ -294,6 +312,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Mona.png",
         "high_er_allowed": True,
         "build_title": "Omen Nuke Support",
         "benchmarks": {
@@ -307,6 +326,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "hp",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Mualani.png",
         "scaling": "hp",
         "build_title": "Hydro Hypercarry",
         "benchmarks": {
@@ -321,6 +341,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "hp",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Neuvillette.png",
         "scaling": "hp",
         "crit_ratio_target": 4.2,
         "build_title": "Hypercarry Charged Attacker",
@@ -336,6 +357,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "hp",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Nilou.png",
         "scaling": "hp",
         "build_title": "Bloom Enabler",
         "benchmarks": {
@@ -349,6 +371,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "hp",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Sigewinne.png",
         "scaling": "hp",
         "build_title": "Healing Support",
         "benchmarks": {
@@ -362,6 +385,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Xingqiu.png",
         "high_er_allowed": True,
         "build_title": "Off-field Hydro DPS",
         "benchmarks": {
@@ -376,6 +400,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "hp",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Yelan.png",
         "scaling": "hp",
         "build_title": "Off-field Hydro DPS / Enabler",
         "benchmarks": {
@@ -390,6 +415,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "hp",
         "roles": ["Support", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Dahlia.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Hydro Shield Support / ATK SPD Buffer",
@@ -409,6 +435,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Chasca.png",
         "build_title": "Aerial Hypercarry DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -421,6 +448,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Faruzan.png",
         "high_er_allowed": True,
         "build_title": "Anemo Dedicated Support",
         "benchmarks": {
@@ -434,6 +462,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Heizo.png",
         "build_title": "Catalyst Driver / Burst DPS",
         "benchmarks": {
             "atk": 1900.0,
@@ -447,6 +476,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Healer", "Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Qin.png",
         "build_title": "Healing Support / Anemo Driver",
         "benchmarks": {
             "atk": 2000.0,
@@ -460,6 +490,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "em",
         "roles": ["Support", "Buffer", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Kazuha.png",
         "scaling": "em",
         "build_title": "VV Swirl Support",
         "benchmarks": {
@@ -473,6 +504,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Support", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Lanyan.png",
         "scaling": "atk",
         "build_title": "Anemo Shield Support",
         "benchmarks": {
@@ -487,6 +519,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Linette.png",
         "build_title": "Quick-Swap Anemo Support",
         "benchmarks": {
             "atk": 1800.0,
@@ -500,6 +533,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "em",
         "roles": ["Healer", "Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Sayu.png",
         "scaling": "em",
         "build_title": "Healing Swirl Support",
         "benchmarks": {
@@ -514,6 +548,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "em",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Sucrose.png",
         "scaling": "em",
         "build_title": "EM Buffing Support",
         "benchmarks": {
@@ -527,6 +562,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "em",
         "roles": ["Support", "Sub DPS", "Crowd Control"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Venti.png",
         "scaling": "em",
         "high_er_allowed": True,
         "build_title": "Crowd Control Support",
@@ -542,6 +578,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Wanderer.png",
         "build_title": "Hypercarry Catalyst DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -554,6 +591,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Support", "Healer", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Liuyun.png",
         "scaling": "atk",
         "build_title": "Plunge Support / Healer",
         "benchmarks": {
@@ -572,6 +610,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Beidou.png",
         "high_er_allowed": True,
         "build_title": "Burst Sub DPS",
         "benchmarks": {
@@ -586,6 +625,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Clorinde.png",
         "build_title": "Aggravate / Electro DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -599,6 +639,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Cyno.png",
         "build_title": "Quickbloom Hypercarry",
         "benchmarks": {
             "atk": 1800.0,
@@ -612,6 +653,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "atk",
         "roles": ["Support", "Healer", "Battery"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Dori.png",
         "high_er_allowed": True,
         "build_title": "Battery / Healing Support",
         "benchmarks": {
@@ -626,6 +668,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Fischl.png",
         "build_title": "Off-field Electro DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -639,6 +682,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Flins.png",
         "scaling": "atk",
         "crit_ratio_target": 4.9,
         "build_title": "On-Field Lunar Electro DPS",
@@ -655,6 +699,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Keqing.png",
         "build_title": "Aggravate Main DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -668,6 +713,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "em",
         "roles": ["Support", "Healer", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Shinobu.png",
         "scaling": "em",
         "build_title": "Hyperbloom Trigger",
         "benchmarks": {
@@ -681,6 +727,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Lisa.png",
         "build_title": "Electro Support / Aggravate",
         "benchmarks": {
             "atk": 1800.0,
@@ -694,6 +741,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Olorun.png",
         "build_title": "Electro Support",
         "benchmarks": {
             "atk": 1800.0,
@@ -707,6 +755,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "atk",
         "roles": ["Main DPS", "Support", "Sub DPS", "Battery"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Shougun.png",
         "high_er_allowed": True,
         "build_title": "Hypercarry / Burst Support",
         "benchmarks": {
@@ -721,6 +770,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Razor.png",
         "build_title": "Physical / Aggravate DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -733,6 +783,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Sara.png",
         "high_er_allowed": True,
         "build_title": "ATK Buffer / Burst Support",
         "benchmarks": {
@@ -746,6 +797,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Sethos.png",
         "build_title": "Charged Shot Electro DPS",
         "benchmarks": {
             "elemental_mastery": 300.0,
@@ -758,6 +810,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "atk",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Yae.png",
         "build_title": "Turret Sub DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -775,6 +828,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "em",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Alhatham.png",
         "scaling": "em",
         "build_title": "Spread Hypercarry",
         "benchmarks": {
@@ -789,6 +843,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "hp",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Baizhuer.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Healing Support / Dendro Enabler",
@@ -804,6 +859,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "atk",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Collei.png",
         "high_er_allowed": True,
         "build_title": "Off-field Dendro Support",
         "benchmarks": {
@@ -817,6 +873,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Emilie.png",
         "build_title": "Burning Sub DPS",
         "benchmarks": {
             "atk": 2200.0,
@@ -829,6 +886,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "em",
         "roles": ["Main DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Kaveh.png",
         "scaling": "em",
         "build_title": "Bloom Driver",
         "benchmarks": {
@@ -843,6 +901,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Kinich.png",
         "build_title": "Burning Hypercarry",
         "benchmarks": {
             "atk": 2200.0,
@@ -856,6 +915,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "em",
         "roles": ["Support", "Sub DPS", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Nahida.png",
         "scaling": "em",
         "build_title": "Reaction Driver / Off-field DPS",
         "benchmarks": {
@@ -869,6 +929,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "em",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Tighnari.png",
         "scaling": "em",
         "build_title": "Spread Charged Shot DPS",
         "benchmarks": {
@@ -883,6 +944,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "hp",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Yaoyao.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Healing Support",
@@ -891,18 +953,6 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
             "energy_recharge": 180.0,
         },
     },
-
-      "nefer": {
-          "element": "dendro",
-          "rarity": 5,
-          "region": "nod-krai",
-          "main_scaling": "elemental_mastery",
-          "roles": ["Main dps"],
-          "build_title": "Lunar Bloom Catalyst Hypercarry",
-          "benchmarks": {
-            "elemental_mastery": 600.0
-          },
-      },
 
 # ==========================================================
 # CRYO
@@ -914,6 +964,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ayaka.png",
         "build_title": "Freeze Premium Main DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -929,6 +980,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Charlotte.png",
         "high_er_allowed": True,
         "build_title": "Healing Support",
         "benchmarks": {
@@ -943,6 +995,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Chongyun.png",
         "build_title": "Cryo Infusion Support",
         "benchmarks": {
             "atk": 1800.0,
@@ -956,6 +1009,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "def",
         "roles": ["Support", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Citlali.png",
         "scaling": "def",
         "build_title": "Cryo Reaction Support",
         "benchmarks": {
@@ -970,6 +1024,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "hp",
         "roles": ["Support", "Healer", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Diona.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Shield / Healing Support",
@@ -985,6 +1040,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Support", "Healer", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Escoffier.png",
         "high_er_allowed": True,
         "build_title": "Off-field Cryo Support / Healer / RES Shred",
         "benchmarks": {
@@ -999,6 +1055,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Eula.png",
         "build_title": "Physical Hypercarry",
         "benchmarks": {
             "atk": 2200.0,
@@ -1012,6 +1069,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Freminet.png",
         "build_title": "Physical / Cryo DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -1024,6 +1082,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ganyu.png",
         "build_title": "Melt / Freeze Archer DPS",
         "benchmarks": {
             "atk": 2100.0,
@@ -1038,6 +1097,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Kaeya.png",
         "build_title": "Cryo Sub DPS",
         "benchmarks": {
             "atk": 1900.0,
@@ -1051,6 +1111,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "sumeru",
         "main_scaling": "hp",
         "roles": ["Support", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Layla.png",
         "scaling": "hp",
         "build_title": "Shield Support",
         "benchmarks": {
@@ -1064,6 +1125,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Support", "Healer", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Mika.png",
         "high_er_allowed": True,
         "build_title": "Physical Support",
         "benchmarks": {
@@ -1078,6 +1140,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Healer", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Qiqi.png",
         "build_title": "Healing Support",
         "benchmarks": {
             "atk": 2000.0,
@@ -1090,6 +1153,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Rosaria.png",
         "build_title": "Cryo Burst DPS / Crit Support",
         "benchmarks": {
             "atk": 1900.0,
@@ -1103,6 +1167,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Shenhe.png",
         "build_title": "Cryo Dedicated Buffer",
         "benchmarks": {
             "atk": 3500.0,
@@ -1116,6 +1181,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_SkirkNew.png",
         "build_title": "Flexible Cryo DPS",
         "benchmarks": {
             "atk": 2200.0,
@@ -1128,24 +1194,12 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Wriothesley.png",
         "build_title": "Cryo Catalyst Hypercarry",
         "benchmarks": {
             "atk": 2100.0,
         },
     },
-
-     "sandrone": {
-       "element": "cryo",
-       "rarity": 5,
-       "region": "snezhnaya",
-       "main_scaling": "atk",
-       "roles": ["main DPS"],
-       "build_title": "Cryo Catalyst Hypercarry",
-       "benchmark": {
-             "atk": 25000.0,
-             "energy_recharge": 125.0, 
-       },
-     },
 
 # ==========================================================
 # GEO
@@ -1157,6 +1211,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "def",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Albedo.png",
         "scaling": "def",
         "build_title": "Off-field Geo DPS",
         "benchmarks": {
@@ -1170,6 +1225,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "def",
         "roles": ["Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Chiori.png",
         "scaling": "def",
         "build_title": "Dual-Sword Off-field DPS",
         "benchmarks": {
@@ -1183,6 +1239,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "def",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Gorou.png",
         "scaling": "def",
         "high_er_allowed": True,
         "build_title": "Geo DEF Buffer",
@@ -1198,6 +1255,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "inazuma",
         "main_scaling": "def",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Itto.png",
         "scaling": "def",
         "crit_ratio_target": 2.2,
         "build_title": "Geo Hypercarry DPS",
@@ -1212,6 +1270,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "def",
         "roles": ["Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Kachina.png",
         "scaling": "def",
         "build_title": "Geo Support",
         "benchmarks": {
@@ -1226,6 +1285,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Navia.png",
         "build_title": "Crystalize Hypercarry",
         "benchmarks": {
             "atk": 2400.0,
@@ -1238,6 +1298,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ningguang.png",
         "build_title": "Geo Catalyst DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -1250,6 +1311,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "def",
         "roles": ["Main DPS", "Healer", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Noel.png",
         "scaling": "def",
         "build_title": "Main DPS / Shield Support",
         "benchmarks": {
@@ -1263,6 +1325,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "def",
         "roles": ["Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Xilonen.png",
         "scaling": "def",
         "build_title": "Geo Support / RES Shred",
         "benchmarks": {
@@ -1277,6 +1340,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "def",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Yunjin.png",
         "scaling": "def",
         "high_er_allowed": True,
         "build_title": "Normal Attack Buffer",
@@ -1296,6 +1360,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "atk",
         "roles": ["Flexible"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "build_title": "Flexible Traveler Build",
         "benchmarks": {
             "atk": 1800.0,
@@ -1308,6 +1373,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "em",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "scaling": "em",
         "build_title": "Swirl Traveler",
         "benchmarks": {
@@ -1322,6 +1388,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "build_title": "Geo Burst DPS",
         "benchmarks": {
             "atk": 1900.0,
@@ -1335,6 +1402,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "atk",
         "roles": ["Support", "Battery"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "high_er_allowed": True,
         "build_title": "Battery Support",
         "benchmarks": {
@@ -1348,6 +1416,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "atk",
         "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "high_er_allowed": True,
         "build_title": "Dendro Support",
         "benchmarks": {
@@ -1361,6 +1430,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "atk",
         "roles": ["Main DPS", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "build_title": "Hydro On-field DPS",
         "benchmarks": {
             "atk": 1900.0,
@@ -1373,6 +1443,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "outlander",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_PlayerBoy.png",
         "build_title": "Pyro DPS",
         "benchmarks": {
             "atk": 2000.0,
@@ -1385,6 +1456,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "unknown",
         "main_scaling": "atk",
         "roles": ["Unknown"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "build_title": "Unknown Character",
         "benchmarks": {},
     },
@@ -1476,6 +1548,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "atk",
         "roles": ["Sub DPS", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ineffa.png",
         "scaling": "atk",
         "build_title": "Lunar-Charged Sub-DPS / Shielder",
         "benchmarks": {"atk": 2000.0, "elemental_mastery": 150.0},
@@ -1487,6 +1560,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "em",
         "roles": ["Support"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "em",
         "high_er_allowed": True,
         "build_title": "Lunar-Crystallize EM Support",
@@ -1503,6 +1577,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "def",
         "roles": ["Main DPS"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "def",
         "build_title": "Lunar-Crystallize DEF-scaling DPS",
         "benchmarks": {"defense": 2000.0},
@@ -1518,6 +1593,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "hp",
         "roles": ["Sub DPS"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "hp",
         "build_title": "Lunar-Reaction HP Sub-DPS",
         "benchmarks": {"hp": 30000.0},
@@ -1529,6 +1605,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "khaenriah",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "atk",
         "build_title": "Cryo Main DPS (Hexerei)",
         "benchmarks": {"atk": 2000.0, "elemental_mastery": 150.0, "energy_recharge": 130.0},
@@ -1544,6 +1621,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "def",
         "roles": ["Support", "Healer"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "def",
         "build_title": "Lunar-Crystallize DEF Support / Healer",
         "benchmarks": {"defense": 2000.0},
@@ -1559,6 +1637,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "atk",
         "high_er_allowed": False,
         "build_title": "Hexerei Hybrid-Element Main DPS",
@@ -1575,6 +1654,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer", "Shielder"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "atk",
         "build_title": "ATK Buffer / Shielder",
         "benchmarks": {"atk": 4000.0},
@@ -1590,6 +1670,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer"],
+        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
         "scaling": "atk",
         "high_er_allowed": True,
         "build_title": "Anemo Swirl Support / Buffer",
@@ -1632,6 +1713,7 @@ MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Xiao.png",
         "scaling": "atk",
         "build_title": "Anemo Plunge Hypercarry",
         "benchmarks": {"atk": 2200.0, "energy_recharge": 130.0},
@@ -1647,6 +1729,7 @@ MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "hp",
         "roles": ["Support", "Shielder", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Zhongli.png",
         "scaling": "hp",
         "high_er_allowed": True,
         "build_title": "Geo Shield Support / Off-field Utility",
@@ -1663,6 +1746,7 @@ MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Iansan.png",
         "scaling": "atk",
         "high_er_allowed": True,
         "build_title": "Off-field ATK Buffer / Support",
@@ -1796,4 +1880,4 @@ def get_aliases(character: str):
         alias
         for alias, target in CHARACTER_ALIASES.items()
         if target == canonical
-)
+    )

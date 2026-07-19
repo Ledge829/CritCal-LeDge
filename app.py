@@ -9,8 +9,6 @@ from status import status_bp
 app = Flask(__name__)
 app.register_blueprint(status_bp)
 
-#  YEAH
-# TERMUX AND ACODE WORKING
 # CORS: without this, a browser calling this API from critcal.vercel.app
 # (or any other site) gets silently blocked by the browser itself before
 # the request even reaches Flask -- this is a browser-side security rule,
@@ -65,6 +63,7 @@ def list_characters():
             "region": config.get("region"),
             "roles": config.get("roles", []),
             "weapon_type": config.get("weapon_type"),
+            "portrait": config.get("portrait"),
         })
     characters_list.sort(key=lambda c: c["name"])
     return jsonify({"characters": characters_list, "count": len(characters_list)})
@@ -236,4 +235,3 @@ def rate_uid():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-            
