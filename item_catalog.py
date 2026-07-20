@@ -58,7 +58,7 @@ _SWORDS = {
     "freedom-sworn": True, "skyward blade": True, "aquila favonia": True,
     "uraku misugiri": True, "splendor of tranquil waters": True, "light of foliar incision": True,
     "key of khaj-nisut": True, "haran geppaku futsu": True, "absolution": True,
-    "azurelight": True, "peak patrol song": True,
+    "azurelight": True, "peak patrol song": True, "athame artis": True,
     # 4-star
     "the dockhand's assistant": False, "fleuve cendre ferryman": False, "wolf-fang": False,
     "toukabou shigure": False, "xiphos' moonlight": False, "sapwood blade": False,

@@ -1676,6 +1676,45 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "build_title": "Anemo Swirl Support / Buffer",
         "benchmarks": {"atk": 1800.0, "energy_recharge": 180.0},
     },
+
+    "aloy": {
+        "element": "cryo",
+        "rarity": 5,
+        "region": "outlander",
+        "main_scaling": "atk",
+        "roles": ["Burst DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Aloy.png",
+        "scaling": "atk",
+        "high_er_allowed": True,
+        "build_title": "Cryo Burst DPS / Battery",
+        "benchmarks": {"atk": 1800.0, "energy_recharge": 140.0},
+    },
+
+    "durin": {
+        "element": "pyro",
+        "rarity": 5,
+        "region": "mondstadt",
+        "main_scaling": "atk",
+        "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Durin.png",
+        "scaling": "atk",
+        "high_er_allowed": True,
+        "build_title": "Off-field Pyro Sub-DPS / Support",
+        "benchmarks": {"atk": 1800.0, "energy_recharge": 130.0},
+    },
+
+    "jahoda": {
+        "element": "anemo",
+        "rarity": 4,
+        "region": "snezhnaya",
+        "main_scaling": "atk",
+        "roles": ["Support", "Healer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Jahoda.png",
+        "scaling": "atk",
+        "high_er_allowed": True,
+        "build_title": "Swirl Support / Healer",
+        "benchmarks": {"atk": 1800.0, "energy_recharge": 200.0},
+    },
 }
 
 NEW_CHARACTER_ALIASES: Dict[str, str] = {
@@ -1688,6 +1727,9 @@ NEW_CHARACTER_ALIASES: Dict[str, str] = {
     "varka": "varka",
     "nicole": "nicole",
     "prune": "prune",
+    "aloy": "aloy",
+    "durin": "durin",
+    "jahoda": "jahoda",
 }
 
 
@@ -1755,6 +1797,172 @@ MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 }
 
 CHARACTER_CONFIGS.update(MISSING_CHARACTER_CONFIGS)
+
+# ==========================================================
+# SECOND MISSING-CHARACTER BATCH -- found via a full roster cross-check
+# against Wikipedia's character list plus Enka's live character
+# metadata (which additionally surfaced Aino and Lauma, both real
+# released characters with full combat kits that the Wikipedia-only
+# diff had missed). Every character here was individually researched
+# (element/weapon type/scaling confirmed against community build
+# guides), not guessed from memory -- five of these (Amber, Ayato,
+# Yanfei, Yoimiya, Kirara) are long-established characters that simply
+# never made it into this file's original scaffolding.
+#
+# Portraits: verified against real Enka data for all except Sandrone,
+# who released too recently to appear in the Enka snapshot used --
+# hers is pattern-inferred the same way as the other 8 gap characters
+# (see the main CHARACTER_CONFIGS block), so double-check it loads.
+# ==========================================================
+
+SECOND_MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
+    "amber": {
+        "element": "pyro",
+        "rarity": 4,
+        "region": "mondstadt",
+        "main_scaling": "atk",
+        "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ambor.png",
+        "scaling": "atk",
+        "build_title": "Pyro Support / Melt Sub DPS",
+        "benchmarks": {"atk": 1800.0},
+    },
+    "ayato": {
+        "element": "hydro",
+        "rarity": 5,
+        "region": "inazuma",
+        "main_scaling": "atk",
+        "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ayato.png",
+        "scaling": "atk",
+        "build_title": "On-field Hydro DPS (Bloodblossom)",
+        "benchmarks": {"atk": 2100.0},
+    },
+    "yanfei": {
+        "element": "pyro",
+        "rarity": 4,
+        "region": "liyue",
+        "main_scaling": "atk",
+        "roles": ["Main DPS", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Feiyan.png",
+        "scaling": "atk",
+        "build_title": "Charged Attack Pyro DPS / Shield Support",
+        "benchmarks": {"atk": 1900.0},
+    },
+    "yoimiya": {
+        "element": "pyro",
+        "rarity": 5,
+        "region": "inazuma",
+        "main_scaling": "atk",
+        "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Yoimiya.png",
+        "scaling": "atk",
+        "build_title": "On-field Pyro DPS (Normal Attack)",
+        "benchmarks": {"atk": 2100.0},
+    },
+    "kirara": {
+        "element": "dendro",
+        "rarity": 4,
+        "region": "inazuma",
+        "main_scaling": "hp",
+        "roles": ["Support", "Shielder"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Momoka.png",
+        "scaling": "hp",
+        "high_er_allowed": True,
+        "build_title": "HP-Scaling Support / Shielder",
+        "benchmarks": {"hp": 30000.0},
+    },
+    "ifa": {
+        "element": "anemo",
+        "rarity": 4,
+        "region": "natlan",
+        "main_scaling": "hp",
+        "roles": ["Support", "Healer"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Ifa.png",
+        "scaling": "hp",
+        "high_er_allowed": True,
+        "build_title": "Healing Support",
+        "benchmarks": {"hp": 30000.0, "energy_recharge": 180.0},
+    },
+    "varesa": {
+        "element": "electro",
+        "rarity": 5,
+        "region": "natlan",
+        "main_scaling": "atk",
+        "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Varesa.png",
+        "scaling": "atk",
+        "build_title": "On-field Electro DPS (Nightsoul)",
+        "benchmarks": {"atk": 2100.0},
+    },
+    "mizuki": {
+        "element": "anemo",
+        "rarity": 5,
+        "region": "inazuma",
+        "main_scaling": "em",
+        "roles": ["Support", "Sub DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Mizuki.png",
+        "scaling": "em",
+        "high_er_allowed": True,
+        "build_title": "Swirl Support / EM Sub DPS",
+        "benchmarks": {"elemental_mastery": 800.0, "energy_recharge": 160.0},
+    },
+    "sandrone": {
+        "element": "cryo",
+        "rarity": 5,
+        "region": "snezhnaya",
+        "main_scaling": "atk",
+        "roles": ["Main DPS"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Sandrone.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
+        "scaling": "atk",
+        "build_title": "On-field Cryo DPS (Superconduct)",
+        "benchmarks": {"atk": 2200.0},
+    },
+    "nefer": {
+        "element": "dendro",
+        "rarity": 5,
+        "region": "sumeru",
+        "main_scaling": "em",
+        "roles": ["Sub DPS", "Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Nefer.png",
+        "scaling": "em",
+        "high_er_allowed": True,
+        "build_title": "Lunar-Bloom Sub DPS",
+        "benchmarks": {"elemental_mastery": 800.0, "energy_recharge": 160.0},
+    },
+    "aino": {
+        "element": "hydro",
+        "rarity": 4,
+        "region": "snezhnaya",
+        "main_scaling": "em",
+        "roles": ["Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Aino.png",
+        "scaling": "em",
+        "high_er_allowed": True,
+        "build_title": "Off-field Hydro Application / EM Support",
+        "benchmarks": {"elemental_mastery": 800.0, "energy_recharge": 160.0},
+    },
+    "lauma": {
+        "element": "dendro",
+        "rarity": 5,
+        "region": "snezhnaya",
+        "main_scaling": "em",
+        "roles": ["Support"],
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Lauma.png",
+        "scaling": "em",
+        "high_er_allowed": True,
+        "build_title": "Lunar-Bloom Conversion Support",
+        "benchmarks": {"elemental_mastery": 800.0, "energy_recharge": 140.0},
+    },
+}
+
+CHARACTER_CONFIGS.update(SECOND_MISSING_CHARACTER_CONFIGS)
+
+# A couple of common alternate names worth resolving directly.
+CHARACTER_ALIASES.update({
+    "kamisatoayato": "ayato",
+    "yumemizukimizuki": "mizuki",
+})
 
 # Merge new characters into the main lookup tables (append-only, additive).
 CHARACTER_CONFIGS.update(NEW_CHARACTER_CONFIGS)

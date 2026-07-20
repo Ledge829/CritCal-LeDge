@@ -648,6 +648,24 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     "niche_artifact_sets": ["Archaic Petra", "Noblesse Oblige", "Deepwood Memories", "Instructor's", "Golden Troupe", "Emblem of Severed Fate"],
     "team_archetype": "Universal Shield Support / Geo Support / Burst Support / RES Shred",
     },
+    "aloy": {
+    "bis_artifact_set": "Noblesse Oblige",
+    "secondary_artifact_set": "Blizzard Strayer",
+    "niche_artifact_sets": ["Gilded Dreams", "Emblem of Severed Fate", "Gladiator's Finale"],
+    "team_archetype": "Quick-Swap Cryo Battery & Burst DPS",
+    },
+    "durin": {
+    "bis_artifact_set": "Crimson Witch of Flames",
+    "secondary_artifact_set": "Emblem of Severed Fate",
+    "niche_artifact_sets": ["Noblesse Oblige", "Gilded Dreams", "Vourukasha's Glow"],
+    "team_archetype": "Off-field Pyro Sub-DPS & Burst Support",
+    },
+    "jahoda": {
+    "bis_artifact_set": "Viridescent Venerer",
+    "secondary_artifact_set": "Noblesse Oblige",
+    "niche_artifact_sets": ["Emblem of Severed Fate", "Instructor's", "Wanderer's Troupe"],
+    "team_archetype": "Off-field Swirl Support, Healer & EM Buffer",
+    },
 }
 
 
@@ -1233,10 +1251,28 @@ WEAPON_TIERS: Dict[str, Dict[str, Any]] = {
     "f2p_weapon": ["Prototype Starglitter", "Rightful Reward", "Dialogues of the Desert Sages", "Missive Windspear", "Black Tassel", "Kitain Cross Spear", "Moonpiercer"],
     "niche_weapon": ["Skyward Spine", "Staff of Homa", "Calamity Queller", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Primordial Jade Winged-Spear", "Vortex Vanquisher"],
     },
-     "zhongli": {
+      "zhongli": {
     "bis_weapon": "Staff of Homa",
     "secondary_weapon": "Favonius Lance",
     "f2p_weapon": ["Black Tassel", "Rightful Reward", "Prototype Starglitter", "Dialogues of the Desert Sages", "Missive Windspear", "Kitain Cross Spear", "Moonpiercer"],
     "niche_weapon": ["Engulfing Lightning", "Calamity Queller", "Skyward Spine", "Staff of the Scarlet Sands", "Lumidouce Elegy", "Primordial Jade Winged-Spear", "Vortex Vanquisher"],
+    },
+    "aloy": {
+    "bis_weapon": "Thundering Pulse",
+    "secondary_weapon": "Polar Star",
+    "f2p_weapon": ["The Stringless", "Favonius Warbow", "Sacrificial Bow", "Slingshot"],
+    "niche_weapon": ["Skyward Harp", "Aqua Simulacra", "Hunter's Path", "The First Great Magic"],
+    },
+    "durin": {
+    "bis_weapon": "Athame Artis",
+    "secondary_weapon": "Mistsplitter Reforged",
+    "f2p_weapon": ["Favonius Sword", "Fleuve Cendre Ferryman", "Sapwood Blade", "Harbinger of Dawn"],
+    "niche_weapon": ["Primordial Jade Cutter", "Absolution", "Light of Foliar Incision", "Skyward Blade", "Freedom-Sworn"],
+    },
+    "jahoda": {
+    "bis_weapon": "Elegy for the End",
+    "secondary_weapon": "Favonius Warbow",
+    "f2p_weapon": ["Favonius Warbow", "Sacrificial Bow", "End of the Line", "Fading Twilight", "Slingshot"],
+    "niche_weapon": ["Skyward Harp", "Polar Star", "Aqua Simulacra", "The Stringless"],
     },
 }

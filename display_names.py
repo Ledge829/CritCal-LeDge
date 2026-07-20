@@ -31,6 +31,8 @@ DISPLAY_NAMES: Dict[str, str] = {
     "itto": "Arataki Itto",
     "lanyan": "Lan Yan",
     "childe": "Tartaglia",
+    "ayato": "Kamisato Ayato",
+    "mizuki": "Yumemizuki Mizuki",
 
     # Traveler variants
     "traveler": "Traveler",

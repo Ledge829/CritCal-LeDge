@@ -144,4 +144,7 @@ WEAPON_DATA: Dict[str, Dict[str, Any]] = {
     "varka": {"weapon_type": "Claymore", "recommended_weapons": ["Gest of the Mighty Wolf", "A Thousand Blazing Suns"]},
     "nicole": {"weapon_type": "Catalyst", "recommended_weapons": ["Prototype Amber", "Sacrificial Fragments"]},
     "prune": {"weapon_type": "Claymore", "recommended_weapons": ["Favonius Greatsword", "Prototype Starglitter"]},
+    "aloy": {"weapon_type": "Bow", "recommended_weapons": ["Thundering Pulse", "The Stringless"]},
+    "durin": {"weapon_type": "Sword", "recommended_weapons": ["Athame Artis", "Favonius Sword"]},
+    "jahoda": {"weapon_type": "Bow", "recommended_weapons": ["Elegy for the End", "Favonius Warbow"]},
 }
