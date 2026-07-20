@@ -1560,7 +1560,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "em",
         "roles": ["Support"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Illuga.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "em",
         "high_er_allowed": True,
         "build_title": "Lunar-Crystallize EM Support",
@@ -1577,7 +1577,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "liyue",
         "main_scaling": "def",
         "roles": ["Main DPS"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Zibai.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "def",
         "build_title": "Lunar-Crystallize DEF-scaling DPS",
         "benchmarks": {"defense": 2000.0},
@@ -1593,7 +1593,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "snezhnaya",
         "main_scaling": "hp",
         "roles": ["Sub DPS"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Columbina.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "hp",
         "build_title": "Lunar-Reaction HP Sub-DPS",
         "benchmarks": {"hp": 30000.0},
@@ -1605,7 +1605,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "khaenriah",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Lohen.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "atk",
         "build_title": "Cryo Main DPS (Hexerei)",
         "benchmarks": {"atk": 2000.0, "elemental_mastery": 150.0, "energy_recharge": 130.0},
@@ -1621,7 +1621,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "natlan",
         "main_scaling": "def",
         "roles": ["Support", "Healer"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Linnea.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "def",
         "build_title": "Lunar-Crystallize DEF Support / Healer",
         "benchmarks": {"defense": 2000.0},
@@ -1637,7 +1637,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Main DPS"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Varka.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "atk",
         "high_er_allowed": False,
         "build_title": "Hexerei Hybrid-Element Main DPS",
@@ -1654,7 +1654,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "fontaine",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer", "Shielder"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Nicole.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "atk",
         "build_title": "ATK Buffer / Shielder",
         "benchmarks": {"atk": 4000.0},
@@ -1670,7 +1670,7 @@ NEW_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "region": "mondstadt",
         "main_scaling": "atk",
         "roles": ["Support", "Buffer"],
-        "portrait": None,  # not yet in Enka's public character data -- verify + fill in once available
+        "portrait": "https://enka.network/ui/UI_AvatarIcon_Prune.png",  # INFERRED from naming pattern, not directly verified -- confirm this loads after deploy
         "scaling": "atk",
         "high_er_allowed": True,
         "build_title": "Anemo Swirl Support / Buffer",
