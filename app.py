@@ -7,6 +7,7 @@ from display_names import display_name
 from status import status_bp
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # Limit requests to 1MB
 app.register_blueprint(status_bp)
 
 # CORS: without this, a browser calling this API from critcal.vercel.app

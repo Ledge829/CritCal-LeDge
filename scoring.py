@@ -590,12 +590,11 @@ def rate_build(
     if artifact_set_note:
         build_description += " " + artifact_set_note
 
-    # Benchmarking Processor
-    benchmark_status: List[str] = []
-    stat_lookup = {"atk": c_atk, "hp": c_hp, "defense": c_def, "elemental_mastery": c_em, "energy_recharge": c_er}
+def _process_benchmarks(stat_lookup: Dict[str, float], benchmarks: Dict[str, float]) -> List[str]:
+    """Helper to process stat benchmarks."""
+    benchmark_status = []
     label_lookup = {"atk": "ATK", "hp": "HP", "defense": "DEF", "elemental_mastery": "EM", "energy_recharge": "ER"}
     
-    benchmarks: Dict[str, float] = char_config.get("benchmarks", {})
     for target_stat, target_value in benchmarks.items():
         actual_value = stat_lookup.get(target_stat, 0.0)
         label = label_lookup.get(target_stat, target_stat.upper())
@@ -606,6 +605,118 @@ def rate_build(
         else:
             pct = (actual_value / target_value) * 100.0
             benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} ({pct:.1f}% of target)")
+    return benchmark_status
+
+def rate_build(
+    character: str, crit_rate: Any, crit_dmg: Any, atk: Any, hp: Any, defense: Any, 
+    elemental_mastery: Any, energy_recharge: Any, substat_totals: Optional[dict] = None, 
+    character_scaling: Optional[str] = None, ideal_crit_ratio: Optional[float] = None,
+    include_relative_damage: bool = False, weapon: Optional[dict] = None,
+    artifact_sets: Optional[List[dict]] = None
+) -> dict:
+    """Main build evaluation entry point. Casts types safely to protect runtime performance."""
+    
+    # Safe structure checking
+    # Defensive sanitization: BDFD (and other clients) may send a "present
+    # but empty" weapon/artifact_sets when an optional slash option was
+    # left blank -- e.g. {"name": "", "refinement": 1} or [{"name": "",
+    # "count": 0}]. Without this, an unfilled optional field could
+    # accidentally count as "real data" and affect the grade, breaking the
+    # fairness guarantee that omitting gear info never changes scoring.
+    if weapon is not None and not (isinstance(weapon, dict) and str(weapon.get("name", "")).strip()):
+        weapon = None
+    if artifact_sets is not None:
+        artifact_sets = [
+            s for s in artifact_sets
+            if isinstance(s, dict) and str(s.get("name", "")).strip() and s.get("count", 0) not in (0, "0", None, "")
+        ]
+        if not artifact_sets:
+            artifact_sets = None
+
+    clean_substats = {}
+    if isinstance(substat_totals, dict):
+        for k, v in substat_totals.items():
+            try:
+                # Filter out garbage input keys like "atkk" or "energy"
+                stat_key = str(k).lower().strip()
+                if stat_key in MAX_SUBSTAT_ROLL:
+                    clean_substats[stat_key] = float(v)
+            except (ValueError, TypeError):
+                continue
+
+    try:
+        c_rate = float(crit_rate)
+        c_dmg = float(crit_dmg)
+        c_atk = float(atk)
+        c_hp = float(hp)
+        c_def = float(defense)
+        c_em = float(elemental_mastery)
+        c_er = float(energy_recharge)
+    except (ValueError, TypeError):
+        return {"error": "Invalid numerical parameters supplied to rating engine."}
+
+    char_config = get_character_config(character)
+    resolved_scaling = character_scaling or char_config.get("scaling", "atk")
+    resolved_ratio_target = ideal_crit_ratio if ideal_crit_ratio is not None else char_config.get("crit_ratio_target", CRIT_RATIO_TARGET)
+    high_er_allowed = char_config.get("high_er_allowed", False)
+    base_build_title = char_config.get("build_title", "Standard Build Archetype")
+    ignore_high_ratio = char_config.get("ignore_high_ratio_warning", False)
+
+    # If build_data.py has a team_archetype guess for this character, fold
+    # it into the displayed build_title so BDFD gets it "for free" without
+    # a separate field to wire up. Falls back to the plain base title for
+    # any character build_data.py hasn't covered yet -- never blank/broken.
+    team_archetype = char_config.get("team_archetype")
+    build_title = f"{base_build_title} -- {team_archetype}" if team_archetype else base_build_title
+
+    crit_score, crit_note = score_crit_ratio(c_rate, c_dmg, target_ratio=resolved_ratio_target, ignore_high_ratio_warning=ignore_high_ratio)
+    substat_score, substat_note, equivalent_rolls = score_substat_efficiency(clean_substats, resolved_scaling)
+
+    weapon_score, weapon_fit_note, weapon_tier = score_weapon_fit(weapon, char_config)
+    artifact_set_score, artifact_set_note, has_four_piece, artifact_tier = score_artifact_set_fit(artifact_sets, char_config)
+
+    # Base weights sum to 1.0 when all four components are present. Crit
+    # and substat keep EXACTLY their original 0.55/0.45 relative ratio
+    # (0.4125/0.75 = 0.55, 0.3375/0.75 = 0.45) -- so grades are byte-for-
+    # byte identical to before whenever weapon/artifact_sets are omitted.
+    components: List[Tuple[float, float]] = [(crit_score, 0.4125)]
+    scoring_components_used = ["crit_ratio"]
+    if substat_score is not None:
+        components.append((substat_score, 0.3375))
+        scoring_components_used.append("substat_efficiency")
+    if weapon_score is not None:
+        components.append((weapon_score, 0.10))
+        scoring_components_used.append("weapon")
+    if artifact_set_score is not None:
+        components.append((artifact_set_score, 0.15))
+        scoring_components_used.append("artifact_sets")
+
+    overall = compute_overall_score(components)
+    grade, grade_desc, embed_color = grade_from_score(overall)
+
+    # Dynamic build style/description, based on the ACTUAL submitted stats
+    # rather than a static per-character label.
+    freeze_build = char_config.get("freeze_build", False)
+    actual_ratio = round(c_dmg / c_rate, 2) if c_rate > 0 else 0.0
+    build_style = classify_build_style(actual_ratio, resolved_ratio_target, ignore_high_ratio)
+    build_description = generate_build_description(
+        character, build_style, crit_note, substat_note,
+        ignore_high_ratio, freeze_build, high_er_allowed,
+    )
+
+    weapon_sentence, set_sentence, _ = describe_equipment(weapon, artifact_sets)
+    if weapon_sentence:
+        build_description += " " + weapon_sentence
+    if weapon_fit_note:
+        build_description += " " + weapon_fit_note
+    if set_sentence:
+        build_description += " " + set_sentence
+    if artifact_set_note:
+        build_description += " " + artifact_set_note
+
+    # Benchmarking Processor
+    stat_lookup = {"atk": c_atk, "hp": c_hp, "defense": c_def, "elemental_mastery": c_em, "energy_recharge": c_er}
+    benchmark_status = _process_benchmarks(stat_lookup, char_config.get("benchmarks", {}))
 
     efficiency_tier_note = f"Your substats have accumulated the equivalent of {equivalent_rolls:.1f} perfect high-rolls into your primary scaling stat." if equivalent_rolls > 0 else "No substantial primary rolls mapped."
 
@@ -649,33 +760,20 @@ def rate_build(
             "atk": c_atk, "hp": c_hp, "def": c_def,
             "elemental_mastery": c_em, "energy_recharge": c_er
         },
-        # Transparency: exactly which components fed into overall_score,
-        # so it's always clear whether weapon/artifact_sets affected the
-        # grade for THIS response (they're optional -- never assumed).
         "scoring_components_used": scoring_components_used,
         "weapon_fit_score": weapon_score,
         "artifact_set_fit_score": artifact_set_score,
-        # "BiS" / "Secondary" / "F2P" / "Niche" / "Unlisted" (weapon) and
-        # "BiS" / "Secondary" / "Niche" / "Unlisted" / "Hybrid" /
-        # "Fragmented" (artifacts) -- None if that gear wasn't supplied.
-        # Lets BDFD show a badge without re-deriving tier from the score.
         "weapon_tier": weapon_tier,
         "artifact_tier": artifact_tier,
-        # Full nested data, for anything that can traverse it
         "weapon": weapon,
         "artifact_sets": artifact_sets or [],
         "has_four_piece_set_bonus": has_four_piece,
-        # Flattened convenience keys -- BDFD's $httpResult can't traverse
-        # nested objects/arrays, mirroring the pattern used in status.py.
         "weapon_name": weapon.get("name") if weapon else None,
         "weapon_refinement": weapon.get("refinement") if weapon else None,
         "primary_artifact_set_name": artifact_sets[0]["name"] if artifact_sets else None,
         "primary_artifact_set_count": artifact_sets[0]["count"] if artifact_sets else None,
     }
 
-    # Opt-in only -- not included by default since it duplicates overall_score
-    # without adding distinct signal, and "38.5" with no units/context isn't
-    # meaningful to display as-is. Pass include_relative_damage=true to get it.
     if include_relative_damage:
         result["estimated_relative_damage"] = estimate_relative_damage(
             crit_score, substat_score, c_atk, c_hp, c_def, c_em, resolved_scaling
