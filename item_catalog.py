@@ -79,7 +79,7 @@ _CLAYMORES = {
     "a thousand blazing suns": True, "fang of the mountain king": True, "verdict": True,
     "beacon of the reed sea": True, "redhorn stonethresher": True, "the unforged": True,
     "song of broken pines": True, "wolf's gravestone": True, "skyward pride": True,
-    "gest of the mighty wolf": True,
+    "gest of the mighty wolf": True, "a teaspoon of transcendence": True,
     # 4-star
     "akuoumaru": False, "makhaira aquamarine": False, "katsuragikiri nagamasa": False,
     "luxurious sea-lord": False, "snow-tombed starsilver": False, "lithic blade": False,
@@ -100,7 +100,7 @@ _POLEARMS = {
     "staff of the scarlet sands": True, "engulfing lightning": True, "calamity queller": True,
     "primordial jade winged-spear": True, "vortex vanquisher": True, "skyward spine": True,
     "staff of homa": True, "crimson moon's semblance": True, "lumidouce elegy": True,
-    "symphonist of scents": True,
+    "symphonist of scents": True, "bloodsoaked ruins": True,
     # 4-star
     "prospector's drill": False, "dialogues of the desert sages": False, "rightful reward": False,
     "ballad of the fjords": False, "missive windspear": False, "moonpiercer": False,
@@ -182,7 +182,7 @@ ARTIFACT_SETS: Dict[str, bool] = {
     # Modern (4-5 star)
     "gladiator's finale": True, "wanderer's troupe": True, "noblesse oblige": True,
     "bloodstained chivalry": True, "maiden beloved": True, "viridescent venerer": True,
-    "crimson witch of flames": True, "thundersoothe": True, "thundering fury": True,
+    "crimson witch of flames": True, "thundersoother": True, "thundering fury": True,
     "lavawalker": True, "blizzard strayer": True, "heart of depth": True,
     "tenacity of the millelith": True, "pale flame": True, "shimenawa's reminiscence": True,
     "emblem of severed fate": True, "husk of opulent dreams": True, "ocean-hued clam": True,
@@ -194,6 +194,9 @@ ARTIFACT_SETS: Dict[str, bool] = {
     "scroll of the hero of cinder city": True, "obsidian codex": True,
     "long night's oath": True, "finale of the deep (artifact)": True, "retracing bolide": True,
     "instructor's": True, "archaic petra": True,
+    "disenchantment in deep shadow": True, "a day carved from rising winds": True,
+    "night of the sky's unveiling": True, "silken moon's serenade": True,
+    "finale of the deep galleries": True,
     # Legacy (1-3 star, real but essentially never intentionally equipped)
     "initiate": False, "adventurer": False, "lucky dog": False, "traveling doctor": False,
     "resolution of sojourner": False, "tiny miracle": False, "berserker": False,

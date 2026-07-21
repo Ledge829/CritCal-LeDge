@@ -71,7 +71,10 @@ WEAPON_DATA: Dict[str, Dict[str, Any]] = {
     "dori": {"weapon_type": "Claymore", "recommended_weapons": ["Favonius Greatsword", "Prototype Starglitter"]},
     "fischl": {"weapon_type": "Bow", "recommended_weapons": ["Polar Star", "Sacrificial Bow"]},
     # LOWER CONFIDENCE: Flins's weapon type -- I believe Catalyst but this was borderline in review.
-    "flins": {"weapon_type": "Catalyst", "recommended_weapons": ["Prospector's Shovel", "Prototype Amber"]},
+    # CORRECTED: confirmed Polearm (Game8, GameWith, KQM all agree, and
+    # independently verified via Enka's own game data: WeaponType WEAPON_POLE).
+    # Was previously miscatalogued here as Catalyst.
+    "flins": {"weapon_type": "Polearm", "recommended_weapons": ["Bloodsoaked Ruins", "Prospector's Shovel"]},
     "keqing": {"weapon_type": "Sword", "recommended_weapons": ["Mistsplitter Reforged", "Black Sword"]},
     "kukishinobu": {"weapon_type": "Sword", "recommended_weapons": ["Freedom-Sworn", "Iron Sting"]},
     "lisa": {"weapon_type": "Catalyst", "recommended_weapons": ["Lost Prayer to the Sacred Winds", "Sacrificial Fragments"]},
@@ -116,8 +119,11 @@ WEAPON_DATA: Dict[str, Dict[str, Any]] = {
     "chiori": {"weapon_type": "Sword", "recommended_weapons": ["Uraku Misugiri", "Iron Sting"]},
     "gorou": {"weapon_type": "Bow", "recommended_weapons": ["Sacrificial Bow", "Favonius Warbow"]},
     "itto": {"weapon_type": "Claymore", "recommended_weapons": ["Redhorn Stonethresher", "Serpent Spine"]},
-    # LOWER CONFIDENCE: Kachina's weapon type -- believed Claymore, worth spot-checking.
-    "kachina": {"weapon_type": "Claymore", "recommended_weapons": ["Favonius Greatsword", "Prototype Starglitter"]},
+    # CORRECTED: confirmed Polearm (GameWith's guide explicitly discusses
+    # "DEF polearms" for her build, and independently verified via Enka's
+    # own game data: WeaponType WEAPON_POLE). Was previously miscatalogued
+    # here as Claymore.
+    "kachina": {"weapon_type": "Polearm", "recommended_weapons": ["Favonius Lance", "Prototype Starglitter"]},
     "navia": {"weapon_type": "Claymore", "recommended_weapons": ["Crimson Moon's Semblance", "Serpent Spine"]},
     "ningguang": {"weapon_type": "Catalyst", "recommended_weapons": ["Lost Prayer to the Sacred Winds", "Sacrificial Fragments"]},
     "noelle": {"weapon_type": "Claymore", "recommended_weapons": ["Redhorn Stonethresher", "Serpent Spine"]},
