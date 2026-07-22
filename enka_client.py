@@ -230,31 +230,11 @@ def _find_character(player_data, requested_name):
     )
 
 
-def fetch_character(uid, character_name=None):
+def _extract_avatar_data(avatar):
     """
-    Fetches a character build from Enka.Network.
-    Returns a dict with character, stats, substats, weapon, and artifact_sets.
-    Raises ValueError with a user-friendly message on any failure.
+    Extracts stats, substats, weapon, and artifact_sets from a single
+    Enka avatar object. Shared by fetch_character and fetch_all_characters.
     """
-    try:
-        response = requests.get(f"{ENKA_BASE}/{uid}", headers=HEADERS, timeout=15)
-    except requests.RequestException as e:
-        raise ValueError(f"Could not reach Enka.Network: {e}")
-
-    if response.status_code == 400:
-        raise ValueError("That UID doesn't look valid.")
-    if response.status_code == 404:
-        raise ValueError("No player found with that UID.")
-    if response.status_code == 424:
-        raise ValueError("Genshin servers are under maintenance right now -- try again later.")
-    if response.status_code == 429:
-        raise ValueError("Rate-limited by Enka.Network -- try again in a minute.")
-    if response.status_code != 200:
-        raise ValueError(f"Enka.Network returned an unexpected error ({response.status_code}).")
-
-    player = response.json()
-    avatar = _find_character(player, character_name)
-
     fight_props = avatar.get("fightPropMap", {})
     equip_list = avatar.get("equipList", [])
 
@@ -282,4 +262,67 @@ def fetch_character(uid, character_name=None):
         "substats": _extract_substats(equip_list),
         "weapon": _extract_weapon(equip_list),
         "artifact_sets": _extract_artifact_sets(equip_list),
-  }
+    }
+
+
+def fetch_character(uid, character_name=None):
+    """
+    Fetches a character build from Enka.Network.
+    Returns a dict with character, stats, substats, weapon, and artifact_sets.
+    Raises ValueError with a user-friendly message on any failure.
+    """
+    try:
+        response = requests.get(f"{ENKA_BASE}/{uid}", headers=HEADERS, timeout=15)
+    except requests.RequestException as e:
+        raise ValueError(f"Could not reach Enka.Network: {e}")
+
+    if response.status_code == 400:
+        raise ValueError("That UID doesn't look valid.")
+    if response.status_code == 404:
+        raise ValueError("No player found with that UID.")
+    if response.status_code == 424:
+        raise ValueError("Genshin servers are under maintenance right now -- try again later.")
+    if response.status_code == 429:
+        raise ValueError("Rate-limited by Enka.Network -- try again in a minute.")
+    if response.status_code != 200:
+        raise ValueError(f"Enka.Network returned an unexpected error ({response.status_code}).")
+
+    player = response.json()
+    avatar = _find_character(player, character_name)
+    return _extract_avatar_data(avatar)
+
+
+def fetch_all_characters(uid):
+    """
+    Fetches ALL showcased character builds from Enka.Network for a UID.
+
+    Returns a list of dicts (same shape as fetch_character's return value),
+    one per showcased character. Raises ValueError on any failure.
+    """
+    try:
+        response = requests.get(f"{ENKA_BASE}/{uid}", headers=HEADERS, timeout=15)
+    except requests.RequestException as e:
+        raise ValueError(f"Could not reach Enka.Network: {e}")
+
+    if response.status_code == 400:
+        raise ValueError("That UID doesn't look valid.")
+    if response.status_code == 404:
+        raise ValueError("No player found with that UID.")
+    if response.status_code == 424:
+        raise ValueError("Genshin servers are under maintenance right now -- try again later.")
+    if response.status_code == 429:
+        raise ValueError("Rate-limited by Enka.Network -- try again in a minute.")
+    if response.status_code != 200:
+        raise ValueError(f"Enka.Network returned an unexpected error ({response.status_code}).")
+
+    player = response.json()
+    avatars = player.get("avatarInfoList", [])
+    if not avatars:
+        raise ValueError("This player's Character Showcase is empty or private.")
+
+    results = []
+    for avatar in avatars:
+        data = _extract_avatar_data(avatar)
+        results.append(data)
+
+    return results

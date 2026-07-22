@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scoring import rate_build, parse_artifact_sets_text, parse_weapon_text
-from enka_client import fetch_character
+from enka_client import fetch_character, fetch_all_characters
 from characters import get_all_characters, get_character_config
 from display_names import display_name
 from status import status_bp
@@ -232,6 +232,75 @@ def rate_uid():
 
     result["source"] = "enka.network live showcase"
     return jsonify(result), 200
+
+
+@app.route("/uid/<uid>/showcase", methods=["GET"])
+def uid_showcase(uid):
+    """
+    Returns every showcased character for a UID with a quick summary
+    (grade, score, crit values, weapon/artifact tier) so the frontend
+    can render a grid of mini-cards without calling /rate/uid N times.
+    """
+    try:
+        characters = fetch_all_characters(uid)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+    # Build a reverse lookup: Enka character name -> canonical key,
+    # so we can attach portrait/element/rarity from characters.py.
+    from display_names import DISPLAY_NAMES
+    name_to_key = {}
+    for key, dname in DISPLAY_NAMES.items():
+        name_to_key[dname.lower()] = key
+    # Also index canonical keys themselves (they match after .lower()).
+    for key in get_all_characters():
+        name_to_key[key.lower().replace("_", "").replace("-", "").replace(" ", "")] = key
+
+    from characters import normalize_character, CHARACTER_ALIASES
+    results = []
+    for build in characters:
+        char_name = build["character"]
+        stats = build["stats"]
+
+        # resolve canonical key for portrait/element/rarity
+        normalized = char_name.lower().strip()
+        alias_resolved = CHARACTER_ALIASES.get(normalized, normalized)
+        canonical = name_to_key.get(normalized) or name_to_key.get(alias_resolved) or alias_resolved
+        config = get_character_config(canonical) if canonical else {}
+
+        try:
+            result = rate_build(
+                character=char_name,
+                crit_rate=stats["crit_rate"],
+                crit_dmg=stats["crit_dmg"],
+                atk=stats["atk"],
+                hp=stats["hp"],
+                defense=stats["def"],
+                elemental_mastery=stats["elemental_mastery"],
+                energy_recharge=stats["energy_recharge"],
+                substat_totals=build["substats"],
+                weapon=build["weapon"],
+                artifact_sets=build["artifact_sets"],
+            )
+        except (ValueError, TypeError):
+            continue
+
+        if "error" in result:
+            # Skip characters that failed scoring (shouldn't normally happen).
+            continue
+
+        # Merge the full rating result with character metadata so
+        # the frontend has everything it needs without extra API calls.
+        result["portrait"] = config.get("portrait")
+        result["element"] = config.get("element")
+        result["rarity"] = config.get("rarity")
+        results.append(result)
+
+    return jsonify({
+        "uid": uid,
+        "characters": results,
+        "count": len(results),
+    })
 
 
 if __name__ == "__main__":
