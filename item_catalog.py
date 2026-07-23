@@ -109,7 +109,7 @@ _POLEARMS = {
     "lithic spear": False, "deathmatch": False, "blackcliff pole": False,
     "crescent pike": False, "prototype starglitter": False, "dragon's bane": False,
     "sacrificer's staff": False, "prospector's shovel": False, "tamayuratei no ohanashi": False,
-    "footprint of the rainbow": False, "mountain-bracing bolt": False, "song of days past": False,
+    "footprint of the rainbow": False, "mountain-bracing bolt": False,
     # 3-star / craftable / F2P
     "white tassel": False, "black tassel": False, "halberd": False, "iron point": False,
 }

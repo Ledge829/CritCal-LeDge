@@ -410,7 +410,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "dahlia": {
-        "element": "hydro",
+        "element": "cryo",
         "rarity": 4,
         "region": "snezhnaya",
         "main_scaling": "hp",
@@ -418,7 +418,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "portrait": "https://enka.network/ui/UI_AvatarIcon_Dahlia.png",
         "scaling": "hp",
         "high_er_allowed": True,
-        "build_title": "Hydro Shield Support / ATK SPD Buffer",
+        "build_title": "Cryo Shield Support / ATK SPD Buffer",
         "benchmarks": {
             "hp": 40000.0,
             "energy_recharge": 200.0,
