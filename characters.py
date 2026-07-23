@@ -2058,6 +2058,30 @@ def get_character_config(character: str) -> Dict[str, Any]:
 
 
 # ==========================================================
+# SPLASH ART URL
+#
+# Gacha splash art is hosted on Enka's CDN alongside the UI
+# portrait icons -- the naming convention is identical except
+# the prefix: UI_Gacha_AvatarIcon_ instead of UI_AvatarIcon_.
+# We derive it automatically from the existing portrait URL
+# rather than storing a separate field for every character.
+# ==========================================================
+
+_GACHA_PREFIX = "/UI_Gacha_AvatarIcon_"
+_AVATAR_PREFIX = "/UI_AvatarIcon_"
+
+
+def splash_from_portrait(portrait_url: str) -> str:
+    """
+    Derives the gacha splash art URL from a character's portrait URL
+    by swapping the prefix. Returns None if no portrait is available.
+    """
+    if not portrait_url or not isinstance(portrait_url, str):
+        return None
+    return portrait_url.replace(_AVATAR_PREFIX, _GACHA_PREFIX)
+
+
+# ==========================================================
 # OPTIONAL HELPERS
 # ==========================================================
 

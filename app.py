@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from scoring import rate_build, parse_artifact_sets_text, parse_weapon_text
 from enka_client import fetch_character, fetch_all_characters
-from characters import get_all_characters, get_character_config
+from characters import get_all_characters, get_character_config, splash_from_portrait
 from display_names import display_name
 from status import status_bp
 
@@ -65,6 +65,7 @@ def list_characters():
             "roles": config.get("roles", []),
             "weapon_type": config.get("weapon_type"),
             "portrait": config.get("portrait"),
+            "splash": splash_from_portrait(config.get("portrait")),
         })
     characters_list.sort(key=lambda c: c["name"])
     return jsonify({"characters": characters_list, "count": len(characters_list)})
@@ -292,6 +293,7 @@ def uid_showcase(uid):
         # Merge the full rating result with character metadata so
         # the frontend has everything it needs without extra API calls.
         result["portrait"] = config.get("portrait")
+        result["splash"] = splash_from_portrait(config.get("portrait"))
         result["element"] = config.get("element")
         result["rarity"] = config.get("rarity")
         results.append(result)
