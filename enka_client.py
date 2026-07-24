@@ -10,6 +10,7 @@ from typing import Optional, Tuple
 
 # Import weapon catalog for icon-based name matching
 from item_catalog import WEAPONS as WEAPON_CATALOG
+from weapon_ids import WEAPON_IDS
 
 ENKA_BASE = "https://enka.network/api/uid"
 # Updated Enka CDN URLs
@@ -245,7 +246,17 @@ def _extract_weapon(equip_list):
         if not weapon_name and weapon_id in _weapon_id_map:
             weapon_name = _weapon_id_map[weapon_id]
 
-        # 4. Try to match by icon path ID against the weapon catalog.
+        # 4. Static fallback: look up the weapon_id in our local mapping.
+        if not weapon_name and weapon_id:
+            try:
+                wid_int = int(weapon_id)
+                weapon_name = WEAPON_IDS.get(wid_int, "")
+                if weapon_name:
+                    _weapon_id_map[weapon_id] = weapon_name
+            except (ValueError, TypeError):
+                pass
+
+        # 5. Try to match by icon path ID against the weapon catalog.
         #     e.g. "UI_EquipIcon_Sword_Tranquil" → "Splendor of Tranquil Waters"
         if not weapon_name:
             weapon_name = _weapon_from_icon_id(weapon_icon or "")
