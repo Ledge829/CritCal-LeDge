@@ -6,6 +6,10 @@ extraction, and cached metadata downloads for name resolution.
 """
 import time
 import requests
+from typing import Optional, Tuple
+
+# Import weapon catalog for icon-based name matching
+from item_catalog import WEAPONS as WEAPON_CATALOG
 
 ENKA_BASE = "https://enka.network/api/uid"
 # Updated Enka CDN URLs
@@ -151,6 +155,63 @@ def _weapon_type_from_icon(icon_name: str) -> str:
     return "Weapon"
 
 
+def _weapon_from_icon_id(icon_name: str) -> Optional[str]:
+    """
+    Tries to match a weapon by extracting the unique ID from its icon
+    path and looking it up against our catalog. For example:
+      icon = 'UI_EquipIcon_Sword_Tranquil'
+      → ID 'Tranquil' appears in 'Splendor of Tranquil Waters'
+      → matched!
+
+    This covers weapons whose nameTextMapHash isn't in Enka's loc.json
+    but whose icon filename happens to contain a recognizable keyword.
+    """
+    if not icon_name:
+        return None
+
+    # Extract the last segment of the icon path (the unique ID)
+    parts = icon_name.split("_")
+    if len(parts) < 3:
+        return None
+    icon_id = parts[-1].lower()
+
+    # Determine the weapon type from the icon
+    wtype = _weapon_type_from_icon(icon_name).lower()
+
+    # Search the catalog for a weapon of this type whose name
+    # contains the icon's unique ID.
+    matches = []
+    for catalog_name, (cat_type, _) in WEAPON_CATALOG.items():
+        if cat_type == wtype and icon_id in catalog_name:
+            matches.append(catalog_name)
+
+    # If exactly one match, we found our weapon
+    if len(matches) == 1:
+        return _title_weapon_name(matches[0])
+
+    # If multiple matches (e.g. 'Favonius' matches the whole series),
+    # return the last one alphabetically (usually the base weapon).
+    if len(matches) > 1:
+        return _title_weapon_name(sorted(matches)[-1])
+
+    return None
+
+
+def _title_weapon_name(name: str) -> str:
+    """Properly capitalizes a weapon name from the catalog.
+    'staff of homa' → 'Staff of Homa', not 'Staff Of Homa'."""
+    words = name.split()
+    result = []
+    for i, w in enumerate(words):
+        if i > 0 and w in ("of", "the", "and", "to", "a", "an", "for", "in"):
+            result.append(w)  # keep lowercase for articles/prepositions
+        else:
+            result.append(w.capitalize())
+    return " ".join(result)
+
+    return None
+
+
 def _extract_weapon(equip_list):
     """
     Returns a dict describing the equipped weapon, or None if somehow
@@ -184,7 +245,15 @@ def _extract_weapon(equip_list):
         if not weapon_name and weapon_id in _weapon_id_map:
             weapon_name = _weapon_id_map[weapon_id]
 
-        # 4. Final fallback: derive a descriptive name from icon + rarity.
+        # 4. Try to match by icon path ID against the weapon catalog.
+        #     e.g. "UI_EquipIcon_Sword_Tranquil" → "Splendor of Tranquil Waters"
+        if not weapon_name:
+            weapon_name = _weapon_from_icon_id(weapon_icon or "")
+            # Cache it for next time
+            if weapon_name and weapon_id:
+                _weapon_id_map[weapon_id] = weapon_name
+
+        # 5. Final fallback: derive a descriptive name from icon + rarity.
         if not weapon_name:
             wtype = _weapon_type_from_icon(weapon_icon or "")
             weapon_name = f"{weapon_rarity or '?'}-Star {wtype}" if weapon_rarity else wtype
