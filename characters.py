@@ -1476,7 +1476,6 @@ CHARACTER_ALIASES: Dict[str, str] = {
     "benett": "bennett",
     "hu": "hutao",
     "hu_tao": "hutao",
-    "hutao": "hutao",
     "xl": "xiangling",
 
     # HYDRO
@@ -1514,7 +1513,6 @@ CHARACTER_ALIASES: Dict[str, str] = {
 
     # GEO
     "aratakiitto": "itto",
-    "yunjin": "yunjin",
 
     # TRAVELER
     "aether": "traveler",
@@ -1526,7 +1524,6 @@ CHARACTER_ALIASES: Dict[str, str] = {
     "electromc": "electrotraveler",
     "dendromc": "dendrotraveler",
     "hydromc": "hydrotraveler",
-    "pyrotraveler": "pyrotraveler",
 }
 
 

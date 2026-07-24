@@ -494,10 +494,10 @@ def _process_benchmarks(stat_lookup: Dict[str, float], benchmarks: Dict[str, flo
         if target_value <= 0:
             continue
         if actual_value >= target_value:
-            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} Target Met! 🎉")
+            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} — target met")
         else:
             pct = (actual_value / target_value) * 100.0
-            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} ({pct:.1f}% of target)")
+            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} ({pct:.1f}%)")
     return benchmark_status
 
 def rate_build(
@@ -611,7 +611,7 @@ def rate_build(
     stat_lookup = {"atk": c_atk, "hp": c_hp, "defense": c_def, "elemental_mastery": c_em, "energy_recharge": c_er}
     benchmark_status = _process_benchmarks(stat_lookup, char_config.get("benchmarks", {}))
 
-    efficiency_tier_note = f"Your substats have accumulated the equivalent of {equivalent_rolls:.1f} perfect high-rolls into your primary scaling stat." if equivalent_rolls > 0 else "No substantial primary rolls mapped."
+    efficiency_tier_note = f"Substat efficiency: {equivalent_rolls:.1f} effective high-rolls into the primary scaling stat." if equivalent_rolls > 0 else "Limited substat investment in the primary scaling stat."
 
     recommendations = build_recommendations(character, c_rate, c_dmg, clean_substats, c_er, resolved_scaling, high_er_allowed, target_ratio=resolved_ratio_target, char_config=char_config)
     if has_four_piece is False:

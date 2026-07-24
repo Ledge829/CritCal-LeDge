@@ -87,12 +87,12 @@ _CLAYMORES = {
     "prototype archaic": False, "rainslasher": False, "royal greatsword": False,
     "sacrificial greatsword": False, "the bell": False, "favonius greatsword": False,
     "fruitful hook": False, "portable power saw": False, "tidal shadow": False,
-    "tidal shadows": False, "talking stick": False, "mailed flower": False,
+    "talking stick": False, "mailed flower": False,
     "forest regalia": False, "ultimate overlord's mega magic sword": False,
     "earth shaker": False, "flame-forged insight": False, "master key": False,
     # 3-star / craftable / F2P
     "debate club": False, "bloodtainted greatsword": False, "white iron greatsword": False,
-    "waster greatsword": False, "serpent spine (3-star)": False,
+    "waster greatsword": False,
 }
 
 _POLEARMS = {

@@ -265,11 +265,12 @@ def _extract_avatar_data(avatar):
     }
 
 
-def fetch_character(uid, character_name=None):
+def _fetch_enka_uid(uid):
     """
-    Fetches a character build from Enka.Network.
-    Returns a dict with character, stats, substats, weapon, and artifact_sets.
+    Fetches raw player data from Enka.Network and validates the response.
+    Returns the parsed JSON on success.
     Raises ValueError with a user-friendly message on any failure.
+    Shared by fetch_character and fetch_all_characters.
     """
     try:
         response = requests.get(f"{ENKA_BASE}/{uid}", headers=HEADERS, timeout=15)
@@ -287,7 +288,16 @@ def fetch_character(uid, character_name=None):
     if response.status_code != 200:
         raise ValueError(f"Enka.Network returned an unexpected error ({response.status_code}).")
 
-    player = response.json()
+    return response.json()
+
+
+def fetch_character(uid, character_name=None):
+    """
+    Fetches a character build from Enka.Network.
+    Returns a dict with character, stats, substats, weapon, and artifact_sets.
+    Raises ValueError with a user-friendly message on any failure.
+    """
+    player = _fetch_enka_uid(uid)
     avatar = _find_character(player, character_name)
     return _extract_avatar_data(avatar)
 
@@ -299,23 +309,7 @@ def fetch_all_characters(uid):
     Returns a list of dicts (same shape as fetch_character's return value),
     one per showcased character. Raises ValueError on any failure.
     """
-    try:
-        response = requests.get(f"{ENKA_BASE}/{uid}", headers=HEADERS, timeout=15)
-    except requests.RequestException as e:
-        raise ValueError(f"Could not reach Enka.Network: {e}")
-
-    if response.status_code == 400:
-        raise ValueError("That UID doesn't look valid.")
-    if response.status_code == 404:
-        raise ValueError("No player found with that UID.")
-    if response.status_code == 424:
-        raise ValueError("Genshin servers are under maintenance right now -- try again later.")
-    if response.status_code == 429:
-        raise ValueError("Rate-limited by Enka.Network -- try again in a minute.")
-    if response.status_code != 200:
-        raise ValueError(f"Enka.Network returned an unexpected error ({response.status_code}).")
-
-    player = response.json()
+    player = _fetch_enka_uid(uid)
     avatars = player.get("avatarInfoList", [])
     if not avatars:
         raise ValueError("This player's Character Showcase is empty or private.")

@@ -608,7 +608,7 @@ ARTIFACT_DATA: Dict[str, Dict[str, Any]] = {
     },
      "kachina": {
     "bis_artifact_set": "Scroll of the Hero of Cinder City",
-    "secondary_artifact_set": "Scroll of the Hero of Cinder City",
+    "secondary_artifact_set": "Archaic Petra",
     "niche_artifact_sets": ["Noblesse Oblige", "Archaic Petra", "Husk of Opulent Dreams", "Golden Troupe", "Instructor's", "Tenacity of the Millelith"],
     "team_archetype": "Geo Support / Nightsoul Support / Crystalize Support / Quickswap",
     },
