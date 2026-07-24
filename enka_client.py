@@ -61,7 +61,8 @@ _loc_cache = {"data": None, "time": 0}
 # resolves correctly via loc.json, its itemId is saved here so future
 # lookups don't need the hash at all. Populates itself over time as
 # different UIDs are queried.
-_weapon_id_map = {}  # itemId (str) → weapon name
+_weapon_id_map = {}   # itemId (str) → weapon name
+_set_id_map = {}       # setId (int/str) → artifact set name
 
 
 def _cached_json(url, cache):
@@ -205,10 +206,8 @@ def _extract_artifact_sets(equip_list):
     Returns equipped artifact set bonuses, e.g.:
     [{"name": "Golden Troupe", "count": 4}]
 
-    BUG FIX: the original version looked for a `flat.setId` field that
-    doesn't exist in Enka's raw response. Sets are actually identified via
-    `flat.setNameTextMapHash`, resolved directly against the localization
-    store -- no separate artifact-set store/lookup needed at all.
+    Resolves set names via flat.setNameTextMapHash through the
+    localization store. Falls back to a self-building setId cache.
     """
     loc = _load_localization()
     counts = {}
@@ -220,7 +219,23 @@ def _extract_artifact_sets(equip_list):
         hash_id = str(flat.get("setNameTextMapHash", ""))
         if not hash_id:
             continue
-        set_name = loc.get(hash_id, "Unknown Set")
+
+        # 1. Try resolving via loc.json
+        set_name = loc.get(hash_id, "")
+
+        # 2. Cache the result for next time using setId
+        set_id = flat.get("setId")
+        if set_name and set_id is not None:
+            _set_id_map[set_id] = set_name
+
+        # 3. If loc.json didn't have it, check our self-built cache
+        if not set_name and set_id is not None and set_id in _set_id_map:
+            set_name = _set_id_map[set_id]
+
+        # 4. Final fallback
+        if not set_name:
+            set_name = "Unknown Set"
+
         counts[set_name] = counts.get(set_name, 0) + 1
 
     return [
