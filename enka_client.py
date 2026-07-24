@@ -57,6 +57,12 @@ _char_cache = {"data": None, "time": 0}
 _weapon_cache = {"data": None, "time": 0}
 _loc_cache = {"data": None, "time": 0}
 
+# Self-populating weapon ID → name cache. Every time a weapon name
+# resolves correctly via loc.json, its itemId is saved here so future
+# lookups don't need the hash at all. Populates itself over time as
+# different UIDs are queried.
+_weapon_id_map = {}  # itemId (str) → weapon name
+
 
 def _cached_json(url, cache):
     """Downloads JSON once every CACHE_TTL_SECONDS; raises ValueError on failure."""
@@ -161,13 +167,23 @@ def _extract_weapon(equip_list):
 
         weapon = equip["weapon"]
         flat = equip.get("flat", {})
+        weapon_id = str(equip.get("itemId", ""))
         name_hash = str(flat.get("nameTextMapHash", ""))
-        weapon_name = loc.get(name_hash, "")
         weapon_rarity = flat.get("rankLevel")
         weapon_icon = flat.get("icon")
 
-        # Fallback: if the hash didn't resolve, build a descriptive
-        # name from the weapon's icon type and rarity.
+        # 1. Try resolving the weapon name via Enka's localization store.
+        weapon_name = loc.get(name_hash, "")
+
+        # 2. If loc.json resolved it, cache the mapping for next time.
+        if weapon_name and weapon_id:
+            _weapon_id_map[weapon_id] = weapon_name
+
+        # 3. If loc.json didn't have the hash, check our self-built cache.
+        if not weapon_name and weapon_id in _weapon_id_map:
+            weapon_name = _weapon_id_map[weapon_id]
+
+        # 4. Final fallback: derive a descriptive name from icon + rarity.
         if not weapon_name:
             wtype = _weapon_type_from_icon(weapon_icon or "")
             weapon_name = f"{weapon_rarity or '?'}-Star {wtype}" if weapon_rarity else wtype

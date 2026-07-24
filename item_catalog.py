@@ -215,7 +215,23 @@ def lookup_weapon(name: str) -> Optional[Tuple[str, bool]]:
     """Returns (type, is_five_star) for a weapon name, or None if unrecognized."""
     if not name or not isinstance(name, str):
         return None
-    return WEAPONS.get(name.strip().lower())
+    clean = name.strip().lower()
+    # Direct lookup
+    result = WEAPONS.get(clean)
+    if result is not None:
+        return result
+    # Strip common prefix "the " and retry
+    if clean.startswith("the "):
+        result = WEAPONS.get(clean[4:])
+        if result is not None:
+            return result
+    # Strip trailing " (x-star)" or similar suffixes some sources append
+    for suffix in [" (3-star)", " (4-star)", " (5-star)"]:
+        if clean.endswith(suffix):
+            result = WEAPONS.get(clean[:-len(suffix)])
+            if result is not None:
+                return result
+    return None
 
 
 def lookup_artifact_set(name: str) -> Optional[bool]:
