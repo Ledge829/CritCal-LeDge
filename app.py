@@ -4,6 +4,7 @@ from scoring import rate_build, parse_artifact_sets_text, parse_weapon_text
 from enka_client import fetch_character, fetch_all_characters
 from characters import get_all_characters, get_character_config, splash_from_portrait
 from display_names import display_name
+from item_catalog import WEAPONS, ARTIFACT_SETS
 from status import status_bp
 
 app = Flask(__name__)
@@ -73,6 +74,21 @@ def list_characters():
     return jsonify({"characters": characters_list, "count": len(characters_list)})
 
 
+@app.route("/stats", methods=["GET"])
+def get_stats():
+    """Returns aggregate counts for characters, weapons, and artifact sets."""
+    char_count = len([k for k in get_all_characters() if k != "unknown"])
+    weapon_count = len(WEAPONS)
+    five_star_count = sum(1 for _, (_, is5) in WEAPONS.items() if is5)
+    set_count = len(ARTIFACT_SETS)
+    modern_set_count = sum(1 for _, modern in ARTIFACT_SETS.items() if modern)
+    return jsonify({
+        "characters": char_count,
+        "weapons": weapon_count,
+        "weapons_five_star": five_star_count,
+        "artifact_sets": set_count,
+        "artifact_sets_modern": modern_set_count,
+    })
 @app.route("/debug/echo", methods=["POST"])
 def debug_echo():
     """
