@@ -128,15 +128,30 @@ def _refinement_from_affix_map(affix_map):
         return 1
 
 
+_WEAPON_TYPE_FROM_ICON = {
+    "sword": "Sword", "claymore": "Claymore", "pole": "Polearm",
+    "bow": "Bow", "catalyst": "Catalyst",
+}
+
+
+def _weapon_type_from_icon(icon_name: str) -> str:
+    """Extracts weapon type (Sword/Claymore/Polearm/Bow/Catalyst) from Enka's icon path."""
+    if not icon_name:
+        return "Weapon"
+    for key, label in _WEAPON_TYPE_FROM_ICON.items():
+        if f"_{key.capitalize()}_" in icon_name or f"_{key.upper()}_" in icon_name:
+            return label
+    return "Weapon"
+
+
 def _extract_weapon(equip_list):
     """
     Returns a dict describing the equipped weapon, or None if somehow
     missing (shouldn't normally happen -- every character has a weapon).
 
     Resolves the weapon name via flat.nameTextMapHash through the
-    localization store, same approach as artifact sets -- this avoids
-    depending on the separate weapons.json (which was removed from
-    Enka's API-docs repo upstream and now returns 404).
+    localization store. Falls back to the icon-derived weapon type
+    + rarity if the hash isn't in the loc data.
     """
     loc = _load_localization()
 
@@ -147,9 +162,15 @@ def _extract_weapon(equip_list):
         weapon = equip["weapon"]
         flat = equip.get("flat", {})
         name_hash = str(flat.get("nameTextMapHash", ""))
-        weapon_name = loc.get(name_hash, "Unknown Weapon")
+        weapon_name = loc.get(name_hash, "")
         weapon_rarity = flat.get("rankLevel")
         weapon_icon = flat.get("icon")
+
+        # Fallback: if the hash didn't resolve, build a descriptive
+        # name from the weapon's icon type and rarity.
+        if not weapon_name:
+            wtype = _weapon_type_from_icon(weapon_icon or "")
+            weapon_name = f"{weapon_rarity or '?'}-Star {wtype}" if weapon_rarity else wtype
 
         return {
             "name": weapon_name,
