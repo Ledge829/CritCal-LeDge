@@ -23,6 +23,8 @@ app.register_blueprint(status_bp)
 # allowed origins, e.g. origins=["https://critcal.vercel.app"].
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# [build] 2026-07-24 — splash art integration + API cleanup
+
 
 @app.route("/")
 def home():
