@@ -120,7 +120,11 @@ def score_crit_ratio(
     target_ratio: float = CRIT_RATIO_TARGET,
     ignore_high_ratio_warning: bool = False
 ) -> Tuple[float, str]:
-    """Scores how close the Crit Rate : Crit DMG ratio is to the target ratio."""
+    """
+    Scores the crit ratio with an absolute-value penalty.
+    A build with 24% CR and 50% CD might have a perfect 2.0 ratio
+    but is clearly unusable — the absolute stat penalty catches this.
+    """
     c_rate = round(float(crit_rate), 2)
     c_dmg = round(float(crit_dmg), 2)
 
@@ -129,9 +133,22 @@ def score_crit_ratio(
 
     ratio = round(c_dmg / c_rate, 2)
     diff = abs(ratio - target_ratio)
-    score = max(15.0, 100.0 - (diff * 22.0))
+    ratio_score = 100.0 - (diff * 22.0)
 
-    if target_ratio <= 2.5 and c_rate < 50.0:
+    # Absolute-value penalty: low CR or CD drags the score down
+    # even when the ratio looks fine. A 24/50 build has a 2.08
+    # ratio but is practically unusable — this penalty fixes that.
+    penalty = 0.0
+    if c_rate < 40.0:
+        penalty += (40.0 - c_rate) * 1.5
+    if c_dmg < 80.0:
+        penalty += (80.0 - c_dmg) * 0.75
+
+    score = max(15.0, ratio_score - penalty)
+
+    if penalty > 20:
+        note = f"Crit values are very low ({c_rate:.1f}% / {c_dmg:.1f}%) — both need significant investment before the character becomes functional."
+    elif target_ratio <= 2.5 and c_rate < 50.0:
         note = f"Crit Rate is sitting at {c_rate:.1f}% — try to bring it up to around 60-75% before stacking more Crit DMG."
     elif ratio < target_ratio - 0.3:
         note = f"Crit DMG is lagging behind Crit Rate ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target). More Crit DMG subs would help balance this out."
