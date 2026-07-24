@@ -175,15 +175,39 @@ def rate_manual():
         return float(value)
 
     try:
+        # --- Input validation bounds ---
+        c_rate_val = float(body["crit_rate"])
+        c_dmg_val = float(body["crit_dmg"])
+        atk_val = float(body["atk"])
+        if c_rate_val < 0 or c_rate_val > 110:
+            return jsonify({"error": f"Crit rate ({c_rate_val}) is outside a realistic range (0-110)."}), 400
+        if c_dmg_val < 0 or c_dmg_val > 500:
+            return jsonify({"error": f"Crit DMG ({c_dmg_val}) is outside a realistic range (0-500)."}), 400
+        if atk_val < 0 or atk_val > 9999:
+            return jsonify({"error": f"ATK ({atk_val}) is outside a realistic range (0-9999)."}), 400
+
+        hp_val = _optional_float("hp", 0)
+        def_val = _optional_float("def", 0)
+        em_val = _optional_float("elemental_mastery", 0)
+        er_val = _optional_float("energy_recharge", 100)
+        for vname, vval, vlo, vhi in [
+            ("HP", hp_val, 0, 99999),
+            ("DEF", def_val, 0, 9999),
+            ("Elemental Mastery", em_val, 0, 2000),
+            ("Energy Recharge", er_val, 50, 400),
+        ]:
+            if vval < vlo or vval > vhi:
+                return jsonify({"error": f"{vname} ({vval}) is outside a realistic range ({vlo}-{vhi})."}), 400
+
         result = rate_build(
             character=body["character"],
-            crit_rate=float(body["crit_rate"]),
-            crit_dmg=float(body["crit_dmg"]),
-            atk=float(body["atk"]),
-            hp=_optional_float("hp", 0),
-            defense=_optional_float("def", 0),
-            elemental_mastery=_optional_float("elemental_mastery", 0),
-            energy_recharge=_optional_float("energy_recharge", 100),
+            crit_rate=c_rate_val,
+            crit_dmg=c_dmg_val,
+            atk=atk_val,
+            hp=hp_val,
+            defense=def_val,
+            elemental_mastery=em_val,
+            energy_recharge=er_val,
             substat_totals=body.get("substats", {}),
             character_scaling=body.get("character_scaling") or None,
             ideal_crit_ratio=_optional_float("ideal_crit_ratio", None),

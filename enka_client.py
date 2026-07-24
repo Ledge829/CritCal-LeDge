@@ -132,26 +132,32 @@ def _extract_weapon(equip_list):
     """
     Returns a dict describing the equipped weapon, or None if somehow
     missing (shouldn't normally happen -- every character has a weapon).
+
+    Resolves the weapon name via flat.nameTextMapHash through the
+    localization store, same approach as artifact sets -- this avoids
+    depending on the separate weapons.json (which was removed from
+    Enka's API-docs repo upstream and now returns 404).
     """
-    weapon_db = _load_weapon_names()
+    loc = _load_localization()
 
     for equip in equip_list:
         if "weapon" not in equip:
             continue
 
         weapon = equip["weapon"]
-        # BUG FIX: the weapon's catalog ID is at the top level of the equip
-        # object (itemId), NOT inside `flat` -- flat has no "id" field.
-        weapon_id = str(equip.get("itemId", ""))
-        db = weapon_db.get(weapon_id, {})
+        flat = equip.get("flat", {})
+        name_hash = str(flat.get("nameTextMapHash", ""))
+        weapon_name = loc.get(name_hash, "Unknown Weapon")
+        weapon_rarity = flat.get("rankLevel")
+        weapon_icon = flat.get("icon")
 
         return {
-            "name": db.get("name", "Unknown Weapon"),
+            "name": weapon_name,
             "level": weapon.get("level"),
             "ascension": weapon.get("promoteLevel"),
             "refinement": _refinement_from_affix_map(weapon.get("affixMap", {})),
-            "rarity": db.get("rarity"),
-            "icon": db.get("icon"),
+            "rarity": weapon_rarity,
+            "icon": weapon_icon,
         }
 
     return None

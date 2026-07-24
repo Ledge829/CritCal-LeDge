@@ -25,11 +25,12 @@ EXPECTED_MAX_ROLLS_PER_STAT: int = 10
 
 # Dynamic Grade Thresholds paired with exact target Hex Colors
 GRADE_THRESHOLDS: List[Tuple[float, str, str, str]] = [
-    (85.0, "S", "Outstanding build — elite-tier substat distribution and gear synergy. You know what you're doing.", "#00FF66"),
-    (70.0, "A", "Strong build — well-optimized with minimal wasted stats. A few lucky rolls from S.", "#3498DB"),
-    (55.0, "B", "Solid build — functional for endgame content with room to fine-tune substats.", "#9B59B6"),
-    (40.0, "C", "Work in progress — core stats are there but substat distribution needs attention.", "#F1C40F"),
-    (0.0, "D", "Early stages — significant upgrades needed across the board.", "#E74C3C"),
+    (85.0, "S", "Top-tier build. Exceptional substats, optimal gear — can clear any content comfortably.", "#00FF66"),
+    (70.0, "A", "Strong build. Endgame-viable with good stat distribution. A few upgrades from S.", "#3498DB"),
+    (55.0, "B", "Decent build. Can handle floor 11 and most endgame content with the right team.", "#9B59B6"),
+    (40.0, "C", "Functional build. Works for casual play and early abyss, but needs noticeable improvements.", "#F1C40F"),
+    (20.0, "D", "Early build. Several core stats are missing or underdeveloped — focus on the basics first.", "#E74C3C"),
+    (0.0, "F", "Unbuilt. This character needs artifacts, levels, and a proper weapon to be usable.", "#888888"),
 ]
 
 
@@ -301,7 +302,7 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
         expected_type = str(config.get("weapon_type") or "").strip().lower()
 
         if catalog_entry is None:
-            score = min(70.0, 55.0 + refinement_bonus)
+            score = min(40.0, 25.0 + refinement_bonus)
             tier = "Unrecognized"
             note = (
                 "This weapon name doesn't match anything in CritCal's catalog — might be a typo "
@@ -310,7 +311,7 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
         else:
             found_type, is_five_star = catalog_entry
             if expected_type and found_type != expected_type:
-                score = min(65.0, 50.0 + refinement_bonus)
+                score = min(40.0, 25.0 + refinement_bonus)
                 tier = "Type Mismatch"
                 note = (
                     f"Found a {found_type} by this name, but this character uses {expected_type}s — "
@@ -376,7 +377,7 @@ def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Opt
         else:
             catalog_hit = lookup_artifact_set(matched_name)
             if catalog_hit is None:
-                score, tier = 55.0, "Unrecognized"
+                score, tier = 30.0, "Unrecognized"
                 note = (
                     "This set name doesn't match anything in CritCal's catalog — "
                     "worth double-checking the spelling."
@@ -563,18 +564,24 @@ def rate_build(
     weapon_score, weapon_fit_note, weapon_tier = score_weapon_fit(weapon, char_config)
     artifact_set_score, artifact_set_note, has_four_piece, artifact_tier = score_artifact_set_fit(artifact_sets, char_config)
 
-    # Base weights sum to 1.0 when all four components are present. Crit
-    # and substat keep EXACTLY their original 0.55/0.45 relative ratio
-    # (0.4125/0.75 = 0.55, 0.3375/0.75 = 0.45) -- so grades are byte-for-
-    # byte identical to before whenever weapon/artifact_sets are omitted.
+    # Components with fixed weights. Missing crit is impossible (it's
+    # always provided). Missing substats get a default low score instead
+    # of being excluded -- this prevents inflated grades when users
+    # submit minimal data (e.g. only crit rate/dmg).
     components: List[Tuple[float, float]] = [(crit_score, 0.4125)]
     scoring_components_used = ["crit_ratio"]
-    if substat_score is not None:
-        components.append((substat_score, 0.3375))
-        scoring_components_used.append("substat_efficiency")
+
+    # Substat: use the actual score if available, otherwise a low
+    # default so minimal stat submissions don't get free A/S grades.
+    components.append(((substat_score if substat_score is not None else 20.0), 0.3375))
+    scoring_components_used.append("substat_efficiency")
+
+    # Weapon: included if data was provided (even if unrecognized).
     if weapon_score is not None:
         components.append((weapon_score, 0.10))
         scoring_components_used.append("weapon")
+
+    # Artifact sets: same approach.
     if artifact_set_score is not None:
         components.append((artifact_set_score, 0.15))
         scoring_components_used.append("artifact_sets")
