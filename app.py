@@ -97,14 +97,14 @@ def rate_manual():
     body = request.get_json(silent=True, force=True)
     if not body:
         return jsonify({
-            "error": "Missing or invalid JSON body.",
+            "error": "Couldn't parse your request — make sure you're sending valid JSON.",
             "raw_body_received": request.get_data(as_text=True)
         }), 400
 
     required = ["character", "crit_rate", "crit_dmg", "atk"]
     missing = [f for f in required if f not in body]
     if missing:
-        return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
+        return jsonify({"error": f"Missing some required info: {', '.join(missing)}"}), 400
 
     # ------------------------------------------------------------------
     # QUICK-INPUT SUPPORT
@@ -130,24 +130,17 @@ def rate_manual():
         weapon = parse_weapon_text(weapon)
     elif weapon is not None and not isinstance(weapon, dict):
         return jsonify({
-            "error": "'weapon' must be a string (e.g. \"Staff of Homa r1\") "
-                     "or an object, e.g. {\"name\": \"...\", \"refinement\": 1}"
+            "error": "'weapon' should be plain text like \"Staff of Homa r1\" or an object with \"name\" and \"refinement\"."
         }), 400
 
-    # Optional artifact sets: either a list of {"name": "...", "count": 1-5}
-    # objects, or a single free-text "artifacts" string like "4pc Golden
-    # Troupe" / "2pc Emblem of Severed Fate, 2pc Noblesse Oblige". The
-    # plain-text "artifacts" field is checked first since it's the easier
-    # path for quick slash-command use; "artifact_sets" remains available
-    # for anything sending structured data directly.
     artifacts_text = body.get("artifacts")
     if artifacts_text is not None and not isinstance(artifacts_text, str):
-        return jsonify({"error": "'artifacts' must be a string, e.g. \"4pc Golden Troupe\""}), 400
+        return jsonify({"error": "'artifacts' should be plain text like \"4pc Golden Troupe\"."}), 400
 
     artifact_sets = body.get("artifact_sets")
     if artifact_sets is not None:
         if not isinstance(artifact_sets, list) or not all(isinstance(s, dict) for s in artifact_sets):
-            return jsonify({"error": "'artifact_sets' must be a list of objects, e.g. [{\"name\": \"...\", \"count\": 4}]"}), 400
+            return jsonify({"error": "'artifact_sets' should be a list of objects with \"name\" and \"count\"."}), 400
 
     if artifacts_text and not artifact_sets:
         artifact_sets = parse_artifact_sets_text(artifacts_text)
@@ -199,11 +192,11 @@ def rate_uid():
     body = request.get_json(silent=True, force=True)
     if not body:
         return jsonify({
-            "error": "Could not parse a JSON body from the request.",
+            "error": "Couldn't read your request — send JSON with a \"uid\" field and optionally a \"character\" name.",
             "raw_body_received": request.get_data(as_text=True)
         }), 400
     if "uid" not in body:
-        return jsonify({"error": "JSON body parsed fine, but no 'uid' field was in it.", "body_received": body}), 400
+        return jsonify({"error": "Your request parsed as JSON but doesn't have a \"uid\" field — make sure you're sending one.", "body_received": body}), 400
 
     try:
         build = fetch_character(

@@ -25,11 +25,11 @@ EXPECTED_MAX_ROLLS_PER_STAT: int = 10
 
 # Dynamic Grade Thresholds paired with exact target Hex Colors
 GRADE_THRESHOLDS: List[Tuple[float, str, str, str]] = [
-    (85.0, "S", "Excellent — near BiS quality", "#00FF66"),       
-    (70.0, "A", "Great — strong, min-maxed build", "#3498DB"),    
-    (55.0, "B", "Good — solid and usable", "#9B59B6"),            
-    (40.0, "C", "Needs improvement — noticeable gaps", "#F1C40F"), 
-    (0.0, "D", "Rough — significant upgrade needed", "#E74C3C"),   
+    (85.0, "S", "Outstanding build — elite-tier substat distribution and gear synergy. You know what you're doing.", "#00FF66"),
+    (70.0, "A", "Strong build — well-optimized with minimal wasted stats. A few lucky rolls from S.", "#3498DB"),
+    (55.0, "B", "Solid build — functional for endgame content with room to fine-tune substats.", "#9B59B6"),
+    (40.0, "C", "Work in progress — core stats are there but substat distribution needs attention.", "#F1C40F"),
+    (0.0, "D", "Early stages — significant upgrades needed across the board.", "#E74C3C"),
 ]
 
 
@@ -114,30 +114,30 @@ def crit_value(crit_rate: float, crit_dmg: float) -> float:
     return (float(crit_rate) * 2.0) + float(crit_dmg)
 
 def score_crit_ratio(
-    crit_rate: float, 
-    crit_dmg: float, 
+    crit_rate: float,
+    crit_dmg: float,
     target_ratio: float = CRIT_RATIO_TARGET,
     ignore_high_ratio_warning: bool = False
 ) -> Tuple[float, str]:
     """Scores how close the Crit Rate : Crit DMG ratio is to the target ratio."""
     c_rate = round(float(crit_rate), 2)
     c_dmg = round(float(crit_dmg), 2)
-    
+
     if c_rate < 5.0:
-        return 0.0, "Crit Rate is effectively zero — unable to evaluate a meaningful Crit Ratio."
+        return 0.0, "Crit Rate is effectively zero — can't evaluate a meaningful ratio here."
 
     ratio = round(c_dmg / c_rate, 2)
     diff = abs(ratio - target_ratio)
     score = max(15.0, 100.0 - (diff * 22.0))
 
     if target_ratio <= 2.5 and c_rate < 50.0:
-        note = f"Crit Rate is low ({c_rate:.1f}%) — aim for roughly 60–75%."
+        note = f"Crit Rate is sitting at {c_rate:.1f}% — try to bring it up to around 60-75% before stacking more Crit DMG."
     elif ratio < target_ratio - 0.3:
-        note = f"Crit DMG is under-developed relative to Crit Rate (ratio {ratio:.2f}:1, target {target_ratio:.2f}:1)."
+        note = f"Crit DMG is lagging behind Crit Rate ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target). More Crit DMG subs would help balance this out."
     elif ratio > target_ratio + 0.4 and not ignore_high_ratio_warning:
-        note = f"Crit Rate could be increased for better consistency (ratio {ratio:.2f}:1, target {target_ratio:.2f}:1)."
+        note = f"Crit Rate could use some more investment ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target) for more consistent crits — your Crit DMG is there."
     else:
-        note = f"Crit ratio is well balanced ({c_rate:.1f}% / {c_dmg:.1f}%, ratio {ratio:.2f}:1, target {target_ratio:.2f}:1)."
+        note = f"Crit ratio is looking clean ({c_rate:.1f}% / {c_dmg:.1f}%, {ratio:.2f}:1 against a {target_ratio:.2f}:1 target)."
 
     return round(score, 1), note
 
@@ -199,45 +199,45 @@ def estimate_relative_damage(crit_score: float, substat_score: Optional[float], 
     return round(min(100.0, weighted), 1)
 
 def build_recommendations(
-    character: str, 
-    crit_rate: float, 
-    crit_dmg: float, 
-    substat_totals: dict, 
-    energy_recharge: float, 
-    character_scaling: str, 
-    high_er_allowed: bool = False, 
+    character: str,
+    crit_rate: float,
+    crit_dmg: float,
+    substat_totals: dict,
+    energy_recharge: float,
+    character_scaling: str,
+    high_er_allowed: bool = False,
     target_ratio: float = CRIT_RATIO_TARGET,
     char_config: Optional[dict] = None
 ) -> List[str]:
-    """Generates analytical optimization tips tailored to character profiles."""
+    """Generates optimization tips tailored to this character's profile."""
     recs = []
     c_rate = float(crit_rate)
     er = float(energy_recharge)
     config = char_config or {}
 
     if target_ratio <= 2.5 and c_rate < 55.0 and not config.get("freeze_build", False):
-        recs.append("Crit Rate is below the recommended range. Aim for roughly 60–75% before stacking more Crit DMG.")
+        recs.append("Crit Rate is a bit low for consistent crits — try getting it to at least 60% before stacking more Crit DMG.")
 
     if config.get("freeze_build", False) and c_rate > 45.0:
-        recs.append("Crit Rate might be over-capped if you are running 4-Piece Blizzard Strayer with Cryo Resonance.")
+        recs.append("Crit Rate might be overcapped if you're running 4pc Blizzard Strayer with Cryo Resonance — consider trading some for Crit DMG or ATK%.")
 
     if er > 160.0 and not high_er_allowed:
-        recs.append(f"Energy Recharge is quite high ({er:.0f}%). You may be able to trade some ER for offensive stats.")
+        recs.append(f"Energy Recharge is sitting at {er:.0f}%, which is more than this character typically needs — you might be able to swap some ER for offensive stats.")
 
     if er > 0 and er < 100.0:
-        recs.append(f"Energy Recharge is under 100% ({er:.0f}%). Your Burst may not be available consistently.")
+        recs.append(f"Energy Recharge is under 100% ({er:.0f}%) which means your Burst won't be up consistently. A bit more ER would help.")
 
     em = float(substat_totals.get("elemental_mastery", 0.0))
     atk_flat = float(substat_totals.get("atk_flat", 0.0))
 
     if em > 100.0 and character_scaling != "em":
-        recs.append("High Elemental Mastery detected. Make sure this character actually benefits from reaction-based damage.")
+        recs.append("You've got a decent amount of Elemental Mastery — just make sure this character actually triggers reactions regularly, otherwise it's a wasted substat.")
 
     if atk_flat > 50.0:
-        recs.append("Flat ATK substats generally scale worse than ATK% at high investment.")
+        recs.append("Flat ATK rolls are usually outscaled by ATK% at higher investment levels — worth replacing if you can.")
 
     if not recs:
-        recs.append("Build looks solid overall. Future improvements will mostly come from stronger artifact rolls, better set bonuses, or weapon upgrades.")
+        recs.append("This build is in a good spot — any further upgrades will come from stronger artifact rolls, set bonuses, or weapon refinements.")
 
     return recs
 
@@ -283,24 +283,20 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
     if bis and name == bis:
         score = min(99.0, 96.0 + refinement_bonus)
         tier = "BiS"
-        note = "This is CritCal's Best-in-Slot weapon pick for this character."
+        note = "This weapon is CritCal's top pick for this character — best-in-slot."
     elif secondary and name == secondary:
         score = min(94.0, 87.0 + refinement_bonus)
         tier = "Secondary"
-        note = "A strong secondary weapon choice for this character."
+        note = "A strong alternative to BiS — performs well in most scenarios."
     elif name in f2p_list:
         score = min(85.0, 76.0 + refinement_bonus)
         tier = "F2P"
-        note = "A solid free-to-play weapon pick for this character."
+        note = "Solid free-to-play option that holds up well against gacha weapons."
     elif name in niche_list:
         score = min(85.0, 74.0 + refinement_bonus)
         tier = "Niche"
-        note = "A situational, team-comp-dependent pick for this character -- a valid choice in the right setup."
+        note = "Works well in specific team comps — a valid pick if you're building around it."
     else:
-        # Not on this character's curated tiers -- check the global item
-        # catalog before falling back to a flat neutral score, so a
-        # genuinely strong uncatalogued pick (e.g. The Widsith) doesn't
-        # get treated identically to an actual typo.
         catalog_entry = lookup_weapon(name)
         expected_type = str(config.get("weapon_type") or "").strip().lower()
 
@@ -308,8 +304,8 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
             score = min(70.0, 55.0 + refinement_bonus)
             tier = "Unrecognized"
             note = (
-                "This weapon name isn't in CritCal's item catalog at all -- double-check the spelling, "
-                "since this looks more like a typo than an uncatalogued-but-valid pick."
+                "This weapon name doesn't match anything in CritCal's catalog — might be a typo "
+                "rather than an uncatalogued weapon."
             )
         else:
             found_type, is_five_star = catalog_entry
@@ -317,22 +313,22 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
                 score = min(65.0, 50.0 + refinement_bonus)
                 tier = "Type Mismatch"
                 note = (
-                    f"This is a real weapon, but it's a {found_type} and this character normally uses a "
-                    f"{expected_type} -- double-check the name, since this combination isn't possible in-game."
+                    f"Found a {found_type} by this name, but this character uses {expected_type}s — "
+                    "double-check your entry, since this combination isn't possible in-game."
                 )
             elif is_five_star:
                 score = min(82.0, 72.0 + refinement_bonus)
                 tier = "Unlisted"
                 note = (
-                    "A real 5-star weapon that isn't on CritCal's curated short list for this character -- "
-                    "not necessarily a bad choice, just uncatalogued."
+                    "A genuine 5-star weapon that isn't on CritCal's curated list — "
+                    "could still be a great choice, just not specifically catalogued here."
                 )
             else:
                 score = min(78.0, 62.0 + refinement_bonus)
                 tier = "Unlisted"
                 note = (
-                    "This weapon isn't on CritCal's curated list for this character (which only tracks a "
-                    "handful of options out of many viable weapons), so this isn't a mark against it."
+                    "This weapon isn't on CritCal's curated shortlist for this character — "
+                    "CritCal only tracks a few picks per character, so this isn't a strike against it."
                 )
 
     return round(score, 1), note, tier
@@ -370,33 +366,33 @@ def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Opt
         matched_name = four_piece_names[0]
         if bis and matched_name == bis:
             score, tier = 96.0, "BiS"
-            note = "Running CritCal's Best-in-Slot 4-piece set for this character."
+            note = "Running CritCal's Best-in-Slot 4-piece set for this character — exactly where you want to be."
         elif secondary and matched_name == secondary:
             score, tier = 88.0, "Secondary"
-            note = "Running a strong secondary 4-piece set for this character."
+            note = "A strong secondary 4-piece set — competitive with BiS in many scenarios."
         elif matched_name in niche_sets:
             score, tier = 78.0, "Niche"
-            note = "Running a situational, team-comp-dependent 4-piece set -- a valid choice in the right setup."
+            note = "Running a situational 4-piece set — works well in specific team comps."
         else:
             catalog_hit = lookup_artifact_set(matched_name)
             if catalog_hit is None:
                 score, tier = 55.0, "Unrecognized"
                 note = (
-                    "This set name isn't in CritCal's item catalog at all -- double-check the spelling, "
-                    "since this looks more like a typo than an uncatalogued-but-valid pick."
+                    "This set name doesn't match anything in CritCal's catalog — "
+                    "worth double-checking the spelling."
                 )
             else:
                 score, tier = 68.0, "Unlisted"
                 note = (
-                    "Running a complete 4-piece set bonus that isn't on CritCal's curated list for this "
-                    "character -- not necessarily a bad choice, just uncatalogued."
+                    "You've got a complete 4-piece set bonus that isn't on CritCal's curated list — "
+                    "could still be viable, just not catalogued specifically for this character."
                 )
     elif two_piece_count >= 2:
         score, tier = 60.0, "Hybrid"
-        note = "Running a 2pc+2pc hybrid setup -- a valid choice for some team comps, though usually lower personal power than a full 4-piece bonus."
+        note = "Running a 2pc+2pc hybrid setup — it works for some teams, but a full 4-piece set would usually pull ahead."
     else:
         score, tier = 40.0, "Fragmented"
-        note = "Artifact pieces don't form a coherent 2pc or 4pc set bonus -- consolidating into at least a matching 2pc/2pc setup is usually a straightforward upgrade."
+        note = "Your artifacts aren't forming any set bonuses right now — consolidating into at least a 2pc+2pc setup would be a quick and noticeable upgrade."
 
     return score, note, has_four_piece, tier
 
@@ -441,17 +437,16 @@ def generate_build_description(
 ) -> str:
     """
     Produces a short natural-language summary combining the character,
-    their actual stat pattern, and any character-specific context --
-    meant to read like a real analysis rather than a static label.
+    their actual stat pattern, and any character-specific context.
     """
     parts = [f"{character} is running a {build_style.lower()}."]
 
     if ignore_high_ratio_warning and "Crit DMG" in build_style:
-        parts.append("This lean into Crit DMG is expected and BiS-consistent for this character's kit, not a sign of an unbalanced build.")
+        parts.append("The heavy Crit DMG investment here is expected for this character's kit — it's not an imbalance, it's how they scale best.")
     elif freeze_build:
-        parts.append("As a Freeze-team build, a naturally high Crit Rate from Cryo Resonance / Blizzard Strayer may already be factored in outside of raw panel stats.")
+        parts.append("Since this is a Freeze build, the Crit Rate from Blizzard Strayer and Cryo Resonance isn't visible in these raw stats — your effective crit rate is likely higher than the panel shows.")
     elif high_er_allowed:
-        parts.append("Energy Recharge investment above typical thresholds is normal for this character's role.")
+        parts.append("ER investment above normal thresholds is standard for this character's role — nothing unusual here.")
 
     if substat_note:
         parts.append(substat_note)
@@ -494,10 +489,10 @@ def _process_benchmarks(stat_lookup: Dict[str, float], benchmarks: Dict[str, flo
         if target_value <= 0:
             continue
         if actual_value >= target_value:
-            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} — target met")
+            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} — target reached")
         else:
             pct = (actual_value / target_value) * 100.0
-            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} ({pct:.1f}%)")
+            benchmark_status.append(f"{label}: {actual_value:.0f} / {target_value:.0f} ({pct:.1f}% of target)")
     return benchmark_status
 
 def rate_build(
@@ -616,8 +611,7 @@ def rate_build(
     recommendations = build_recommendations(character, c_rate, c_dmg, clean_substats, c_er, resolved_scaling, high_er_allowed, target_ratio=resolved_ratio_target, char_config=char_config)
     if has_four_piece is False:
         recommendations.append(
-            "No 4-piece artifact set bonus is currently active. Most builds benefit significantly "
-            "from a full 4-piece set unless intentionally running a 2pc+2pc hybrid for a specific reason."
+            "No 4-piece artifact set bonus active. A full 4pc set would likely be a significant upgrade over your current setup."
         )
     if weapon_tier in ("BiS", "Secondary"):
         try:
@@ -626,7 +620,7 @@ def rate_build(
             current_refine = 1
         if current_refine < 5:
             recommendations.append(
-                f"This weapon is a strong pick -- refining it further (currently R{current_refine}) would add incremental extra value if copies are available."
+                f"This weapon's already a great pick — refining it from R{current_refine} toward R5 would add extra value if you get more copies."
             )
     cv = round((c_rate * 2.0) + c_dmg, 1)
 
