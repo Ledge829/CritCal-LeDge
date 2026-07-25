@@ -337,11 +337,11 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
                     "double-check your entry, since this combination isn't possible in-game."
                 )
             elif is_five_star:
-                # Smart synergy check — evaluate how well this weapon
-                # actually fits the character instead of a flat score.
                 char_scaling = config.get("scaling", "atk")
                 syn_score, syn_tier, syn_note = evaluate_weapon_synergy(
-                    name, char_scaling, found_type
+                    name, char_scaling, found_type,
+                    char_name=config.get("_key", ""),
+                    char_tags=config.get("tags", config.get("roles", []))
                 )
                 score = min(85.0, syn_score + refinement_bonus)
                 tier = syn_tier
@@ -349,7 +349,9 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
             else:
                 char_scaling = config.get("scaling", "atk")
                 syn_score, syn_tier, syn_note = evaluate_weapon_synergy(
-                    name, char_scaling, found_type
+                    name, char_scaling, found_type,
+                    char_name=config.get("_key", ""),
+                    char_tags=config.get("tags", config.get("roles", []))
                 )
                 score = min(80.0, syn_score + refinement_bonus)
                 tier = syn_tier
@@ -425,26 +427,54 @@ def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Opt
 # SMART SYNERGY EVALUATION
 #
 # When a weapon or artifact set isn't in the curated
-# build_data.py list, CritCal evaluates it dynamically by
-# checking the weapon's substat, tags, and scaling against
-# the character's known properties — instead of just calling
-# it "Unlisted" with a flat score.
+# build_data.py list, CritCal evaluates it dynamically using
+# substat matching, ability keyword analysis, and tag overlap
+# — instead of just calling it "Unlisted" with a flat score.
 # ==========================================================
 
+# Ability keywords that signal what a weapon is good for
+_ABILITY_KEYWORDS = {
+    "burst_dps": ["elemental burst", "burst dmg", "burst damage", "energy recharge"],
+    "skill_dps": ["elemental skill", "skill dmg", "skill damage"],
+    "normal_attacker": ["normal attack", "normal atk", "normal attack dmg", "atk spd"],
+    "charged_attacker": ["charged attack", "charged atk", "charged attack dmg"],
+    "healer": ["healing", "heal", "regenerates hp", "restores hp"],
+    "shielder": ["shield", "shield strength"],
+    "support": ["party members", "nearby party", "all party", "team"],
+    "reaction": ["reaction", "elemental mastery", "em"],
+}
+
 SUBSTAT_PREFERENCE = {
-    "atk": ["atk_percent", "crit_rate", "crit_dmg"],
-    "hp": ["hp_percent", "crit_rate", "crit_dmg"],
-    "def": ["def_percent", "crit_rate", "crit_dmg"],
-    "em": ["elemental_mastery", "crit_rate", "crit_dmg"],
-    "hybrid": ["atk_percent", "hp_percent", "def_percent", "crit_rate", "crit_dmg"],
+    "atk": ["atk_percent", "crit_rate", "crit_dmg", "physical_dmg", "energy_recharge"],
+    "hp": ["hp_percent", "crit_rate", "crit_dmg", "energy_recharge"],
+    "def": ["def_percent", "crit_rate", "crit_dmg", "energy_recharge"],
+    "em": ["elemental_mastery", "crit_rate", "crit_dmg", "energy_recharge"],
+    "hybrid": ["atk_percent", "hp_percent", "def_percent", "crit_rate", "crit_dmg", "energy_recharge"],
 }
 
 
-def evaluate_weapon_synergy(weapon_name: str, char_scaling: str, weapon_type: str = "") -> Tuple[float, str, str]:
+def _match_keywords(ability_desc: str) -> list:
+    """Scans a weapon's ability text for role keywords."""
+    if not ability_desc:
+        return []
+    desc = ability_desc.lower()
+    roles = []
+    for role, keywords in _ABILITY_KEYWORDS.items():
+        for kw in keywords:
+            if kw in desc:
+                roles.append(role)
+                break
+    return roles
+
+
+def evaluate_weapon_synergy(
+    weapon_name: str, char_scaling: str = "atk", weapon_type: str = "",
+    char_name: str = "", char_tags: list = None
+) -> Tuple[float, str, str]:
     """
-    Scores a weapon based on how well its stats and tags match the character,
-    without relying on curated build_data.py lists.
-    Returns (score, tier, note).
+    Comprehensive weapon synergy evaluation using substat matching,
+    ability keyword analysis, and tag overlap. Much smarter than
+    the simple substat check.
     """
     clean = weapon_name.strip().lower()
     weapon = WEAPONS_DB.get(clean)
@@ -453,92 +483,110 @@ def evaluate_weapon_synergy(weapon_name: str, char_scaling: str, weapon_type: st
 
     substat = weapon.get("substat", "")
     weapon_tags = weapon.get("tags", [])
+    ability = weapon.get("ability", "")
+    rarity = weapon.get("rarity", 4)
+    char_tags = char_tags or []
+
+    score = 45.0
+
+    # 1. Substat match (up to +25)
     preferred = SUBSTAT_PREFERENCE.get(char_scaling, ["atk_percent", "crit_rate", "crit_dmg"])
-
-    score = 50.0
-
-    # Substat match
     if substat in preferred:
         score += 20
         if substat in ("crit_rate", "crit_dmg"):
-            score += 5
+            score += 5  # Crit stats are premium
 
-    # Rarity consideration
-    rarity = weapon.get("rarity", 4)
+    # 2. Ability keyword analysis (up to +20)
+    ability_roles = _match_keywords(ability)
+    if ability_roles:
+        score += len(ability_roles) * 4  # +4 per matched role
+        # Bonus for burst/skill DPS weapons on appropriate characters
+        if "burst_dps" in ability_roles and "burst_dps" in char_tags:
+            score += 4
+        if "skill_dps" in ability_roles and "skill_dps" in char_tags:
+            score += 4
+        if "support" in ability_roles and "support" in char_tags:
+            score += 6
+
+    # 3. Tag overlap with character tags (up to +10)
+    if char_tags:
+        overlap = set(weapon_tags) & set(char_tags)
+        score += len(overlap) * 2
+
+    # 4. Rarity baseline
     if rarity == 5:
         score += 10
     elif rarity == 3:
-        score -= 10
+        score -= 8
 
-    # Universal weapons get a small bonus
-    if "universal" in weapon_tags:
-        score += 5
-
-    # F2P accessibility bonus
-    if "f2p" in weapon_tags or "craftable" in weapon_tags:
-        score += 5
-
-    # Event/battle-pass limited weapons
-    if "event" in weapon_tags:
-        score -= 3
+    # 5. Accessibility
+    if "craftable" in weapon_tags or "f2p" in weapon_tags:
+        score += 4
+    if "battle_pass" in weapon_tags:
+        score -= 2  # Limited availability
+    if "starglitter" in weapon_tags:
+        score -= 1
 
     score = max(10, min(100, score))
 
     if score >= 80:
         tier = "Strong"
-        note = f"Good stat synergy — {substat} substat benefits this character."
+        note = f"Good synergy — {substat} substat and ability benefit this character."
     elif score >= 65:
         tier = "Decent"
-        note = f"Decent fit — {substat} substat provides some value."
-    elif score >= 45:
+        note = f"Decent fit — {substat} substat and weapon role align partially."
+    elif score >= 48:
         tier = "Average"
-        note = "Average synergy — usable but not ideal for this character."
-    else:
+        note = "Average synergy — usable but not specifically built for this character."
+    elif score >= 30:
         tier = "Weak"
-        note = "Poor stat synergy — substat doesn't align with this character's scaling."
+        note = "Weak synergy — substat and ability don't align well with this character."
+    else:
+        tier = "Poor"
+        note = "Poor fit — consider replacing this weapon for better stat alignment."
 
     return round(score, 1), tier, note
 
 
-def evaluate_artifact_synergy(set_name: str, char_element: str, char_scaling: str) -> Tuple[float, str, str]:
+def evaluate_artifact_synergy(set_name: str, char_element: str, char_scaling: str, char_tags: list = None) -> Tuple[float, str, str]:
     """
-    Scores an artifact set based on its bonuses and tags against the character.
-    Returns (score, tier, note).
+    Scores an artifact set based on its bonuses, tags, and element match.
     """
     clean = set_name.strip().lower()
     a_set = ARTIFACTS_DB.get(clean)
     if not a_set:
-        return 50.0, "Unlisted", "Set not in CritCal's detailed database."
+        return 50.0, "Unlisted", "Set not in database."
 
     set_tags = a_set.get("tags", [])
-    score = 50.0
+    char_tags = char_tags or []
+    score = 45.0
 
     # Element match
-    element_tag = {"pyro": "pyro", "hydro": "hydro", "anemo": "anemo",
-                   "electro": "electro", "dendro": "dendro", "cryo": "cryo", "geo": "geo"}
-    if char_element in element_tag and element_tag[char_element] in set_tags:
+    el_map = {"pyro": "pyro", "hydro": "hydro", "anemo": "anemo", "electro": "electro",
+              "dendro": "dendro", "cryo": "cryo", "geo": "geo"}
+    if char_element in el_map and el_map[char_element] in set_tags:
         score += 20
 
-    # Role tag match
-    if "dps" in set_tags:
-        score += 5
-        if "universal" in set_tags:
-            score += 5
+    # Tag overlap
+    if char_tags:
+        overlap = set(set_tags) & set(char_tags)
+        score += len(overlap) * 5
 
-    if "support" in set_tags and "dps" not in set_tags:
-        score += 5
+    # Universal / general purpose
+    if "universal" in set_tags:
+        score += 8
 
     score = max(10, min(100, score))
 
     if score >= 75:
         tier = "Good"
-        note = "Set bonuses align well with this character's element and role."
+        note = "Set bonuses align with this character's element and role."
     elif score >= 55:
         tier = "Decent"
-        note = "Partial synergy — some set bonuses benefit this character."
+        note = "Partial synergy — some bonuses are useful here."
     else:
         tier = "Weak"
-        note = "Weak synergy — set bonuses don't match this character well."
+        note = "Weak synergy — this set isn't designed for this character."
 
     return round(score, 1), tier, note
 
