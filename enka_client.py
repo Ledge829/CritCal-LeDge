@@ -11,6 +11,7 @@ from typing import Optional, Tuple
 # Import weapon catalog for icon-based name matching
 from item_catalog import WEAPONS as WEAPON_CATALOG
 from weapon_ids import WEAPON_IDS
+from set_ids import SET_IDS
 
 ENKA_BASE = "https://enka.network/api/uid"
 # Updated Enka CDN URLs
@@ -312,7 +313,13 @@ def _extract_artifact_sets(equip_list):
         if not set_name and set_id is not None and set_id in _set_id_map:
             set_name = _set_id_map[set_id]
 
-        # 4. Final fallback
+        # 4. Static fallback: look up setId in our local mapping
+        if not set_name and set_id is not None:
+            set_name = SET_IDS.get(set_id, "")
+            if set_name:
+                _set_id_map[set_id] = set_name
+
+        # 5. Final fallback
         if not set_name:
             set_name = "Unknown Set"
 

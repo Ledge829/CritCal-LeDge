@@ -234,32 +234,45 @@ def build_recommendations(
     c_rate = float(crit_rate)
     er = float(energy_recharge)
     config = char_config or {}
+    ignores_crit = config.get("ignores_crit", False)
+    wants_em = config.get("wants_em", False)
 
-    if target_ratio <= 2.5 and c_rate < 55.0 and not config.get("freeze_build", False):
-        recs.append("Crit Rate is a bit low for consistent crits — try getting it to at least 60% before stacking more Crit DMG.")
+    if not ignores_crit:
+        if target_ratio <= 2.5 and c_rate < 55.0 and not config.get("freeze_build", False):
+            if c_rate < 20.0:
+                recs.append("Crit Rate is very low — most of your hits aren't critting. Aim for at least 50-60% before stacking Crit DMG.")
+            elif c_rate < 40.0:
+                recs.append("Crit Rate needs work — try to get it above 50% for more consistent crits.")
+            elif c_rate < 55.0:
+                recs.append("Crit Rate could be higher — aim for roughly 60% before investing more in Crit DMG.")
+        if config.get("freeze_build", False) and c_rate > 45.0:
+            recs.append("Since this is a Freeze build, your effective CR from Blizzard Strayer + Cryo Resonance may overcap. Watch your total.")
 
-    if config.get("freeze_build", False) and c_rate > 45.0:
-        recs.append("Crit Rate might be overcapped if you're running 4pc Blizzard Strayer with Cryo Resonance — consider trading some for Crit DMG or ATK%.")
+    if ignores_crit and er < 140.0:
+        recs.append(f"Energy Recharge is at {er:.0f}% — support builds typically want 160-200% for consistent burst uptime.")
+    elif er > 0 and er < 100.0:
+        recs.append(f"ER is under 100% ({er:.0f}%) — your Burst won't be reliable without more ER.")
 
-    if er > 160.0 and not high_er_allowed:
-        recs.append(f"Energy Recharge is sitting at {er:.0f}%, which is more than this character typically needs — you might be able to swap some ER for offensive stats.")
-
-    if er > 0 and er < 100.0:
-        recs.append(f"Energy Recharge is under 100% ({er:.0f}%) which means your Burst won't be up consistently. A bit more ER would help.")
+    if er > 170.0 and not high_er_allowed and not ignores_crit:
+        recs.append(f"ER is at {er:.0f}% — if your Burst is always ready, you could trade some ER for offensive stats.")
 
     em = float(substat_totals.get("elemental_mastery", 0.0))
     atk_flat = float(substat_totals.get("atk_flat", 0.0))
 
-    if em > 100.0 and character_scaling != "em":
-        recs.append("You've got a decent amount of Elemental Mastery — just make sure this character actually triggers reactions regularly, otherwise it's a wasted substat.")
+    if wants_em and em < 80.0:
+        recs.append(f"Elemental Mastery is at {em:.0f} — this character gets good value from EM, consider adding more.")
+    elif em > 100.0 and not wants_em and character_scaling != "em" and not ignores_crit:
+        recs.append("EM is higher than typical for this character — make sure you're triggering reactions to benefit from it.")
 
-    if atk_flat > 50.0:
-        recs.append("Flat ATK rolls are usually outscaled by ATK% at higher investment levels — worth replacing if you can.")
+    scaling = character_scaling or config.get("scaling", "atk")
+    if atk_flat > 50.0 and scaling in ("atk", "hybrid"):
+        recs.append("Flat ATK is outperformed by ATK% at higher investment — consider replacing those pieces.")
 
     if not recs:
-        recs.append("This build is in a good spot — any further upgrades will come from stronger artifact rolls, set bonuses, or weapon refinements.")
+        recs.append("This build is in a good spot — further upgrades will come from stronger artifact rolls, set bonuses, or weapon refinements.")
 
     return recs
+
 
 def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tuple[Optional[float], Optional[str], Optional[str]]:
     """

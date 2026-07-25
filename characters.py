@@ -27,6 +27,8 @@ DEFAULT_CHARACTER_CONFIG: Dict[str, Any] = {
     "scaling": "atk",
     "crit_ratio_target": CRIT_RATIO_TARGET,
     "high_er_allowed": False,
+    "ignores_crit": False,
+    "wants_em": False,
 
     "build_title": "Standard DPS / Support",
 
@@ -184,6 +186,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "thoma": {
+    "wants_em": True,
         "element": "pyro",
         "rarity": 4,
         "region": "inazuma",
@@ -292,6 +295,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kokomi": {
+    "ignores_crit": True,
         "element": "hydro",
         "rarity": 5,
         "region": "inazuma",
@@ -352,6 +356,8 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "nilou": {
+    "wants_em": True,
+    "ignores_crit": True,
         "element": "hydro",
         "rarity": 5,
         "region": "sumeru",
@@ -485,6 +491,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kazuha": {
+    "wants_em": True,
         "element": "anemo",
         "rarity": 5,
         "region": "inazuma",
@@ -543,6 +550,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "sucrose": {
+    "wants_em": True,
         "element": "anemo",
         "rarity": 4,
         "region": "mondstadt",
@@ -557,6 +565,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "venti": {
+    "wants_em": True,
         "element": "anemo",
         "rarity": 5,
         "region": "mondstadt",
@@ -708,6 +717,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kukishinobu": {
+    "wants_em": True,
         "element": "electro",
         "rarity": 4,
         "region": "inazuma",
@@ -910,6 +920,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "nahida": {
+    "wants_em": True,
         "element": "dendro",
         "rarity": 5,
         "region": "sumeru",
@@ -1206,6 +1217,7 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "albedo": {
+    "wants_em": True,
         "element": "geo",
         "rarity": 5,
         "region": "mondstadt",
