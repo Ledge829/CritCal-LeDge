@@ -34,8 +34,12 @@ WEAPON_IDS: dict[int, str] = {
     # 15515 (5★ Bow) — Venti
     # 14415 (4★ Catalyst) — Xianyun
     # 13432 (4★ Polearm) — Xiao
-    # 14403 (4★ Catalyst)
-    # 14302 (3★ Catalyst) — Sucrose
-    # 11405 (4★ Sword) — Lynette
-    # 14414 (4★ Catalyst) — Lan Yan
+    # 14403 (4★ Catalyst, icon "Fossil")
+    # 14302 (3★ Catalyst, icon "Pulpfic") — Sucrose
+    # 11405 (4★ Sword, icon "Rockkiller") — Lynette
+    # 14414 (4★ Catalyst, icon "Bakufu") — Lan Yan
+
+    # ── Unmapped IDs from UID 677297099 ──
+    # 13401 (4★ Polearm, icon "Stardust") — Emilie
+    # 12431 (4★ Claymore, icon "Isikhulu") — Kinich
 }
