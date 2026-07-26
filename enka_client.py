@@ -17,7 +17,7 @@ ENKA_BASE = "https://enka.network/api/uid"
 # Updated Enka CDN URLs
 CHAR_STORE_URL = "https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/characters.json"
 LOC_STORE_URL = "https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/loc.json"
-WEAPON_STORE_URL = "https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/weapons.json"
+
 
 # Fallback: Enka moved some files. Let's use a more stable source if available, 
 # but for now, let's just ensure we handle the 404 gracefully or try an alternative if known.
@@ -60,7 +60,7 @@ APPEND_PROP_MAP = {
 }
 
 _char_cache = {"data": None, "time": 0}
-_weapon_cache = {"data": None, "time": 0}
+
 _loc_cache = {"data": None, "time": 0}
 
 # Self-populating weapon ID → name cache. Every time a weapon name
@@ -112,19 +112,6 @@ def _load_character_names():
             names[str(avatar_id)] = loc[hash_id]
     return names
 
-
-def _load_weapon_names():
-    weapons = _cached_json(WEAPON_STORE_URL, _weapon_cache)
-    loc = _load_localization()
-    result = {}
-    for weapon_id, data in weapons.items():
-        hash_id = str(data.get("NameTextMapHash", ""))
-        result[str(weapon_id)] = {
-            "name": loc.get(hash_id, f"Weapon #{weapon_id}"),
-            "rarity": data.get("rankLevel"),
-            "icon": data.get("icon"),
-        }
-    return result
 
 
 def _refinement_from_affix_map(affix_map):
