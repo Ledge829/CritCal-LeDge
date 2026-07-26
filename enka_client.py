@@ -304,26 +304,19 @@ def _extract_artifact_sets(equip_list):
         # 1. Try resolving via loc.json
         set_name = loc.get(hash_id, "")
 
-        # 2. Known loc.json name corrections.
-        #    Enka's published loc.json sometimes maps name hashes to wrong
-        #    or outdated set names. These override fixes are verified against
-        #    actual in-game set names. Add new ones as discovered.
-        _NAME_OVERRIDES = {
-            "pale flame": "Marechaussee Hunter",
-        }
-        clean_name = set_name.strip().lower()
-        if clean_name in _NAME_OVERRIDES:
-            set_name = _NAME_OVERRIDES[clean_name]
-
         set_id = flat.get("setId")
 
-        # 3. Cache the result
+        # 2. Cache the result for future lookups
         if set_name and set_id is not None:
             _set_id_map[set_id] = set_name
 
-        # 4. Check self-built cache
+        # 3. If loc.json didn't have the hash, check our self-built cache
         if not set_name and set_id is not None and set_id in _set_id_map:
             set_name = _set_id_map[set_id]
+
+        # 4. Static fallback via set_ids.py mapping
+        if not set_name and set_id is not None:
+            set_name = SET_IDS.get(set_id, "")
 
         # 5. Final fallback
         if not set_name:
