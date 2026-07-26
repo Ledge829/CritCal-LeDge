@@ -304,15 +304,18 @@ def _extract_artifact_sets(equip_list):
         # 1. Try resolving via loc.json
         set_name = loc.get(hash_id, "")
 
-        # 2. If we also have a static SET_IDS mapping, check for conflicts.
-        #    Enka's loc.json sometimes maps hashes to the wrong names, so
-        #    our curated SET_IDS takes priority when both are available.
+        # 2. Known loc.json name corrections.
+        #    Enka's published loc.json sometimes maps name hashes to wrong
+        #    or outdated set names. These override fixes are verified against
+        #    actual in-game set names. Add new ones as discovered.
+        _NAME_OVERRIDES = {
+            "pale flame": "Marechaussee Hunter",
+        }
+        clean_name = set_name.strip().lower()
+        if clean_name in _NAME_OVERRIDES:
+            set_name = _NAME_OVERRIDES[clean_name]
+
         set_id = flat.get("setId")
-        static_name = SET_IDS.get(set_id, "") if set_id is not None else ""
-        if static_name and set_name and static_name.lower() != set_name.lower():
-            set_name = static_name  # our mapping wins
-        elif static_name and not set_name:
-            set_name = static_name
 
         # 3. Cache the result
         if set_name and set_id is not None:
