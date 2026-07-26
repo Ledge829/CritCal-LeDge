@@ -304,26 +304,37 @@ def _extract_artifact_sets(equip_list):
         # 1. Try resolving via loc.json
         set_name = loc.get(hash_id, "")
 
-        # 2. Cache the result for next time using setId
+        # 2. If we also have a static SET_IDS mapping, check for conflicts.
+        #    Enka's loc.json sometimes maps hashes to the wrong names, so
+        #    our curated SET_IDS takes priority when both are available.
         set_id = flat.get("setId")
+        static_name = SET_IDS.get(set_id, "") if set_id is not None else ""
+        if static_name and set_name and static_name.lower() != set_name.lower():
+            set_name = static_name  # our mapping wins
+        elif static_name and not set_name:
+            set_name = static_name
+
+        # 3. Cache the result
         if set_name and set_id is not None:
             _set_id_map[set_id] = set_name
 
-        # 3. If loc.json didn't have it, check our self-built cache
+        # 4. Check self-built cache
         if not set_name and set_id is not None and set_id in _set_id_map:
             set_name = _set_id_map[set_id]
-
-        # 4. Static fallback: look up setId in our local mapping
-        if not set_name and set_id is not None:
-            set_name = SET_IDS.get(set_id, "")
-            if set_name:
-                _set_id_map[set_id] = set_name
 
         # 5. Final fallback
         if not set_name:
             set_name = "Unknown Set"
 
         counts[set_name] = counts.get(set_name, 0) + 1
+
+    # Sort by count descending so the primary set (most pieces) comes first
+    sorted_sets = sorted(
+        [{"name": name, "count": count} for name, count in counts.items() if count > 0],
+        key=lambda x: x["count"],
+        reverse=True
+    )
+    return sorted_sets
 
     return [
         {"name": name, "count": count}

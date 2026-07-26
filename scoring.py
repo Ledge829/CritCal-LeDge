@@ -149,15 +149,15 @@ def score_crit_ratio(
     score = max(15.0, ratio_score - penalty)
 
     if penalty > 20:
-        note = f"Crit values are very low ({c_rate:.1f}% / {c_dmg:.1f}%) — both need significant investment before the character becomes functional."
+        note = f"Crit stats this low ({c_rate:.1f}% / {c_dmg:.1f}%) mean the character isn't functional yet — focus on getting CR/CD substats on every piece."
     elif target_ratio <= 2.5 and c_rate < 50.0:
-        note = f"Crit Rate is sitting at {c_rate:.1f}% — try to bring it up to around 60-75% before stacking more Crit DMG."
+        note = f"CR is sitting at {c_rate:.1f}% which is on the low side. Try to bring it up to around 60-75% before putting more into Crit DMG."
     elif ratio < target_ratio - 0.3:
-        note = f"Crit DMG is lagging behind Crit Rate ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target). More Crit DMG subs would help balance this out."
+        note = f"Crit DMG is trailing behind Crit Rate ({ratio:.2f}:1 vs a target of {target_ratio:.2f}:1). Prioritize CDMG substats to rebalance."
     elif ratio > target_ratio + 0.4 and not ignore_high_ratio_warning:
-        note = f"Crit Rate could use some more investment ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target) for more consistent crits — your Crit DMG is there."
+        note = f"Crit Rate needs more investment ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target). Your Crit DMG is solid — look for CR substats next."
     else:
-        note = f"Crit ratio is looking clean ({c_rate:.1f}% / {c_dmg:.1f}%, {ratio:.2f}:1 against a {target_ratio:.2f}:1 target)."
+        note = f"Crit ratio looks well balanced ({c_rate:.1f}% / {c_dmg:.1f}%, at a {ratio:.2f}:1 split against the {target_ratio:.2f}:1 target)."
 
     return round(score, 1), note
 
@@ -269,7 +269,7 @@ def build_recommendations(
         recs.append("Flat ATK is outperformed by ATK% at higher investment — consider replacing those pieces.")
 
     if not recs:
-        recs.append("This build is in a good spot — further upgrades will come from stronger artifact rolls, set bonuses, or weapon refinements.")
+        recs.append("Solid build overall. Any next steps would be chasing better substat rolls, upgrading set bonuses, or looking at weapon options.")
 
     return recs
 
@@ -316,19 +316,19 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
     if bis and name == bis:
         score = min(99.0, 96.0 + refinement_bonus)
         tier = "BiS"
-        note = "This weapon is CritCal's top pick for this character — best-in-slot."
+        note = "CritCal's top recommended weapon for this character. Best-in-slot pick."
     elif secondary and name == secondary:
         score = min(94.0, 87.0 + refinement_bonus)
         tier = "Secondary"
-        note = "A strong alternative to BiS — performs well in most scenarios."
+        note = "A strong alternative that performs well in most situations. Not quite BiS but close."
     elif name in f2p_list:
         score = min(85.0, 76.0 + refinement_bonus)
         tier = "F2P"
-        note = "Solid free-to-play option that holds up well against gacha weapons."
+        note = "A reliable free option that holds its own against gacha weapons. Good value."
     elif name in niche_list:
         score = min(85.0, 74.0 + refinement_bonus)
         tier = "Niche"
-        note = "Works well in specific team comps — a valid pick if you're building around it."
+        note = "Situational pick — works well in specific team compositions but not universal."
     else:
         catalog_entry = lookup_weapon(name)
         expected_type = str(config.get("weapon_type") or "").strip().lower()
