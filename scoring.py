@@ -27,12 +27,12 @@ EXPECTED_MAX_ROLLS_PER_STAT: int = 10
 
 # Dynamic Grade Thresholds paired with exact target Hex Colors
 GRADE_THRESHOLDS: List[Tuple[float, str, str, str]] = [
-    (85.0, "S", "Top-tier build. Exceptional substats, optimal gear — can clear any content comfortably.", "#00FF66"),
-    (70.0, "A", "Strong build. Endgame-viable with good stat distribution. A few upgrades from S.", "#3498DB"),
-    (55.0, "B", "Decent build. Can handle floor 11 and most endgame content with the right team.", "#9B59B6"),
-    (40.0, "C", "Functional build. Works for casual play and early abyss, but needs noticeable improvements.", "#F1C40F"),
-    (20.0, "D", "Early build. Several core stats are missing or underdeveloped — focus on the basics first.", "#E74C3C"),
-    (0.0, "F", "Unbuilt. This character needs artifacts, levels, and a proper weapon to be usable.", "#888888"),
+    (85.0, "S", "Outstanding. Your gear, stats, and weapon choices all come together. This build clears everything.", "#00FF66"),
+    (70.0, "A", "Solid endgame build. Strong stat distribution with clear direction. A few lucky rolls away from S.", "#3498DB"),
+    (55.0, "B", "Decent build that can handle floor 11 and most content with the right team around it.", "#9B59B6"),
+    (40.0, "C", "Functional for casual play and early Abyss. Several areas could be improved.", "#F1C40F"),
+    (20.0, "D", "Early stages. Core stats are still developing — focus on getting the basics right first.", "#E74C3C"),
+    (0.0, "F", "Unbuilt. Needs artifacts, levels, and a proper weapon before this character can contribute.", "#888888"),
 ]
 
 
@@ -149,15 +149,15 @@ def score_crit_ratio(
     score = max(15.0, ratio_score - penalty)
 
     if penalty > 20:
-        note = f"Crit stats this low ({c_rate:.1f}% / {c_dmg:.1f}%) mean the character isn't functional yet — focus on getting CR/CD substats on every piece."
+        note = f"Your crit numbers ({c_rate:.1f}% / {c_dmg:.1f}%) are too low for this character to function properly. Focus on getting CRIT Rate and CRIT DMG substats on every piece."
     elif target_ratio <= 2.5 and c_rate < 50.0:
-        note = f"CR is sitting at {c_rate:.1f}% which is on the low side. Try to bring it up to around 60-75% before putting more into Crit DMG."
+        note = f"Crit Rate at {c_rate:.1f}% is on the lower end. Try pushing towards 60-75% before investing more into Crit DMG."
     elif ratio < target_ratio - 0.3:
-        note = f"Crit DMG is trailing behind Crit Rate ({ratio:.2f}:1 vs a target of {target_ratio:.2f}:1). Prioritize CDMG substats to rebalance."
+        note = f"Your CRIT DMG is lagging behind CRIT Rate ({ratio:.2f}:1, target is {target_ratio:.2f}:1). Look for CDMG substats to bring them closer."
     elif ratio > target_ratio + 0.4 and not ignore_high_ratio_warning:
-        note = f"Crit Rate needs more investment ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target). Your Crit DMG is solid — look for CR substats next."
+        note = f"Your CRIT Rate needs attention ({ratio:.2f}:1 ratio vs {target_ratio:.2f}:1 target). The Crit DMG is there — time to balance it with more Rate."
     else:
-        note = f"Crit ratio looks well balanced ({c_rate:.1f}% / {c_dmg:.1f}%, at a {ratio:.2f}:1 split against the {target_ratio:.2f}:1 target)."
+        note = f"Crit ratio is clean ({c_rate:.1f}% / {c_dmg:.1f}%, sitting at a {ratio:.2f}:1 split against a {target_ratio:.2f}:1 target)."
 
     return round(score, 1), note
 
@@ -553,19 +553,19 @@ def evaluate_weapon_synergy(
 
     if score >= 80:
         tier = "Strong"
-        note = f"Good synergy — {substat} substat and ability benefit this character."
+        note = f"The {substat} substat and ability work well with this character's kit. Solid pick."
     elif score >= 65:
         tier = "Decent"
-        note = f"Decent fit — {substat} substat and weapon role align partially."
+        note = f"The {substat} substat provides some value here. A usable option."
     elif score >= 48:
         tier = "Average"
-        note = "Average synergy — usable but not specifically built for this character."
+        note = "This weapon is functional but nothing special for this specific character."
     elif score >= 30:
         tier = "Weak"
-        note = "Weak synergy — substat and ability don't align well with this character."
+        note = "The substat and ability don't line up well with what this character wants."
     else:
         tier = "Poor"
-        note = "Poor fit — consider replacing this weapon for better stat alignment."
+        note = "Consider swapping this out — better options exist for this character."
 
     return round(score, 1), tier, note
 
