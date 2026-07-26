@@ -309,6 +309,7 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
     refinement_bonus = (refinement - 1) * 2  # +0 to +8 across R1-R5
 
     bis = str(config.get("bis_weapon") or "").strip().lower()
+    alt_bis = [str(w).strip().lower() for w in (config.get("alt_bis_weapons") or []) if w]
     secondary = str(config.get("secondary_weapon") or "").strip().lower()
     f2p_list = [str(w).strip().lower() for w in (config.get("f2p_weapon") or []) if w]
     niche_list = [str(w).strip().lower() for w in (config.get("niche_weapon") or []) if w]
@@ -317,6 +318,10 @@ def score_weapon_fit(weapon: Optional[dict], char_config: Optional[dict]) -> Tup
         score = min(99.0, 96.0 + refinement_bonus)
         tier = "BiS"
         note = "CritCal's top recommended weapon for this character. Best-in-slot pick."
+    elif alt_bis and name in alt_bis:
+        score = min(97.0, 94.0 + refinement_bonus)
+        tier = "BiS"
+        note = "One of CritCal's top recommended weapons for this character."
     elif secondary and name == secondary:
         score = min(94.0, 87.0 + refinement_bonus)
         tier = "Secondary"
@@ -394,6 +399,7 @@ def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Opt
 
     config = char_config or {}
     bis = str(config.get("bis_artifact_set") or "").strip().lower()
+    alt_bis = [str(s).strip().lower() for s in (config.get("alt_bis_artifact_sets") or []) if s]
     secondary = str(config.get("secondary_artifact_set") or "").strip().lower()
     niche_sets = [str(s).strip().lower() for s in (config.get("niche_artifact_sets") or []) if s]
 
@@ -406,6 +412,9 @@ def score_artifact_set_fit(artifact_sets: Optional[List[dict]], char_config: Opt
         if bis and matched_name == bis:
             score, tier = 96.0, "BiS"
             note = "Running CritCal's Best-in-Slot 4-piece set for this character — exactly where you want to be."
+        elif alt_bis and matched_name in alt_bis:
+            score, tier = 94.0, "BiS"
+            note = "Running one of CritCal's top-recommended 4-piece sets for this character."
         elif secondary and matched_name == secondary:
             score, tier = 88.0, "Secondary"
             note = "A strong secondary 4-piece set — competitive with BiS in many scenarios."

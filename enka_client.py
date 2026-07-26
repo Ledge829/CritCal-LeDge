@@ -306,19 +306,29 @@ def _extract_artifact_sets(equip_list):
 
         set_id = flat.get("setId")
 
-        # 2. Cache the result for future lookups
+        # 2. Known loc.json corrections.
+        #    Enka's published loc.json sometimes maps hashes to wrong names.
+        #    Verified corrections go here — only for confirmed mismatches.
+        _LOC_FIXES = {
+            "pale flame": "Marechaussee Hunter",
+        }
+        corrected = _LOC_FIXES.get(set_name.strip().lower())
+        if corrected:
+            set_name = corrected
+
+        # 3. Cache the result for future lookups
         if set_name and set_id is not None:
             _set_id_map[set_id] = set_name
 
-        # 3. If loc.json didn't have the hash, check our self-built cache
+        # 4. If loc.json didn't have the hash, check our self-built cache
         if not set_name and set_id is not None and set_id in _set_id_map:
             set_name = _set_id_map[set_id]
 
-        # 4. Static fallback via set_ids.py mapping
+        # 5. Static fallback via set_ids.py mapping
         if not set_name and set_id is not None:
             set_name = SET_IDS.get(set_id, "")
 
-        # 5. Final fallback
+        # 6. Final fallback
         if not set_name:
             set_name = "Unknown Set"
 
