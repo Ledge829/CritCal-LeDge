@@ -152,7 +152,6 @@ WEAPON_DATA: Dict[str, Dict[str, Any]] = {
     "aloy": {"weapon_type": "Bow"},
     "durin": {"weapon_type": "Sword"},
     "jahoda": {"weapon_type": "Bow"},
-    "ain": {"weapon_type": "Bow"},
     "amber": {"weapon_type": "Bow"},
     "ayato": {"weapon_type": "Sword"},
     "ifa": {"weapon_type": "Catalyst"},
