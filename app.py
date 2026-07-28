@@ -6,25 +6,57 @@ from characters import get_all_characters, get_character_config, splash_from_por
 from display_names import display_name
 from item_catalog import WEAPONS, ARTIFACT_SETS
 from status import status_bp
+import time
 
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # Limit requests to 1MB
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 app.register_blueprint(status_bp)
 
-# CORS: without this, a browser calling this API from critcal.vercel.app
-# (or any other site) gets silently blocked by the browser itself before
-# the request even reaches Flask -- this is a browser-side security rule,
-# not something wrong with the request. BDFD never hit this because it's
-# a server-to-server call, not a browser one, so it never came up before.
-#
-# Wide open (*) is fine here: this API has no auth/cookies/user accounts,
-# every endpoint is public read-only scoring, so there's nothing a
-# malicious site could steal by calling it cross-origin. If that ever
-# changes (logins, saved builds, etc.), swap "*" for an explicit list of
-# allowed origins, e.g. origins=["https://critcal.vercel.app"].
+# CORS: wide open is fine for this public read-only API
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# [build] 2026-07-24 — splash art integration + API cleanup
+# ── Rate limiter (simple in-memory) ──
+RATE_LIMIT_REQUESTS = 60       # max requests per window
+RATE_LIMIT_WINDOW = 60         # window in seconds
+_rate_buckets = {}              # ip -> [request_timestamps]
+
+
+def _check_rate_limit():
+    """Returns True if request is within limit, False if rate-limited."""
+    ip = request.remote_addr or "unknown"
+    now = time.time()
+    window_start = now - RATE_LIMIT_WINDOW
+
+    if ip not in _rate_buckets:
+        _rate_buckets[ip] = []
+    # Prune old timestamps
+    _rate_buckets[ip] = [t for t in _rate_buckets[ip] if t > window_start]
+    _rate_buckets[ip].append(now)
+
+    return len(_rate_buckets[ip]) <= RATE_LIMIT_REQUESTS
+
+
+def _respond(data=None, error=None, status=200):
+    """Unified API response helper.
+    Merges data into top level so existing frontend clients still work.
+    """
+    resp = {"success": error is None}
+    if data is not None:
+        resp.update(data)  # Merge into top level — backward compatible
+    if error is not None:
+        resp["error"] = error
+    return jsonify(resp), status
+
+
+@app.before_request
+def _before_request():
+    """Rate limit check on every request."""
+    if request.endpoint and request.endpoint != "ping" and request.endpoint != "home":
+        if not _check_rate_limit():
+            return jsonify({
+                "success": False,
+                "error": f"Rate limit exceeded. Try again in a moment."
+            }), 429
 
 
 @app.route("/")
@@ -72,7 +104,7 @@ def list_characters():
             "theme": config.get("theme", {}),
         })
     characters_list.sort(key=lambda c: c["name"])
-    return jsonify({"characters": characters_list, "count": len(characters_list)})
+    return _respond({"characters": characters_list, "count": len(characters_list)})
 
 
 @app.route("/stats", methods=["GET"])
@@ -83,7 +115,7 @@ def get_stats():
     five_star_count = sum(1 for _, (_, is5) in WEAPONS.items() if is5)
     set_count = len(ARTIFACT_SETS)
     modern_set_count = sum(1 for _, modern in ARTIFACT_SETS.items() if modern)
-    return jsonify({
+    return _respond({
         "characters": char_count,
         "weapons": weapon_count,
         "weapons_five_star": five_star_count,
