@@ -145,15 +145,12 @@ def rate_manual():
     # inconsistent about that header.
     body = request.get_json(silent=True, force=True)
     if not body:
-        return jsonify({
-            "error": "Couldn't parse your request — make sure you're sending valid JSON.",
-            "raw_body_received": request.get_data(as_text=True)
-        }), 400
+        return _respond(error="Couldn't parse your request — make sure you're sending valid JSON."), 400
 
     required = ["character", "crit_rate", "crit_dmg", "atk"]
     missing = [f for f in required if f not in body]
     if missing:
-        return jsonify({"error": f"Missing some required info: {', '.join(missing)}"}), 400
+        return _respond(error=f"Missing some required info: {', '.join(missing)}"), 400
 
     # ------------------------------------------------------------------
     # QUICK-INPUT SUPPORT
@@ -178,18 +175,16 @@ def rate_manual():
     if isinstance(weapon, str):
         weapon = parse_weapon_text(weapon)
     elif weapon is not None and not isinstance(weapon, dict):
-        return jsonify({
-            "error": "'weapon' should be plain text like \"Staff of Homa r1\" or an object with \"name\" and \"refinement\"."
-        }), 400
+        return _respond(error="'weapon' should be plain text like 'Staff of Homa r1' or an object with 'name' and 'refinement'."), 400
 
     artifacts_text = body.get("artifacts")
     if artifacts_text is not None and not isinstance(artifacts_text, str):
-        return jsonify({"error": "'artifacts' should be plain text like \"4pc Golden Troupe\"."}), 400
+        return _respond(error="'artifacts' should be plain text like '4pc Golden Troupe'."), 400
 
     artifact_sets = body.get("artifact_sets")
     if artifact_sets is not None:
         if not isinstance(artifact_sets, list) or not all(isinstance(s, dict) for s in artifact_sets):
-            return jsonify({"error": "'artifact_sets' should be a list of objects with \"name\" and \"count\"."}), 400
+            return _respond(error="'artifact_sets' should be a list of objects with 'name' and 'count'."), 400
 
     if artifacts_text and not artifact_sets:
         artifact_sets = parse_artifact_sets_text(artifacts_text)
@@ -213,11 +208,11 @@ def rate_manual():
         c_dmg_val = float(body["crit_dmg"])
         atk_val = float(body["atk"])
         if c_rate_val < 0 or c_rate_val > 110:
-            return jsonify({"error": f"Crit rate ({c_rate_val}) is outside a realistic range (0-110)."}), 400
+            return _respond(error=f"Crit rate ({c_rate_val}) is outside a realistic range (0-110)."), 400
         if c_dmg_val < 0 or c_dmg_val > 500:
-            return jsonify({"error": f"Crit DMG ({c_dmg_val}) is outside a realistic range (0-500)."}), 400
+            return _respond(error=f"Crit DMG ({c_dmg_val}) is outside a realistic range (0-500)."), 400
         if atk_val < 0 or atk_val > 9999:
-            return jsonify({"error": f"ATK ({atk_val}) is outside a realistic range (0-9999)."}), 400
+            return _respond(error=f"ATK ({atk_val}) is outside a realistic range (0-9999)."), 400
 
         hp_val = _optional_float("hp", 0)
         def_val = _optional_float("def", 0)
@@ -230,7 +225,7 @@ def rate_manual():
             ("Energy Recharge", er_val, 50, 400),
         ]:
             if vval < vlo or vval > vhi:
-                return jsonify({"error": f"{vname} ({vval}) is outside a realistic range ({vlo}-{vhi})."}), 400
+                return _respond(error=f"{vname} ({vval}) is outside a realistic range ({vlo}-{vhi})."), 400
 
         result = rate_build(
             character=body["character"],
@@ -249,15 +244,15 @@ def rate_manual():
             artifact_sets=artifact_sets,
         )
     except (TypeError, ValueError) as e:
-        return jsonify({"error": f"Invalid stat values: {e}"}), 400
+        return _respond(error=f"Invalid stat values: {e}"), 400
 
     # rate_build() returns {"error": ...} internally instead of raising for
     # bad numeric input -- must check for that explicitly or a malformed
     # request would silently return HTTP 200 with a broken/incomplete body.
     if "error" in result:
-        return jsonify(result), 400
+        return _respond(error=result.get("error", "Unknown error")), 400
 
-    return jsonify(result), 200
+    return _respond(data=result), 200
 
 
 @app.route("/rate/uid", methods=["POST"])
@@ -269,7 +264,7 @@ def rate_uid():
             "raw_body_received": request.get_data(as_text=True)
         }), 400
     if "uid" not in body:
-        return jsonify({"error": "Your request parsed as JSON but doesn't have a \"uid\" field — make sure you're sending one.", "body_received": body}), 400
+        return _respond(error="Your request parsed as JSON but doesn't have a 'uid' field."), 400
 
     try:
         build = fetch_character(
@@ -294,13 +289,13 @@ def rate_uid():
             artifact_sets=build["artifact_sets"],
         )
     except ValueError as e:
-        return jsonify({"error": str(e)}), 400
+        return _respond(error=str(e)), 400
 
     if "error" in result:
-        return jsonify(result), 400
+        return _respond(error=result.get("error", "Unknown error")), 400
 
     result["source"] = "enka.network live showcase"
-    return jsonify(result), 200
+    return _respond(data=result), 200
 
 
 @app.route("/uid/<uid>/showcase", methods=["GET"])
@@ -313,7 +308,7 @@ def uid_showcase(uid):
     try:
         characters = fetch_all_characters(uid)
     except ValueError as e:
-        return jsonify({"error": str(e)}), 400
+        return _respond(error=str(e)), 400
 
     # Build a reverse lookup: Enka character name -> canonical key,
     # so we can attach portrait/element/rarity from characters.py.
