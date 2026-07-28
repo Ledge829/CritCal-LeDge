@@ -69,6 +69,7 @@ def list_characters():
             "weapon_type": config.get("weapon_type"),
             "portrait": config.get("portrait"),
             "splash": splash_from_portrait(config.get("portrait")),
+            "theme": config.get("theme", {}),
         })
     characters_list.sort(key=lambda c: c["name"])
     return jsonify({"characters": characters_list, "count": len(characters_list)})

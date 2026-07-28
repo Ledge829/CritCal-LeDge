@@ -37,6 +37,7 @@ DEFAULT_CHARACTER_CONFIG: Dict[str, Any] = {
     # Future hooks
     "ignore_high_ratio_warning": False,
     "freeze_build": False,
+    "theme": {},
     "special_crit_logic": False,
 }
 
@@ -47,6 +48,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "arlecchino": {
+    "theme": {
+        "primary": "#8F2A2A",
+        "secondary": "#2E0E0E",
+        "accent": "#E08080",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "snezhnaya",
@@ -60,6 +66,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "bennett": {
+    "theme": {
+        "primary": "#C47A3A",
+        "secondary": "#2E1E14",
+        "accent": "#F0D0A0",
+    },
         "element": "pyro",
         "rarity": 4,
         "region": "mondstadt",
@@ -74,6 +85,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "chevreuse": {
+    "theme": {
+        "primary": "#C47A4A",
+        "secondary": "#2E1A14",
+        "accent": "#F0C8A0",
+    },
         "element": "pyro",
         "rarity": 4,
         "region": "fontaine",
@@ -103,6 +119,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "diluc": {
+    "theme": {
+        "primary": "#9E2A1A",
+        "secondary": "#2E0E0A",
+        "accent": "#E08060",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "mondstadt",
@@ -117,6 +138,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "gaming": {
+    "theme": {
+        "primary": "#C46A3A",
+        "secondary": "#2E1810",
+        "accent": "#F0B890",
+    },
         "element": "pyro",
         "rarity": 4,
         "region": "liyue",
@@ -131,6 +157,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "hutao": {
+    "theme": {
+        "primary": "#CE3B3B",
+        "secondary": "#2D1B1B",
+        "accent": "#FFD700",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "liyue",
@@ -146,6 +177,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "klee": {
+    "theme": {
+        "primary": "#C44A2A",
+        "secondary": "#2E1410",
+        "accent": "#F0A080",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "mondstadt",
@@ -159,6 +195,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "lyney": {
+    "theme": {
+        "primary": "#C44A3A",
+        "secondary": "#2E1410",
+        "accent": "#F0B0A0",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "fontaine",
@@ -172,6 +213,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "mavuika": {
+    "theme": {
+        "primary": "#C45A2A",
+        "secondary": "#2E1410",
+        "accent": "#F0B080",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "natlan",
@@ -186,6 +232,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "thoma": {
+    "theme": {
+        "primary": "#C48A3A",
+        "secondary": "#2E2010",
+        "accent": "#F0D890",
+    },
     "wants_em": True,
         "element": "pyro",
         "rarity": 4,
@@ -203,6 +254,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "xiangling": {
+    "theme": {
+        "primary": "#C44A3A",
+        "secondary": "#2E1814",
+        "accent": "#F0B0A0",
+    },
         "element": "pyro",
         "rarity": 4,
         "region": "liyue",
@@ -218,6 +274,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "xinyan": {
+    "theme": {
+        "primary": "#BF1A1A",
+        "secondary": "#380A0A",
+        "accent": "#F08080",
+    },
         "element": "pyro",
         "rarity": 4,
         "region": "liyue",
@@ -235,6 +296,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "barbara": {
+    "theme": {
+        "primary": "#D49FAF",
+        "secondary": "#2E1E28",
+        "accent": "#F0D0E0",
+    },
         "element": "hydro",
         "rarity": 4,
         "region": "mondstadt",
@@ -250,6 +316,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "candace": {
+    "theme": {
+        "primary": "#BF7F4A",
+        "secondary": "#381E10",
+        "accent": "#F0C898",
+    },
         "element": "hydro",
         "rarity": 4,
         "region": "sumeru",
@@ -266,6 +337,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "childe": {
+    "theme": {
+        "primary": "#C45A3A",
+        "secondary": "#2E1814",
+        "accent": "#F0B0A0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "snezhnaya",
@@ -279,6 +355,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "furina": {
+    "theme": {
+        "primary": "#4A7CAB",
+        "secondary": "#1A2B3E",
+        "accent": "#C0D8F0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "fontaine",
@@ -295,6 +376,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kokomi": {
+    "theme": {
+        "primary": "#D48F9E",
+        "secondary": "#2E1E28",
+        "accent": "#F0D0E0",
+    },
     "ignores_crit": True,
         "element": "hydro",
         "rarity": 5,
@@ -311,6 +397,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "mona": {
+    "theme": {
+        "primary": "#6F7FBF",
+        "secondary": "#1A1E38",
+        "accent": "#D0D8F0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "mondstadt",
@@ -325,6 +416,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "mualani": {
+    "theme": {
+        "primary": "#4A8FAF",
+        "secondary": "#142E38",
+        "accent": "#C0E8F8",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "natlan",
@@ -340,6 +436,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "neuvillette": {
+    "theme": {
+        "primary": "#5B7FAB",
+        "secondary": "#1A2530",
+        "accent": "#C8E0F0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "fontaine",
@@ -356,6 +457,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "nilou": {
+    "theme": {
+        "primary": "#D4807F",
+        "secondary": "#2E1A1E",
+        "accent": "#F0C8D0",
+    },
     "wants_em": True,
     "ignores_crit": True,
         "element": "hydro",
@@ -372,6 +478,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "sigewinne": {
+    "theme": {
+        "primary": "#D49FAF",
+        "secondary": "#2E1E28",
+        "accent": "#F0D0E0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "fontaine",
@@ -386,6 +497,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "xingqiu": {
+    "theme": {
+        "primary": "#4A7F9E",
+        "secondary": "#14242E",
+        "accent": "#C0E0F0",
+    },
         "element": "hydro",
         "rarity": 4,
         "region": "liyue",
@@ -401,6 +517,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "yelan": {
+    "theme": {
+        "primary": "#4A6F9E",
+        "secondary": "#141E2E",
+        "accent": "#C0D8F0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "liyue",
@@ -449,6 +570,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "faruzan": {
+    "theme": {
+        "primary": "#6FBF8F",
+        "secondary": "#1A3828",
+        "accent": "#C8F0E0",
+    },
         "element": "anemo",
         "rarity": 4,
         "region": "sumeru",
@@ -463,6 +589,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "heizou": {
+    "theme": {
+        "primary": "#5ABF6F",
+        "secondary": "#14381E",
+        "accent": "#B8F0D0",
+    },
         "element": "anemo",
         "rarity": 4,
         "region": "inazuma",
@@ -477,6 +608,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "jean": {
+    "theme": {
+        "primary": "#4A7F7F",
+        "secondary": "#142E2E",
+        "accent": "#C0E8E8",
+    },
         "element": "anemo",
         "rarity": 5,
         "region": "mondstadt",
@@ -491,6 +627,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kazuha": {
+    "theme": {
+        "primary": "#5BA88F",
+        "secondary": "#1A2E28",
+        "accent": "#C0F0E0",
+    },
     "wants_em": True,
         "element": "anemo",
         "rarity": 5,
@@ -506,6 +647,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "lanyan": {
+    "theme": {
+        "primary": "#6FBFBF",
+        "secondary": "#1A3838",
+        "accent": "#C8F0F0",
+    },
         "element": "anemo",
         "rarity": 4,
         "region": "liyue",
@@ -521,6 +667,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "lynette": {
+    "theme": {
+        "primary": "#6F8FBF",
+        "secondary": "#1A1E38",
+        "accent": "#C8D8F0",
+    },
         "element": "anemo",
         "rarity": 4,
         "region": "fontaine",
@@ -535,6 +686,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "sayu": {
+    "theme": {
+        "primary": "#5A9F8F",
+        "secondary": "#143028",
+        "accent": "#C0F0E8",
+    },
         "element": "anemo",
         "rarity": 4,
         "region": "inazuma",
@@ -550,6 +706,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "sucrose": {
+    "theme": {
+        "primary": "#5AAF8F",
+        "secondary": "#143828",
+        "accent": "#B8F0E0",
+    },
     "wants_em": True,
         "element": "anemo",
         "rarity": 4,
@@ -565,6 +726,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "venti": {
+    "theme": {
+        "primary": "#5AAF6F",
+        "secondary": "#142E1A",
+        "accent": "#C0F0D0",
+    },
     "wants_em": True,
         "element": "anemo",
         "rarity": 5,
@@ -582,6 +748,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "wanderer": {
+    "theme": {
+        "primary": "#4A9EBF",
+        "secondary": "#143038",
+        "accent": "#C0E8F8",
+    },
         "element": "anemo",
         "rarity": 5,
         "region": "sumeru",
@@ -614,6 +785,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "beidou": {
+    "theme": {
+        "primary": "#8F4A4A",
+        "secondary": "#2E1414",
+        "accent": "#E0A0A0",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "liyue",
@@ -629,6 +805,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "clorinde": {
+    "theme": {
+        "primary": "#7F6FBF",
+        "secondary": "#1A1438",
+        "accent": "#D0C8F0",
+    },
         "element": "electro",
         "rarity": 5,
         "region": "fontaine",
@@ -643,6 +824,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "cyno": {
+    "theme": {
+        "primary": "#9E6FBF",
+        "secondary": "#241838",
+        "accent": "#E0C8F8",
+    },
         "element": "electro",
         "rarity": 5,
         "region": "sumeru",
@@ -657,6 +843,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "dori": {
+    "theme": {
+        "primary": "#BF6FAF",
+        "secondary": "#381E30",
+        "accent": "#F0D0E8",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "sumeru",
@@ -672,6 +863,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "fischl": {
+    "theme": {
+        "primary": "#7F4ABF",
+        "secondary": "#1E1038",
+        "accent": "#D8C0F8",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "mondstadt",
@@ -703,6 +899,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "keqing": {
+    "theme": {
+        "primary": "#7F5AAF",
+        "secondary": "#1E1438",
+        "accent": "#E0C8F0",
+    },
         "element": "electro",
         "rarity": 5,
         "region": "liyue",
@@ -717,6 +918,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kukishinobu": {
+    "theme": {
+        "primary": "#8F4A8F",
+        "secondary": "#2E142E",
+        "accent": "#E0C0E0",
+    },
     "wants_em": True,
         "element": "electro",
         "rarity": 4,
@@ -732,6 +938,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "lisa": {
+    "theme": {
+        "primary": "#8F6FBF",
+        "secondary": "#241838",
+        "accent": "#E0C8F8",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "mondstadt",
@@ -746,6 +957,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "ororon": {
+    "theme": {
+        "primary": "#8F6FBF",
+        "secondary": "#2E1438",
+        "accent": "#E0C8F8",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "natlan",
@@ -760,6 +976,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "raiden": {
+    "theme": {
+        "primary": "#9B6FC0",
+        "secondary": "#1E1430",
+        "accent": "#E0C8F0",
+    },
         "element": "electro",
         "rarity": 5,
         "region": "inazuma",
@@ -775,6 +996,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "razor": {
+    "theme": {
+        "primary": "#6F4A8F",
+        "secondary": "#1E1430",
+        "accent": "#D0C0E8",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "mondstadt",
@@ -788,6 +1014,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "sara": {
+    "theme": {
+        "primary": "#7F5ABF",
+        "secondary": "#1E1438",
+        "accent": "#D8C8F0",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "inazuma",
@@ -802,6 +1033,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "sethos": {
+    "theme": {
+        "primary": "#7F6FBF",
+        "secondary": "#1E1438",
+        "accent": "#D0C8F0",
+    },
         "element": "electro",
         "rarity": 4,
         "region": "sumeru",
@@ -815,6 +1051,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "yaemiko": {
+    "theme": {
+        "primary": "#BF6FBF",
+        "secondary": "#382438",
+        "accent": "#F0D8F0",
+    },
         "element": "electro",
         "rarity": 5,
         "region": "inazuma",
@@ -833,6 +1074,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "alhaitham": {
+    "theme": {
+        "primary": "#4A9E5A",
+        "secondary": "#142E1A",
+        "accent": "#C0F0D0",
+    },
         "element": "dendro",
         "rarity": 5,
         "region": "sumeru",
@@ -864,6 +1110,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "collei": {
+    "theme": {
+        "primary": "#6FAF4A",
+        "secondary": "#1E3010",
+        "accent": "#D0F0B0",
+    },
         "element": "dendro",
         "rarity": 4,
         "region": "sumeru",
@@ -878,6 +1129,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "emilie": {
+    "theme": {
+        "primary": "#5A9F6F",
+        "secondary": "#142E1E",
+        "accent": "#C0F0D8",
+    },
         "element": "dendro",
         "rarity": 5,
         "region": "fontaine",
@@ -891,6 +1147,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kaveh": {
+    "theme": {
+        "primary": "#BFBF6F",
+        "secondary": "#383818",
+        "accent": "#F0F0C0",
+    },
         "element": "dendro",
         "rarity": 4,
         "region": "sumeru",
@@ -906,6 +1167,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kinich": {
+    "theme": {
+        "primary": "#4A8F3A",
+        "secondary": "#142E10",
+        "accent": "#B8E8A0",
+    },
         "element": "dendro",
         "rarity": 5,
         "region": "natlan",
@@ -920,6 +1186,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "nahida": {
+    "theme": {
+        "primary": "#88B847",
+        "secondary": "#2B3A1A",
+        "accent": "#E8F0C0",
+    },
     "wants_em": True,
         "element": "dendro",
         "rarity": 5,
@@ -935,6 +1206,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "tighnari": {
+    "theme": {
+        "primary": "#4A8F5A",
+        "secondary": "#142E18",
+        "accent": "#C0E8C8",
+    },
         "element": "dendro",
         "rarity": 5,
         "region": "sumeru",
@@ -950,6 +1226,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "yaoyao": {
+    "theme": {
+        "primary": "#6FBF6F",
+        "secondary": "#183818",
+        "accent": "#C0F0C0",
+    },
         "element": "dendro",
         "rarity": 4,
         "region": "liyue",
@@ -970,6 +1251,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "ayaka": {
+    "theme": {
+        "primary": "#6FA8C4",
+        "secondary": "#1A2830",
+        "accent": "#D8F0FF",
+    },
         "element": "cryo",
         "rarity": 5,
         "region": "inazuma",
@@ -986,6 +1272,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "charlotte": {
+    "theme": {
+        "primary": "#7FBFBF",
+        "secondary": "#1E3838",
+        "accent": "#D0F0F0",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "fontaine",
@@ -1001,6 +1292,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "chongyun": {
+    "theme": {
+        "primary": "#6FAFBF",
+        "secondary": "#1A3038",
+        "accent": "#C8F0F8",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "liyue",
@@ -1030,6 +1326,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "diona": {
+    "theme": {
+        "primary": "#B58FAF",
+        "secondary": "#2E1E2E",
+        "accent": "#F0D8E8",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "mondstadt",
@@ -1061,6 +1362,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "eula": {
+    "theme": {
+        "primary": "#7FAFC8",
+        "secondary": "#1A2E38",
+        "accent": "#D8F0FF",
+    },
         "element": "cryo",
         "rarity": 5,
         "region": "mondstadt",
@@ -1075,6 +1381,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "freminet": {
+    "theme": {
+        "primary": "#6FAFBF",
+        "secondary": "#1A3038",
+        "accent": "#C8F0F8",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "fontaine",
@@ -1088,6 +1399,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "ganyu": {
+    "theme": {
+        "primary": "#7FAEC8",
+        "secondary": "#1E2E38",
+        "accent": "#E0F0FF",
+    },
         "element": "cryo",
         "rarity": 5,
         "region": "liyue",
@@ -1103,6 +1419,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "kaeya": {
+    "theme": {
+        "primary": "#4A6F8F",
+        "secondary": "#141E2E",
+        "accent": "#C0D8F0",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "mondstadt",
@@ -1117,6 +1438,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "layla": {
+    "theme": {
+        "primary": "#4A7F9E",
+        "secondary": "#141E2E",
+        "accent": "#C0D8F0",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "sumeru",
@@ -1131,6 +1457,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "mika": {
+    "theme": {
+        "primary": "#5A8FBF",
+        "secondary": "#142838",
+        "accent": "#C0E0F8",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "mondstadt",
@@ -1146,6 +1477,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "qiqi": {
+    "theme": {
+        "primary": "#8FBFBF",
+        "secondary": "#1E3838",
+        "accent": "#D8F0F0",
+    },
         "element": "cryo",
         "rarity": 5,
         "region": "liyue",
@@ -1159,6 +1495,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "rosaria": {
+    "theme": {
+        "primary": "#4A5F7F",
+        "secondary": "#141E2E",
+        "accent": "#C0D0E8",
+    },
         "element": "cryo",
         "rarity": 4,
         "region": "mondstadt",
@@ -1173,6 +1514,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "shenhe": {
+    "theme": {
+        "primary": "#4A5F7F",
+        "secondary": "#181E2E",
+        "accent": "#C0D0E8",
+    },
         "element": "cryo",
         "rarity": 5,
         "region": "liyue",
@@ -1200,6 +1546,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "wriothesley": {
+    "theme": {
+        "primary": "#4A6F8F",
+        "secondary": "#141E2E",
+        "accent": "#C0D8F0",
+    },
         "element": "cryo",
         "rarity": 5,
         "region": "fontaine",
@@ -1217,6 +1568,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "albedo": {
+    "theme": {
+        "primary": "#B59E6F",
+        "secondary": "#2E281A",
+        "accent": "#F0E8C8",
+    },
     "wants_em": True,
         "element": "geo",
         "rarity": 5,
@@ -1232,6 +1588,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "chiori": {
+    "theme": {
+        "primary": "#B58F6F",
+        "secondary": "#2E281A",
+        "accent": "#F0D8C0",
+    },
         "element": "geo",
         "rarity": 5,
         "region": "inazuma",
@@ -1246,6 +1607,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "gorou": {
+    "theme": {
+        "primary": "#C49E4A",
+        "secondary": "#2E2810",
+        "accent": "#F0E0A0",
+    },
         "element": "geo",
         "rarity": 4,
         "region": "inazuma",
@@ -1262,6 +1628,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "itto": {
+    "theme": {
+        "primary": "#B59E4A",
+        "secondary": "#2E2818",
+        "accent": "#F0E8B0",
+    },
         "element": "geo",
         "rarity": 5,
         "region": "inazuma",
@@ -1292,6 +1663,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "navia": {
+    "theme": {
+        "primary": "#C4BF6F",
+        "secondary": "#2E2E18",
+        "accent": "#F0E8C0",
+    },
         "element": "geo",
         "rarity": 5,
         "region": "fontaine",
@@ -1305,6 +1681,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "ningguang": {
+    "theme": {
+        "primary": "#BFBF7F",
+        "secondary": "#383818",
+        "accent": "#F0F0C8",
+    },
         "element": "geo",
         "rarity": 4,
         "region": "liyue",
@@ -1318,6 +1699,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "noelle": {
+    "theme": {
+        "primary": "#BF8F7F",
+        "secondary": "#382418",
+        "accent": "#F0D8C8",
+    },
         "element": "geo",
         "rarity": 4,
         "region": "mondstadt",
@@ -1332,6 +1718,11 @@ CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     },
 
     "xilonen": {
+    "theme": {
+        "primary": "#8F6F4A",
+        "secondary": "#2E1E14",
+        "accent": "#E0C8A0",
+    },
         "element": "geo",
         "rarity": 5,
         "region": "natlan",
@@ -1759,6 +2150,11 @@ MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "xiao": {
+    "theme": {
+        "primary": "#2B9E6F",
+        "secondary": "#10201A",
+        "accent": "#C0E8D8",
+    },
         "element": "anemo",
         "rarity": 5,
         "region": "liyue",
@@ -1775,6 +2171,11 @@ MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ==========================================================
 
     "zhongli": {
+    "theme": {
+        "primary": "#C4A65A",
+        "secondary": "#2E281A",
+        "accent": "#F0E0B0",
+    },
         "element": "geo",
         "rarity": 5,
         "region": "liyue",
@@ -1826,6 +2227,11 @@ CHARACTER_CONFIGS.update(MISSING_CHARACTER_CONFIGS)
 
 SECOND_MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
     "amber": {
+    "theme": {
+        "primary": "#C46A3A",
+        "secondary": "#2E1810",
+        "accent": "#F0B890",
+    },
         "element": "pyro",
         "rarity": 4,
         "region": "mondstadt",
@@ -1837,6 +2243,11 @@ SECOND_MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "benchmarks": {"atk": 1800.0},
     },
     "ayato": {
+    "theme": {
+        "primary": "#4A7F9A",
+        "secondary": "#14242E",
+        "accent": "#C0E0F0",
+    },
         "element": "hydro",
         "rarity": 5,
         "region": "inazuma",
@@ -1859,6 +2270,11 @@ SECOND_MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "benchmarks": {"atk": 1900.0},
     },
     "yoimiya": {
+    "theme": {
+        "primary": "#C48A2A",
+        "secondary": "#2E2010",
+        "accent": "#F0D880",
+    },
         "element": "pyro",
         "rarity": 5,
         "region": "inazuma",
@@ -1870,6 +2286,11 @@ SECOND_MISSING_CHARACTER_CONFIGS: Dict[str, Dict[str, Any]] = {
         "benchmarks": {"atk": 2100.0},
     },
     "kirara": {
+    "theme": {
+        "primary": "#5ABF4A",
+        "secondary": "#143810",
+        "accent": "#B8F0A8",
+    },
         "element": "dendro",
         "rarity": 4,
         "region": "inazuma",
