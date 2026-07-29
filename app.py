@@ -6,6 +6,7 @@ from characters import get_all_characters, get_character_config, splash_from_por
 from display_names import display_name
 from item_catalog import WEAPONS, ARTIFACT_SETS
 from status import status_bp
+from news import get_news, create_post, NEWS_SECRET
 import time
 
 app = Flask(__name__)
@@ -122,6 +123,34 @@ def get_stats():
         "artifact_sets": set_count,
         "artifact_sets_modern": modern_set_count,
     })
+@app.route("/news", methods=["GET"])
+def news_list():
+    """Returns latest Genshin news from Hoyolab + CritCal posts."""
+    return _respond({"news": get_news(), "count": len(get_news())})
+
+
+@app.route("/news/create", methods=["POST"])
+def news_create():
+    """Creates a manual news post (requires X-News-Secret header)."""
+    secret = request.headers.get("X-News-Secret", "")
+    if secret != NEWS_SECRET:
+        return _respond(error="Unauthorized"), 403
+
+    body = request.get_json(silent=True)
+    if not body or not body.get("title"):
+        return _respond(error="Title is required"), 400
+
+    create_post(
+        title=body["title"],
+        summary=body.get("summary", ""),
+        image=body.get("image", ""),
+        url=body.get("url", ""),
+    )
+    # Force refresh Hoyolab cache
+    get_news(force_refresh=True)
+    return _respond({"status": "created"}, 201)
+
+
 @app.route("/debug/echo", methods=["POST"])
 def debug_echo():
     """
