@@ -17,14 +17,32 @@ HOYOLAB_FEED = "https://www.hoyolab.com/apis/gamepost/w2/getNewsList?gids=2&page
 # Static fallback news when Hoyolab is unreachable
 FALLBACK_NEWS = [
     {
-        "id": "fallback-1",
-        "title": "CritCal is live!",
-        "summary": "Build rating for Genshin Impact characters. Enter a UID or analyze manually.",
+        "id": "critcal-v2",
+        "title": "CritCal v2 Update — Smarter scoring, new databases",
+        "summary": "Weapons and artifacts now have richer data with best-for recommendations and character themes.",
         "image": "",
         "url": "",
         "source": "critcal",
         "timestamp": int(time.time()),
-    }
+    },
+    {
+        "id": "fallback-1",
+        "title": "CritCal is live!",
+        "summary": "Enter any UID or analyze a build manually. Open source and community-driven.",
+        "image": "",
+        "url": "https://github.com/Ledge829/CritCal-LeDge",
+        "source": "critcal",
+        "timestamp": int(time.time()) - 86400,
+    },
+    {
+        "id": "fallback-2",
+        "title": "Version 5.x characters added",
+        "summary": "All Natlan characters now have build data, artifact recommendations, and weapon tiers.",
+        "image": "",
+        "url": "",
+        "source": "critcal",
+        "timestamp": int(time.time()) - 172800,
+    },
 ]
 
 _news_cache = {"data": None, "time": 0}
